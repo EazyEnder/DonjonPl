@@ -146,21 +146,23 @@ public class InventoryGui implements Listener{
 			if(PlayerGroup.aGroupContainPlayer(player.getUniqueId())){
 				group = PlayerGroup.getGroupOfAPlayer(player);
 			}
+			
 			List<Player> members = group.getPlayers();
-			for (Player p : members) {
-				if(p == player) members.remove(player);
-			}
+			
+			members.remove(player);
 
+			
+			
 			for (int i = 0; i < 4; i++) {
-				if(i < members.size())
+				if(i < members.size() && members.get(i) != null)
 				{
 					List<String> str_friend = new ArrayList<String>();
 					str_friend.add("§fJoueur : " + members.get(i).getName());
-					str_friend.add("§fRang : ");
-					str_friend.add("§fDescription : ");
-					ItemStack friend = getCustomItemWithLore(Material.STICK, "§2§lEn ligne", false, 1, str_friend);
+					ItemStack friend = getCustomItemWithLore(Material.STICK, "§4§lDeconnecte", false, 1, str_friend);
 					if(members.get(i).isOnline()) {
-						friend = getCustomItemWithLore(Material.STICK, "§4§lDeconnecte", false, 1, str_friend);
+						str_friend.add("§fRang : " + LevelUtils.getRankName(PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(members.get(i))));
+						str_friend.add("§fDescription : ");
+						friend = getCustomItemWithLore(Material.STICK, "§2§lEn ligne", false, 1, str_friend);
 					}
 					player.getInventory().setItem(27+i, friend);
 				}else{

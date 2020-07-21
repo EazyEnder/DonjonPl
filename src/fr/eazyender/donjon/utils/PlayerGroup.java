@@ -17,11 +17,12 @@ public class PlayerGroup {
 	List<UUID> group = new ArrayList<UUID>();
 	
 	public PlayerGroup(Player host) {
-		
+		this.host = host;
 	}
 	
 	public PlayerGroup(Player host,List<UUID> group) {
-		
+		this.host = host;
+		this.group = group;
 	}
 
 	public Player getHost() {
@@ -78,7 +79,14 @@ public class PlayerGroup {
 		List<Player> players = new ArrayList<Player>();
 		players.add(host);
 		for (int i = 0; i < group.size(); i++) {
-			players.add(Bukkit.getPlayer(group.get(i)));
+			if(Bukkit.getPlayer(group.get(i)) != null)
+				players.add(Bukkit.getPlayer(group.get(i)));
+			else
+				try {
+					players.add((Player)Bukkit.getOfflinePlayer(group.get(i)));	
+				} catch (Exception e) {
+					// TODO: handle exception
+				}
 		}
 		return players;
 

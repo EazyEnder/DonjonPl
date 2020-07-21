@@ -23,12 +23,10 @@ public class CommandAccept implements CommandExecutor {
 		  if (cmd.getName().equalsIgnoreCase("accept")) {
 	            if (sender instanceof Player) {
 	                Player player = (Player) sender;
-	                if(args.length >= 1) {
-	                 if(args[0] == "yes") {
-	                	 if(PlayerGroupSave.getPlayerGroup().getGroup(player).getGroup().size() <= 0 &&
+	                	 if(PlayerGroupSave.getPlayerGroup().getGroup(player).getGroup().isEmpty() &&
      							!PlayerGroup.aGroupContainPlayer(player.getUniqueId())) {
-						if(args.length >= 2) {
-							String name = args[1];
+						if(args.length >= 1) {
+							String name = args[0];
 							Player target = Bukkit.getPlayer(name);
 							if(target != null) {
 								if(CommandGroup.requests.containsKey(player.getUniqueId())) {
@@ -56,10 +54,7 @@ public class CommandAccept implements CommandExecutor {
 						}else {
 							player.sendMessage(srv_msg + "Usage : /group yes <player>");
 						}
-					}
-	                 }else player.sendMessage(srv_msg + "Vous êtes déja dans un groupe, faites /group leave pour le quitter");
-	                }
-	                else player.sendMessage(srv_msg + "Usage : /accept <player>");
+					}else player.sendMessage(srv_msg + "Vous êtes déja dans un groupe, faites /group leave pour le quitter");
 	            }
 	            return true;
 		  }

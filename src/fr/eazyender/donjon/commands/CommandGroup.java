@@ -27,20 +27,19 @@ public class CommandGroup implements CommandExecutor {
         if (cmd.getName().equalsIgnoreCase("group")) {
             if (sender instanceof Player) {
                 Player player = (Player) sender;
-
                 if(args.length >= 1) {
                 	
                 	if(PlayerGroup.aGroupContainPlayer(player.getUniqueId())) {
                 		
                 		PlayerGroup group = PlayerGroup.getGroupOfAPlayer(player);
-                		if(args[0] == "leave") {
+                		if(args[0].equalsIgnoreCase("leave")) {
     									List<UUID> newGroup = group.getGroup();
     									newGroup.remove(player.getUniqueId());
     									PlayerGroup.getGroupOfAPlayer(player).setGroup(newGroup);
     									player.sendMessage(srv_msg  + "Vous avez quitté le groupe");
     									
     					}
-                    	else if(args[0] == "list") {
+                    	else if(args[0].equalsIgnoreCase("list")) {
                     			
                     			String members = "";
                     			for (int i = 0; i < group.getGroup().size(); i++) {
@@ -62,7 +61,7 @@ public class CommandGroup implements CommandExecutor {
                 		
                 		PlayerGroup group = PlayerGroupSave.getPlayerGroup().getGroup(player);
                 		
-                		if(args[0] == "invit") {
+                		if(args[0].equalsIgnoreCase("invit")) {
                 			
                 			if(args.length >= 2) {
                 				
@@ -93,7 +92,7 @@ public class CommandGroup implements CommandExecutor {
 
                 			
                 		}
-                		else if(args[0] == "kick") {
+                		else if(args[0].equalsIgnoreCase("kick")) {
                 			if(args.length >= 2) {
                 				String name = args[1];
                 				boolean contain = false;
@@ -113,7 +112,7 @@ public class CommandGroup implements CommandExecutor {
                 				player.sendMessage(srv_msg + "Usage : /group kick <player>");
                 			}
                 		}
-                		else if(args[0] == "list") {
+                		else if(args[0].equalsIgnoreCase("list")) {
                 			
                 			String members = "";
                 			for (int i = 0; i < group.getGroup().size(); i++) {

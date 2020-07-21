@@ -130,7 +130,8 @@ public class DonjonEvents implements Listener {
     public void onEntityDeath(EntityDeathEvent e) {
 		LivingEntity entity = e.getEntity();
 		if(entity.getWorld().getName().contains("donjon") && !(entity instanceof Player)) {
-			Player player = (Player)entity;
+			Player player = entity.getKiller();
+			if(player == null) {player = entity.getWorld().getPlayers().get(0);}
 			PlayerGroup group = PlayerGroupSave.getPlayerGroup().getGroup(player);
 			if(PlayerGroup.aGroupContainPlayer(player.getUniqueId()))
 			{

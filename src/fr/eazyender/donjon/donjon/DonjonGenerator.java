@@ -78,7 +78,7 @@ public class DonjonGenerator {
 						if (!DonjonEvents.timer.containsKey(group)) {
 							DonjonEvents.timer.put(group, (long) 0);
 						}
-						DonjonEvents.timer.replace(group, DonjonEvents.timer.get(player) + 1);
+						DonjonEvents.timer.replace(group, DonjonEvents.timer.get(group) + 1);
 						String seconde = "" + DonjonEvents.timer.get(group) % 60;
 						String minute = "" + (long) (DonjonEvents.timer.get(group) / 60);
 						player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§f§lTemps : §f" + minute + ":" + seconde));
@@ -223,9 +223,11 @@ public class DonjonGenerator {
 		rooms_donjon.set(size-1, RoomUtils.getSimilarRooms(biome, 6).get(RandomNumber(0,RoomUtils.getNumberOfASimilarRoom(biome, 6)-1)));
 		
 		donjons.put(PlayerGroupSave.getPlayerGroup().getGroup(player), new IDonjon(rooms_donjon, size, biome, difficulty));
-		DonjonEvents.positionPlayer.put(player, 0);
 		DonjonEvents.maxPositionPlayer.put(PlayerGroupSave.getPlayerGroup().getGroup(player), 0);
-		DonjonEvents.travelPlayer.put(player, true);
+		for (Player ps : PlayerGroupSave.getPlayerGroup().getGroup(player).getPlayers()) {
+			DonjonEvents.positionPlayer.put(ps, 0);
+			DonjonEvents.travelPlayer.put(ps, true);
+		}
 		return new IDonjon(rooms_donjon, size, biome, difficulty);
 	}
 	

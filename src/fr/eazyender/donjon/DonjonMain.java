@@ -15,7 +15,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.eazyender.donjon.arena.ArenaEvents;
 import fr.eazyender.donjon.commands.CommandAccept;
-import fr.eazyender.donjon.commands.CommandDonjon;
 import fr.eazyender.donjon.commands.CommandGivePotion;
 import fr.eazyender.donjon.commands.CommandGiveSpell;
 import fr.eazyender.donjon.commands.CommandGiveWeapon;
@@ -60,7 +59,6 @@ public class DonjonMain extends JavaPlugin{
 		RoomsInit.initRooms();
 		PluginManager pm = getServer().getPluginManager();
 		
-		getCommand("donjon").setExecutor(new CommandDonjon());
 		getCommand("group").setExecutor(new CommandGroup());
 		getCommand("accept").setExecutor(new CommandAccept());
 		getCommand("money").setExecutor(new CommandMoney());
@@ -107,13 +105,7 @@ public class DonjonMain extends JavaPlugin{
 			@Override
 			public void run() {
 				
-				for (int i = 0; i < Bukkit.getServer().getOnlinePlayers().size(); i++) {
-					List<Player> players = new ArrayList<Player>();
-					players.addAll(Bukkit.getServer().getOnlinePlayers());
-					Player player = players.get(i);
-					
-					player.setFoodLevel(20);
-				}
+				for(Player p : Bukkit.getOnlinePlayers()) p.setFoodLevel(20);
 				
 			}
 		}.runTaskTimer(this, 0, 20);
@@ -166,6 +158,8 @@ public class DonjonMain extends JavaPlugin{
 					b.set(packet, footer);
 					
 						((CraftPlayer) ps).getHandle().playerConnection.sendPacket(packet);
+						
+						InventoryGui.updateInventory(ps);
 					}
 					
 				}catch(NoSuchFieldException | IllegalAccessException e) {

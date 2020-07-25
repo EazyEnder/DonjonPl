@@ -211,9 +211,19 @@ public class DonjonGenerator {
 			//NO BOSS ROOM
 			else if(i < size-1) {
 				//FIGHT ROOM
-				int type = RandomNumber(2,5);
+				int type = 2;
+				int chance = RandomNumber(1,100);
+				int[] proba = {20,60,90,100};
+				if(chance < proba[0]){type = 2;}
+				else if(chance < proba[1]){type = 3;}
+				else if(chance < proba[2]){type = 4;}
+				else if(chance <= proba[3]){type = 5;}
 				while(RoomUtils.getNumberOfASimilarRoom(biome, type) <= 0) {
-					type = RandomNumber(2,5);
+					chance = RandomNumber(1,100);
+					if(chance < proba[0]){type = 2;}
+					else if(chance < proba[1]){type = 3;}
+					else if(chance < proba[2]){type = 4;}
+					else if(chance <= proba[3]){type = 5;}
 				}
 				rooms_donjon.set(i, RoomUtils.getSimilarRooms(biome, type).get(RandomNumber(0,RoomUtils.getNumberOfASimilarRoom(biome, type)-1)));
 			}

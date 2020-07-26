@@ -14,8 +14,10 @@ public class SpellUtils {
 	/** SPELL ENTITY FRIENDLY : 
 	 * -POISONOUS SACRIFICE
 	 * - EARTH CHOC WAVE
-	 * - SHIELD*/
-	public static int spellNumber = 13;
+	 * - SHIELD
+	 * - ICE SLOWDOWN
+	 * - ICE JAIL*/
+	public static int spellNumber = 15;
 	
 	public static int getIdSpellByItem(ItemStack item) {
 		
@@ -123,6 +125,22 @@ public class SpellUtils {
 		str12.add("§7§lTemps de recharge§r§7 : " +( SpellWindSpear.basicCooldown/1000));
 		ItemStack item13 = getCustomItemWithLore(Material.FEATHER, "§7§lLANCE DE VENT", false, 1, str12);
 		all.add(item13);
+		List<String> str13 = new ArrayList<String>();
+		str13.add("§fLance un projectile");
+		str13.add("§fralentissant l'ennemi au contact");
+		str13.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
+		str13.add("§3§lCoût§r§7 : " + SpellIceSlowDown.basicCost);
+		str13.add("§3§lTemps de recharge§r§7 : " +( SpellIceSlowDown.basicCooldown/1000));
+		ItemStack item14 = getCustomItemWithLore(Material.FEATHER, "§3§lLENTEUR DE GLACE", false, 1, str13);
+		all.add(item14);
+		List<String> str14 = new ArrayList<String>();
+		str14.add("§fAttire tous les monstres sur vous");
+		str14.add("§fdans un périmètre de 10 blocs");
+		str14.add("§6§lType§r§7 : " + "§6§l" + " / " + "§7MANA");
+		str14.add("§6§lCoût§r§7 : " + SpellOneTarget.basicCost);
+		str14.add("§6§lTemps de recharge§r§7 : " +( SpellOneTarget.basicCooldown/1000));
+		ItemStack item15 = getCustomItemWithLore(Material.FEATHER, "§6§lUNE SEUL CIBLE", false, 1, str14);
+		all.add(item15);
 		
 		for (int i = 0; i < all.size(); i++) {
 			if(item.equals(all.get(i))) {
@@ -251,6 +269,24 @@ public class SpellUtils {
 			str12.add("§7§lCoût§r§7 : " + SpellWindSpear.basicCost);
 			str12.add("§7§lTemps de recharge§r§7 : " +( SpellWindSpear.basicCooldown/1000));
 			item = getCustomItemWithLore(Material.FEATHER, "§7§lLANCE DE VENT", false, 1, str12);
+			break;
+		case 14:
+			List<String> str13 = new ArrayList<String>();
+			str13.add("§fLance un projectile");
+			str13.add("§fralentissant l'ennemi au contact");
+			str13.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
+			str13.add("§3§lCoût§r§7 : " + SpellIceSlowDown.basicCost);
+			str13.add("§3§lTemps de recharge§r§7 : " +( SpellIceSlowDown.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§3§lLENTEUR DE GLACE", false, 1, str13);
+			break;
+		case 15:
+			List<String> str14 = new ArrayList<String>();
+			str14.add("§fAttire tous les monstres sur vous");
+			str14.add("§fdans un périmètre de 10 blocs");
+			str14.add("§6§lType§r§7 : " + "§6§l" + " / " + "§7MANA");
+			str14.add("§6§lCoût§r§7 : " + SpellOneTarget.basicCost);
+			str14.add("§6§lTemps de recharge§r§7 : " +( SpellOneTarget.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§6§lUNE SEUL CIBLE", false, 1, str14);
 			break;
 		}
 		

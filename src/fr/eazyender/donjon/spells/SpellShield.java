@@ -1,7 +1,6 @@
 package fr.eazyender.donjon.spells;
 
 import org.bukkit.Color;
-import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;

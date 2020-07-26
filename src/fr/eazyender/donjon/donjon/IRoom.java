@@ -13,8 +13,9 @@ public class IRoom {
 	private List<String> entity_type = new ArrayList<String>();
 	private int numberOfMobs;
 	private int maxTime;
+	private int xp;
 	
-	public IRoom(List<Location> doors, int type, int biome, List<Location> entity_loc, List<String> entity_type, int numberOfMobs, int maxTime) {
+	public IRoom(List<Location> doors, int type, int biome, List<Location> entity_loc, List<String> entity_type, int numberOfMobs, int maxTime, int xp) {
 		this.doors = doors;
 		this.type = type;
 		this.biome = biome;
@@ -22,11 +23,18 @@ public class IRoom {
 		this.entity_type = entity_type;
 		this.numberOfMobs = numberOfMobs;
 		this.maxTime = maxTime;
+		this.xp = xp;
 	}
 	
 	
 	
-
+	public int getXp() {
+		return xp;
+	}
+	
+	public void setXp(int xp) {
+		this.xp = xp;
+	}
 
 	public int getMaxTime() {
 		return maxTime;

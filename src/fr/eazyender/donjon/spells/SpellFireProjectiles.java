@@ -45,7 +45,6 @@ public class SpellFireProjectiles extends ISpell{
    
    private void launchSpell(Player player) {
 	   
-	   	Location target = player.getTargetBlock(null, 40).getLocation();
 					  Particle.DustOptions dustOptions = new Particle.DustOptions(Color.ORANGE, 0.75F);
 					  
 					  new BukkitRunnable() {

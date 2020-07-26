@@ -114,6 +114,7 @@ public class PlayerSkillGui implements Listener{
 				PlayerLevelStats.getPlayerLevelStats().setStatsPoints(player, 1, (int) (PlayerLevelStats.getPlayerLevelStats().getAStatsPoints(player, 1)+1));
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 				createSkillGui(player, 1);
+				LevelUtils.updateSkill(player, 3);
 				InventoryGui.updateInventory(player);
 				}	
 			}
@@ -137,6 +138,7 @@ public class PlayerSkillGui implements Listener{
 				PlayerLevelStats.getPlayerLevelStats().setStatsPoints(player, 2, (int) (PlayerLevelStats.getPlayerLevelStats().getAStatsPoints(player, 2)+1));
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 				createSkillGui(player, 2);
+				LevelUtils.updateSkill(player, 3);
 				InventoryGui.updateInventory(player);
 				}	
 			}
@@ -159,6 +161,7 @@ public class PlayerSkillGui implements Listener{
 				PlayerLevelStats.getPlayerLevelStats().setSkillPoints(player, PlayerLevelStats.getPlayerLevelStats().getSkillPoints(player)-1);
 				PlayerLevelStats.getPlayerLevelStats().setStatsPoints(player, 3, (int) (PlayerLevelStats.getPlayerLevelStats().getAStatsPoints(player, 3)+1));
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
+				LevelUtils.updateSkill(player, 3);
 				createSkillGui(player, 3);
 				InventoryGui.updateInventory(player);
 				}	
@@ -186,7 +189,7 @@ public class PlayerSkillGui implements Listener{
 						ItemMeta im = item.getItemMeta();
 						List<String> lore = im.getLore();
 						if(lore != null) {
-						lore.clear();
+						//lore.clear();
 						}else {lore = new ArrayList<String>();}
 						lore.add("§fVous avez déja obtenu la récompense de ce pallier :");
 						lore.add("§fRécompense : " + LevelUtils.getAwardSkill(id, j).getItemMeta().getDisplayName());
@@ -199,7 +202,7 @@ public class PlayerSkillGui implements Listener{
 						item = LevelUtils.getAwardSkill(id, j);
 						ItemMeta im = item.getItemMeta();
 						if(im.getLore() != null) {
-							im.getLore().clear();
+							//im.getLore().clear();
 						}else {
 							im.setLore(new ArrayList<String>());
 						}

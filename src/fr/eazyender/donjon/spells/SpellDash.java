@@ -18,7 +18,7 @@ public class SpellDash extends ISpell{
 	   if(ManaEvents.canUseSpell(player, basicCost)) {
        if (super.launch(player, SpellDash.class)) {
                 	
-    	  player.getWorld().playSound(player.getLocation(), Sound.ITEM_TRIDENT_RIPTIDE_1, 10, 1);
+    	  player.getWorld().playSound(player.getLocation(), Sound.ITEM_TRIDENT_RIPTIDE_1, 1, 1);
     	   launchSpell(player);
     	   ManaEvents.useSpell(player, basicCost);
        } else {

@@ -50,6 +50,7 @@ public class ManaEvents {
 	public static void actualizeMana(Player player) {
 		maxMana = 100;
 		if(!mana.containsKey(player))mana.put(player, maxMana);
+		if(player.getInventory().getItem(0) != null)
 		if(player.getInventory().getItem(0).equals(LootUtils.getWeaponById(2)))maxMana = maxMana+25;
 		player.setExp((float)mana.get(player) / (float)maxMana);
 	}

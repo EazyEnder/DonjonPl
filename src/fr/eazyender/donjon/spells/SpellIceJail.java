@@ -28,7 +28,9 @@ public class SpellIceJail extends ISpell{
 		super(basicCooldown);
 	}
 
-   public void launch(Player player) {
+   public void launch(LivingEntity sender) {
+	   if(sender instanceof Player) {
+		   Player player = (Player)sender;
 	   if(ManaEvents.canUseSpell(player, basicCost)) {
        if (super.launch(player, SpellIceJail.class)) {
                 	
@@ -40,9 +42,19 @@ public class SpellIceJail extends ISpell{
     	   
        }
 	   }
+	   }else {
+		   if (super.launch(sender, SpellIceJail.class)) {
+           	
+			   sender.getWorld().playSound(sender.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 1);
+		       launchSpell(sender,sender.getEyeLocation(), sender.getTargetBlock(null, 40).getLocation());
+		    	   
+		       } else {
+		    	   
+		       } 
+	   }
    }
    
-   private void launchSpell(Player player, Location target, Location target2) {
+   private void launchSpell(LivingEntity sender, Location target, Location target2) {
 	    double distance = target.distance(target2);
 	    Vector v = target.toVector();
 	    Vector v2 = target2.toVector();
@@ -61,7 +73,7 @@ public class SpellIceJail extends ISpell{
 					boolean collide = false;
 					Location l = new Location(target.getWorld(),v1.getX(), v1.getBlockY(), v1.getBlockZ());
 					for (int j = 0; j < target.getWorld().getEntities().size(); j++) {
-						if(!(target.getWorld().getEntities().get(j).equals(player))  && target.getWorld().getEntities().get(j) instanceof LivingEntity) {
+						if(!(target.getWorld().getEntities().get(j).equals(sender))  && target.getWorld().getEntities().get(j) instanceof LivingEntity) {
 							if(l.distance(target.getWorld().getEntities().get(j).getLocation()) < 1.5) {
 								collide = true;
 							}
@@ -75,7 +87,7 @@ public class SpellIceJail extends ISpell{
 					}else {
 						
 						  for (int j = 0; j < target.getWorld().getEntities().size(); j++) {
-								if(!(target.getWorld().getEntities().get(j).equals(player)) && target.getWorld().getEntities().get(j) instanceof LivingEntity) {
+								if(!(target.getWorld().getEntities().get(j).equals(sender)) && target.getWorld().getEntities().get(j) instanceof LivingEntity) {
 									if(!entitylock)
 									if(l.distance(target.getWorld().getEntities().get(j).getLocation()) < 1.5) {
 										LivingEntity entity = (LivingEntity)target.getWorld().getEntities().get(j);
@@ -86,7 +98,7 @@ public class SpellIceJail extends ISpell{
 										walkspeed =  ((Player)(entity)).getWalkSpeed();
 										 ((Player)(entity)).setWalkSpeed(0);
 										}
-										  player.getWorld().playSound(entity.getLocation(), Sound.BLOCK_GLASS_HIT, 5, 1);
+										sender.getWorld().playSound(entity.getLocation(), Sound.BLOCK_GLASS_HIT, 5, 1);
 										 new BukkitRunnable() {
 											  @Override
 												public void run() {
@@ -99,7 +111,7 @@ public class SpellIceJail extends ISpell{
 													  drawCube(entity);
 													  timer++;
 												  }else {
-													  player.getWorld().playSound(player.getLocation(), Sound.BLOCK_GLASS_BREAK, 1, 1);
+													  sender.getWorld().playSound(entity.getLocation(), Sound.BLOCK_GLASS_BREAK, 1, 1);
 													  drawCubeWater(entity);
 													  if(!(entity instanceof Player)) {
 													  entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(walkspeed);

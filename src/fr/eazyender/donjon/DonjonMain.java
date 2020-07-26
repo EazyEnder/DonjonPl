@@ -20,6 +20,7 @@ import fr.eazyender.donjon.commands.CommandGiveSpell;
 import fr.eazyender.donjon.commands.CommandGiveWeapon;
 import fr.eazyender.donjon.commands.CommandGroup;
 import fr.eazyender.donjon.commands.CommandMoney;
+import fr.eazyender.donjon.commands.CommandNPC;
 import fr.eazyender.donjon.donjon.DonjonEvents;
 import fr.eazyender.donjon.donjon.DonjonGenerator;
 import fr.eazyender.donjon.donjon.RoomsInit;
@@ -43,6 +44,7 @@ import fr.eazyender.donjon.gui.WeaponGui;
 import fr.eazyender.donjon.potion.ItemPotionEvent;
 import fr.eazyender.donjon.spells.ItemSpellEvent;
 import fr.eazyender.donjon.spells.ManaEvents;
+import fr.eazyender.donjon.utils.NPCManager;
 import net.minecraft.server.v1_14_R1.ChatComponentText;
 import net.minecraft.server.v1_14_R1.PacketPlayOutPlayerListHeaderFooter;
 
@@ -50,11 +52,14 @@ public class DonjonMain extends JavaPlugin{
 	
 	public static DonjonMain instance;
 	 private boolean tc = false;
+	 
+	 public NPCManager npcManager;
 	
 	@Override
 	public void onEnable() 
 	{
 		instance = this;
+		this.npcManager = new NPCManager();
 		
 		RoomsInit.initRooms();
 		PluginManager pm = getServer().getPluginManager();
@@ -65,6 +70,7 @@ public class DonjonMain extends JavaPlugin{
 		getCommand("gspell").setExecutor(new CommandGiveSpell());
 		getCommand("gpotion").setExecutor(new CommandGivePotion());
 		getCommand("gweapon").setExecutor(new CommandGiveWeapon());
+		getCommand("npc").setExecutor(new CommandNPC());
 		
 		
 		ManaEvents.ManaMain();
@@ -119,7 +125,6 @@ public class DonjonMain extends JavaPlugin{
 		PlayerEquipment.getPlayerEquipment().onDisable();
 		PlayerLevelStats.getPlayerLevelStats().onDisable();
 		PlayerEconomy.getEconomy().onDisable();
-		PlayerGroupSave.getPlayerGroup().onDisable();
 	}
 	
 	private void loopTabList()
@@ -139,15 +144,15 @@ public class DonjonMain extends JavaPlugin{
 					
 					if(Bukkit.getOnlinePlayers().size() == 0) return;
 					for(Player ps : Bukkit.getOnlinePlayers()) {
-					Object header1 = new ChatComponentText("Â§4Â§lDonjon \nÂ§7Dawn Network\nÂ§7-------------------"); 
-					Object header2 = new ChatComponentText("Â§4Â§lDonjon \nÂ§7By Eazy_Ender\nÂ§7-------------------");
-					Object footer = new ChatComponentText("Â§rÂ§7-------------------\n"
-							+ "Â§rÂ§4Â§lInformations\n"
-							//+ "Â§eArgent : Â§6" + PlayerEconomy.getPlayerEconomy().getMoney(ps) + "\n"
-							+ "Â§7Donjons Â§flancÃ©s : Â§c" + DonjonGenerator.donjons.size() + "\n"
-							+ "Â§rÂ§7-------------------\n"
-							+ "Â§rÂ§7JoueursÂ§f en ligne : Â§c " + Bukkit.getServer().getOnlinePlayers().size()
-							+ "\nÂ§rÂ§fVersion : Â§cAlpha 1.0");
+					Object header1 = new ChatComponentText("§4§lDonjon \n§7Dawn Network\n§7-------------------"); 
+					Object header2 = new ChatComponentText("§4§lDonjon \n§7By Eazy_Ender\n§7-------------------");
+					Object footer = new ChatComponentText("§r§7-------------------\n"
+							+ "§r§4§lInformations\n"
+							//+ "§eArgent : §6" + PlayerEconomy.getPlayerEconomy().getMoney(ps) + "\n"
+							+ "§7Donjons §flancÃ©s : §c" + DonjonGenerator.donjons.size() + "\n"
+							+ "§r§7-------------------\n"
+							+ "§r§7Joueurs§f en ligne : §c " + Bukkit.getServer().getOnlinePlayers().size()
+							+ "\n§r§fVersion : §cAlpha 1.0");
 					if(tc) {
 						a.set(packet, header1);
 						tc = false;

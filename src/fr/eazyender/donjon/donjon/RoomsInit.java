@@ -21,43 +21,43 @@ public class RoomsInit {
 		List<Location> I_1_Loc = new ArrayList<Location>();
 		I_1_Loc.add(new Location(null, -80, 5, -12, 180, 0)); //SPAWN
 		I_1_Loc.add(new Location(null, -79, 6, -27, 0, 0)); //SORTIE
-		IRoom I_1 = new IRoom(I_1_Loc, 0, 1, null, null, 0, 20*5);
+		IRoom I_1 = new IRoom(I_1_Loc, 0, 1, null, null, 0, 20*5, 0);
 		rooms_1.add(I_1);
 		
 		List<Location> I_2_Loc = new ArrayList<Location>();
 		I_2_Loc.add(new Location(null, -114, 7, -19, 180, 0)); //SPAWN
 		I_2_Loc.add(new Location(null, -112, 7, -27, 0, 0)); //SORTIE
-		IRoom I_2 = new IRoom(I_2_Loc, 0, 1, null, null, 0, 20*5);
+		IRoom I_2 = new IRoom(I_2_Loc, 0, 1, null, null, 0, 20*5, 0);
 		rooms_1.add(I_2);
 		
 		List<Location> C_1_Loc = new ArrayList<Location>();
 		C_1_Loc.add(new Location(null, -47, 3, -5, 180, 0)); //ENTREE
 		C_1_Loc.add(new Location(null, -45, 2, -27, 0, 0)); //SORTIE
-		IRoom C_1 = new IRoom(C_1_Loc, 1, 1, null, null, 0, 20*10);
+		IRoom C_1 = new IRoom(C_1_Loc, 1, 1, null, null, 0, 20*10, 0);
 		rooms_1.add(C_1);
 		
 		List<Location> C_2_Loc = new ArrayList<Location>();
 		C_2_Loc.add(new Location(null, -15, 5, -5, 180, 0)); //ENTREE
 		C_2_Loc.add(new Location(null, -15, 7, -27, 0, 0)); //SORTIE
-		IRoom C_2 = new IRoom(C_2_Loc, 1, 1, null, null, 0, 20*10);
+		IRoom C_2 = new IRoom(C_2_Loc, 1, 1, null, null, 0, 20*10, 0);
 		rooms_1.add(C_2);
 		
 		List<Location> C_3_Loc = new ArrayList<Location>();
 		C_3_Loc.add(new Location(null, 17, 3, -5, 180, 0)); //ENTREE
 		C_3_Loc.add(new Location(null, 15, 6, -27, 0, 0)); //SORTIE
-		IRoom C_3 = new IRoom(C_3_Loc, 1, 1, null, null, 0, 20*10);
+		IRoom C_3 = new IRoom(C_3_Loc, 1, 1, null, null, 0, 20*10, 0);
 		rooms_1.add(C_3);
 		
 		List<Location> C_4_Loc = new ArrayList<Location>();
 		C_4_Loc.add(new Location(null, 48, 5, -5, 180, 0)); //ENTREE
 		C_4_Loc.add(new Location(null, 51, 5, -27, 0, 0)); //SORTIE
-		IRoom C_4 = new IRoom(C_4_Loc, 1, 1, null, null, 0, 20*10);
+		IRoom C_4 = new IRoom(C_4_Loc, 1, 1, null, null, 0, 20*10, 0);
 		rooms_1.add(C_4);
 		
 		List<Location> C_5_Loc = new ArrayList<Location>();
 		C_5_Loc.add(new Location(null, 78, 7, -5, 180, 0)); //ENTREE
 		C_5_Loc.add(new Location(null, 80, 7, -27, 0, 0)); //SORTIE
-		IRoom C_5 = new IRoom(C_5_Loc, 1, 1, null, null, 0, 20*10);
+		IRoom C_5 = new IRoom(C_5_Loc, 1, 1, null, null, 0, 20*10, 0);
 		rooms_1.add(C_5);
 		
 		List<Location> M_1_Loc = new ArrayList<Location>();
@@ -73,7 +73,7 @@ public class RoomsInit {
 		M1_entity_type.add("GRANITE_KNIGHT_SQUELETON");
 		M1_entity_type.add("BUSH_ZOMBIE");
 		M1_entity_type.add("BUSH_ZOMBIE");
-		IRoom M_1 = new IRoom(M_1_Loc, 3, 1, M1_entity_loc, M1_entity_type, 0, 20*30);
+		IRoom M_1 = new IRoom(M_1_Loc, 3, 1, M1_entity_loc, M1_entity_type, 0, 20*30, 3);
 		rooms_1.add(M_1);
 		
 		List<Location> M_2_Loc = new ArrayList<Location>();
@@ -91,7 +91,7 @@ public class RoomsInit {
 		M2_entity_type.add("BUSH_ZOMBIE");
 		M2_entity_type.add("BUSH_ZOMBIE");
 		M2_entity_type.add("BUSH_PHANTOM");
-		IRoom M_2 = new IRoom(M_2_Loc, 3, 1, M2_entity_loc, M2_entity_type, 0, 20*30);
+		IRoom M_2 = new IRoom(M_2_Loc, 3, 1, M2_entity_loc, M2_entity_type, 0, 20*30, 4);
 		rooms_1.add(M_2);
 		
 		List<Location> M_3_Loc = new ArrayList<Location>();
@@ -105,7 +105,7 @@ public class RoomsInit {
 		M3_entity_type.add("GRANITE_KNIGHT_SQUELETON");
 		M3_entity_type.add("GRANITE_KNIGHT_SQUELETON");
 		M3_entity_type.add("GRANITE_KNIGHT_SQUELETON");
-		IRoom M_3 = new IRoom(M_3_Loc, 3, 1, M3_entity_loc, M3_entity_type, 0, 20*25);
+		IRoom M_3 = new IRoom(M_3_Loc, 3, 1, M3_entity_loc, M3_entity_type, 0, 20*25, 3);
 		rooms_1.add(M_3);
 		
 		List<Location> B_1_Loc = new ArrayList<Location>();
@@ -121,7 +121,7 @@ public class RoomsInit {
 		B1_entity_type.add("BUSH_SQUELETON");
 		B1_entity_type.add("BUSH_ZOMBIE");
 		B1_entity_type.add("BUSH_ZOMBIE");
-		IRoom B_1 = new IRoom(B_1_Loc, 4, 1, B1_entity_loc, B1_entity_type, 0, 20*30);
+		IRoom B_1 = new IRoom(B_1_Loc, 4, 1, B1_entity_loc, B1_entity_type, 0, 20*30, 5);
 		rooms_1.add(B_1);
 		
 		List<Location> B_2_Loc = new ArrayList<Location>();
@@ -137,7 +137,7 @@ public class RoomsInit {
 		B2_entity_type.add("BUSH_SQUELETON");
 		B2_entity_type.add("GRANITE_KNIGHT_SQUELETON");
 		B2_entity_type.add("GRANITE_KNIGHT_SQUELETON");
-		IRoom B_2 = new IRoom(B_2_Loc, 4, 1, B2_entity_loc, B2_entity_type, 0, 20*30);
+		IRoom B_2 = new IRoom(B_2_Loc, 4, 1, B2_entity_loc, B2_entity_type, 0, 20*30, 5);
 		rooms_1.add(B_2);
 		
 		List<Location> B_3_Loc = new ArrayList<Location>();
@@ -155,7 +155,7 @@ public class RoomsInit {
 		B3_entity_type.add("BUSH_ZOMBIE");
 		B3_entity_type.add("GRANITE_KNIGHT_SQUELETON");
 		B3_entity_type.add("GRANITE_KNIGHT_SQUELETON");
-		IRoom B_3 = new IRoom(B_3_Loc, 4, 1, B3_entity_loc, B3_entity_type, 0, 20*30);
+		IRoom B_3 = new IRoom(B_3_Loc, 4, 1, B3_entity_loc, B3_entity_type, 0, 20*30, 6);
 		rooms_1.add(B_3);
 		
 		List<Location> H_1_Loc = new ArrayList<Location>();
@@ -181,7 +181,7 @@ public class RoomsInit {
 		H1_entity_type.add("GRANITE_KNIGHT_SQUELETON");
 		H1_entity_type.add("GRANITE_KNIGHT_SQUELETON");
 		H1_entity_type.add("GRANITE_KNIGHT_SQUELETON");
-		IRoom H_1 = new IRoom(H_1_Loc, 5, 1, H1_entity_loc, H1_entity_type, 0, 20*150);
+		IRoom H_1 = new IRoom(H_1_Loc, 5, 1, H1_entity_loc, H1_entity_type, 0, 20*150, 11);
 		rooms_1.add(H_1);
 		
 		List<Location> H_2_Loc = new ArrayList<Location>();
@@ -205,7 +205,7 @@ public class RoomsInit {
 		H2_entity_type.add("BUSH_PHANTOM");
 		H2_entity_type.add("BUSH_PHANTOM");
 		H2_entity_type.add("BUSH_PHANTOM");
-		IRoom H_2 = new IRoom(H_2_Loc, 5, 1, H2_entity_loc, H2_entity_type, 0, 20*150);
+		IRoom H_2 = new IRoom(H_2_Loc, 5, 1, H2_entity_loc, H2_entity_type, 0, 20*150, 12);
 		rooms_1.add(H_2);
 		
 		List<Location> BOSS_1_Loc = new ArrayList<Location>();
@@ -218,7 +218,7 @@ public class RoomsInit {
 		BOSS_1_entity_type.add("GRANITE_KING_SQUELETON");
 		BOSS_1_entity_type.add("GRANITE_KNIGHT_SQUELETON");
 		BOSS_1_entity_type.add("GRANITE_KNIGHT_SQUELETON");
-		IRoom BOSS_1 = new IRoom(BOSS_1_Loc, 6, 1, BOSS_1_entity_loc, BOSS_1_entity_type, 0, 20*45);
+		IRoom BOSS_1 = new IRoom(BOSS_1_Loc, 6, 1, BOSS_1_entity_loc, BOSS_1_entity_type, 0, 20*40, 5);
 		rooms_1.add(BOSS_1);
 		
 		List<Location> BOSS_2_Loc = new ArrayList<Location>();
@@ -227,7 +227,7 @@ public class RoomsInit {
 		BOSS_2_entity_loc.add(new Location(null, -94.50, 11.00, -58.50, 0, 0));
 		List<String> BOSS_2_entity_type = new ArrayList<String>();
 		BOSS_2_entity_type.add("BUSH_GOLEM");
-		IRoom BOSS_2 = new IRoom(BOSS_2_Loc, 6, 1, BOSS_2_entity_loc, BOSS_2_entity_type, 0, 20*45);
+		IRoom BOSS_2 = new IRoom(BOSS_2_Loc, 6, 1, BOSS_2_entity_loc, BOSS_2_entity_type, 0, 20*40, 5);
 		rooms_1.add(BOSS_2);
 		
 	}
@@ -237,43 +237,43 @@ public class RoomsInit {
 		List<Location> I_1_Loc = new ArrayList<Location>();
 		I_1_Loc.add(new Location(null, 96.5, 12.00, 7.5, 0, 0)); //SPAWN
 		I_1_Loc.add(new Location(null, 97.5, 9.00, 24.5, 180, 0)); //SORTIE
-		IRoom I_1 = new IRoom(I_1_Loc, 0, 1, null, null, 0, 20*5);
+		IRoom I_1 = new IRoom(I_1_Loc, 0, 1, null, null, 0, 20*5, 0);
 		rooms_2.add(I_1);
 		
 		List<Location> I_2_Loc = new ArrayList<Location>();
 		I_2_Loc.add(new Location(null, 64.5, 8.00, 9.5, 0, 0)); //SPAWN
 		I_2_Loc.add(new Location(null, 62.50, 5.00, 24.79, 180, 0)); //SORTIE
-		IRoom I_2 = new IRoom(I_2_Loc, 0, 1, null, null, 0, 20*5);
+		IRoom I_2 = new IRoom(I_2_Loc, 0, 1, null, null, 0, 20*5, 0);
 		rooms_2.add(I_2);
 		
 		List<Location> C_1_Loc = new ArrayList<Location>();
 		C_1_Loc.add(new Location(null, 32.34, 12.00, 2.76, 0, 0)); //ENTREE
 		C_1_Loc.add(new Location(null, 29.53, 4.00, 24.32, 180, 0)); //SORTIE
-		IRoom C_1 = new IRoom(C_1_Loc, 1, 1, null, null, 0, 20*10);
+		IRoom C_1 = new IRoom(C_1_Loc, 1, 1, null, null, 0, 20*10, 0);
 		rooms_2.add(C_1);
 		
 		List<Location> C_2_Loc = new ArrayList<Location>();
 		C_2_Loc.add(new Location(null, 0.36, 7.00, 2.49, 0, 0)); //ENTREE
 		C_2_Loc.add(new Location(null, 1.59, 7.00, 24.65, 180, 0)); //SORTIE
-		IRoom C_2 = new IRoom(C_2_Loc, 1, 1, null, null, 0, 20*10);
+		IRoom C_2 = new IRoom(C_2_Loc, 1, 1, null, null, 0, 20*10, 0);
 		rooms_2.add(C_2);
 		
 		List<Location> C_3_Loc = new ArrayList<Location>();
 		C_3_Loc.add(new Location(null, -30.09, 13.00, 2.43, 0, 0)); //ENTREE
 		C_3_Loc.add(new Location(null, -31.27, 12.00, 24.46, 180, 0)); //SORTIE
-		IRoom C_3 = new IRoom(C_3_Loc, 1, 1, null, null, 0, 20*10);
+		IRoom C_3 = new IRoom(C_3_Loc, 1, 1, null, null, 0, 20*10, 0);
 		rooms_2.add(C_3);
 		
 		List<Location> C_4_Loc = new ArrayList<Location>();
 		C_4_Loc.add(new Location(null, -62.87, 9.00, 2.44, 0, 0)); //ENTREE
 		C_4_Loc.add(new Location(null, -65.19, 8.00, 24.24, 180, 0)); //SORTIE
-		IRoom C_4 = new IRoom(C_4_Loc, 1, 1, null, null, 0, 20*10);
+		IRoom C_4 = new IRoom(C_4_Loc, 1, 1, null, null, 0, 20*10, 0);
 		rooms_2.add(C_4);
 		
 		List<Location> C_5_Loc = new ArrayList<Location>();
 		C_5_Loc.add(new Location(null, 32.71, 36.00, 2.67, 0, 0)); //ENTREE
 		C_5_Loc.add(new Location(null, 33.26, 36.00, 24.33, 180, 0)); //SORTIE
-		IRoom C_5 = new IRoom(C_5_Loc, 1, 1, null, null, 0, 20*10);
+		IRoom C_5 = new IRoom(C_5_Loc, 1, 1, null, null, 0, 20*10, 0);
 		rooms_2.add(C_5);
 	}
 }

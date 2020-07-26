@@ -8,6 +8,7 @@ import org.bukkit.event.player.PlayerItemHeldEvent;
 
 public class ItemSpellEvent implements Listener{
 	
+	@SuppressWarnings("deprecation")
 	@EventHandler()
 	public void onPlayerUse(PlayerInteractEvent event){
 	    Player p = event.getPlayer();
@@ -40,6 +41,10 @@ public class ItemSpellEvent implements Listener{
 		        case 12: SpellPoisonousSacrifice spell12 = new SpellPoisonousSacrifice(1000*2); spell12.launch(p);
 		        	break;
 		        case 13: SpellWindSpear spell13 = new SpellWindSpear(1000*2); spell13.launch(p);
+	        		break;
+		        case 14: SpellIceSlowDown spell14 = new SpellIceSlowDown(1000*2); spell14.launch(p);
+		        	break;
+		        case 15: SpellOneTarget spell15 = new SpellOneTarget(1000*2); spell15.launch(p);
 	        		break;
 		        }
 		    }
@@ -93,6 +98,12 @@ public class ItemSpellEvent implements Listener{
 		        case 13: SpellWindSpear spell13 = new SpellWindSpear(1000*2); spell13.launch(p);
 		        p.getInventory().setHeldItemSlot(0);
 					break;
+		        case 14: SpellIceSlowDown spell14 = new SpellIceSlowDown(1000*2); spell14.launch(p);
+		        p.getInventory().setHeldItemSlot(0);
+	        		break;
+		        case 15: SpellOneTarget spell15 = new SpellOneTarget(1000*2); spell15.launch(p);
+		        p.getInventory().setHeldItemSlot(0);
+        			break;
 		        }
 		    }
 	    }

@@ -132,7 +132,7 @@ public class RoomUtils {
 		}else if(name.contains("GOLEM")) {
 			Golem golem = (Golem) world.spawnEntity(loc, EntityType.IRON_GOLEM);
 				switch(name) {
-				case "BOSS_BUSH_GOLEM": golem.setCustomName("BOSS_BUSH_GOLEM");
+				case "BUSH_GOLEM": golem.setCustomName("BUSH_GOLEM");
 					//golem.setMaxHealth(200);
 					break;
 				}

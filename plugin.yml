@@ -26,3 +26,6 @@ commands:
     description: Accept friend request
     permission: player.use
     aliases: yes
+  npc:
+    description: Spawn a custom NPC
+    permission: admin.use

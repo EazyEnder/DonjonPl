@@ -67,7 +67,6 @@ public class SpellEmbrasement extends ISpell{
 								if(player.getLocation().distance(player.getWorld().getEntities().get(j).getLocation()) < (timer / 2)) {
 									LivingEntity entity = (LivingEntity)player.getWorld().getEntities().get(j);
 									
-									double distance = player.getLocation().distance(entity.getLocation());
 								    Vector v = player.getLocation().toVector();
 								    Vector v2 = entity.getLocation().toVector();
 								    Vector vector = v2.clone().subtract(v).normalize().multiply(2.5);

@@ -214,7 +214,7 @@ public class DonjonEvents implements Listener {
 			if(donjon.getDifficulty() >= 3) {
 				endDonjon(group, false);
 			}else{
-
+				endDonjon(group, false);
 			}
 			}
 			
@@ -253,10 +253,10 @@ public class DonjonEvents implements Listener {
 		
 		if(isEnd) {
 			for (Player player : players) {
-		LootUtils.addItemsToRessources(player, drops_ressource.get(player));
+		LootUtils.addItemsToRessources(player, drops_ressource.get(group));
 		List<Integer> drops_weapon_final = new ArrayList<Integer>();
-		for (int i = 0; i < drops_weapons.get(player).size(); i++) {
-			drops_weapon_final.add(LootUtils.getIDWeaponByItem(drops_weapons.get(player).get(i)));
+		for (int i = 0; i < drops_weapons.get(group).size(); i++) {
+			drops_weapon_final.add(LootUtils.getIDWeaponByItem(drops_weapons.get(group).get(i)));
 		}
 		PlayerEquipment.getPlayerEquipment().getWeapons(player).addAll(drops_weapon_final);
 
@@ -275,11 +275,29 @@ public class DonjonEvents implements Listener {
 		Long time = timer.get(group);
 		
 		int score = 0;
-		int endtime = 60;
-		if(Math.log(time/endtime)*15 > 0) {
-		score = (int) ((mobs - (Math.log(time/endtime)*15)) / group.getPlayers().size());
+		int endtime = 0;
+		String rank = "F";
+		int xp = 0;
+		List<IRoom> rooms = DonjonGenerator.donjons.get(group).getDonjon();
+		for (int i = 0; i < rooms.size(); i++) {
+			endtime = endtime + rooms.get(i).getMaxTime();
+			xp = xp + rooms.get(i).getXp();
+		}
+		if(time <= endtime / 1.5) {
+			//S
+		score = (int) ((xp*1.25) / group.getPlayers().size());
+		rank = "§6S";
+		}else if(time <= endtime){
+			//A
+		score = (int)(xp / group.getPlayers().size());
+		rank = "§2A";
+		}else if(time <= endtime*1.5) {
+			//D
+		score = (int) ((xp*0.5) / group.getPlayers().size());
+		rank = "§cA";
 		}else {
-			score = (int) ((mobs) / group.getPlayers().size());
+			score = 0;
+			rank = "§4F";
 		}
 
 			for (Player player : group.getPlayers()) {
@@ -288,7 +306,7 @@ public class DonjonEvents implements Listener {
 					player.sendMessage("§8[§4Donjon§8] : §f" + "Vous avez mis trop de temps, vous n'avez pas gagné d'expérience.");
 					score = 0;
 				} else {
-					player.sendMessage("§8[§4Donjon§8] : §f" + "Vous avez gagné " + score + "xp.");
+					player.sendMessage("§8[§4Donjon§8] : §f" + "Vous avez gagné " + score + "xp et obtenu le rang" + rank +  ".");
 				}
 
 

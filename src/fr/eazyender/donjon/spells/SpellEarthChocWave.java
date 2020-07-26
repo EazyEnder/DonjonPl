@@ -13,7 +13,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
-import net.minecraft.server.v1_14_R1.EntityPlayer;
 
 public class SpellEarthChocWave extends ISpell{
 	

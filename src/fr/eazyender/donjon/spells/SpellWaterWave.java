@@ -83,7 +83,6 @@ public class SpellWaterWave extends ISpell{
 									if(l.distance(target.getWorld().getEntities().get(j).getLocation()) < 3) {
 										LivingEntity entity = (LivingEntity)player.getWorld().getEntities().get(j);
 										
-										double distance = player.getLocation().distance(entity.getLocation());
 									    Vector v = playerV;
 									    Vector v2 = entity.getLocation().toVector();
 									    Vector vector = v2.clone().subtract(v).normalize().multiply(2.5);

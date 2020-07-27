@@ -5,6 +5,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eazyender.donjon.utils.IMessage;
+import fr.eazyender.donjon.utils.PlayerGroup;
 import org.bukkit.Bukkit;
 import org.bukkit.WorldCreator;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
@@ -51,6 +53,8 @@ import net.minecraft.server.v1_14_R1.PacketPlayOutPlayerListHeaderFooter;
 public class DonjonMain extends JavaPlugin{
 	
 	public static DonjonMain instance;
+
+	private List<IMessage> messages = new ArrayList<IMessage>();
 	 private boolean tc = false;
 	 
 	 public NPCManager npcManager;
@@ -112,6 +116,24 @@ public class DonjonMain extends JavaPlugin{
 			public void run() {
 				
 				for(Player p : Bukkit.getOnlinePlayers()) p.setFoodLevel(20);
+
+				for (IMessage message: messages) {
+					if(message.getTimer() >= message.getCooldown()){
+						for (Player player: Bukkit.getOnlinePlayers()) {
+							PlayerGroup group = PlayerGroupSave.getPlayerGroup().getGroup(player);
+							if(PlayerGroup.aGroupContainPlayer(player.getUniqueId()))
+							{
+								group = PlayerGroup.getGroupOfAPlayer(player);
+							}
+							if(!DonjonGenerator.donjons.containsKey(group)){
+								player.sendMessage(message.getMessage());
+							}
+						}
+						message.setTimer(0);
+					}else{
+						message.setTimer(message.getTimer()+1);
+					}
+				}
 				
 			}
 		}.runTaskTimer(this, 0, 20);
@@ -125,6 +147,12 @@ public class DonjonMain extends JavaPlugin{
 		PlayerEquipment.getPlayerEquipment().onDisable();
 		PlayerLevelStats.getPlayerLevelStats().onDisable();
 		PlayerEconomy.getEconomy().onDisable();
+	}
+
+	private void initMessages(){
+
+		messages.add(new IMessage("Ceci est un test",10));
+
 	}
 	
 	private void loopTabList()
@@ -149,7 +177,7 @@ public class DonjonMain extends JavaPlugin{
 					Object footer = new ChatComponentText("§r§7-------------------\n"
 							+ "§r§4§lInformations\n"
 							//+ "§eArgent : §6" + PlayerEconomy.getPlayerEconomy().getMoney(ps) + "\n"
-							+ "§7Donjons §flancÃ©s : §c" + DonjonGenerator.donjons.size() + "\n"
+							+ "§7Donjons §flancés : §c" + DonjonGenerator.donjons.size() + "\n"
 							+ "§r§7-------------------\n"
 							+ "§r§7Joueurs§f en ligne : §c " + Bukkit.getServer().getOnlinePlayers().size()
 							+ "\n§r§fVersion : §cAlpha 1.0");

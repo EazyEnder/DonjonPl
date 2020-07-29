@@ -1,5 +1,6 @@
 package fr.eazyender.donjon.events;
 
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -9,6 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.eazyender.donjon.DonjonMain;
 import fr.eazyender.donjon.donjon.DonjonEvents;
+import fr.eazyender.donjon.donjon.LevelUtils;
 import fr.eazyender.donjon.files.PlayerArena;
 import fr.eazyender.donjon.files.PlayerEconomy;
 import fr.eazyender.donjon.files.PlayerEquipment;
@@ -23,15 +25,21 @@ public class PlayerJoin implements Listener {
 	@EventHandler
 	  public void onPlayerJoin(PlayerJoinEvent e) { 
 		
-		/* Chargement du joueur */
-		PlayerEconomy.getEconomy().loadPlayer(e.getPlayer());
-		PlayerLevelStats.getPlayerLevelStats().loadPlayer(e.getPlayer()); 
-		PlayerEquipment.getPlayerEquipment().loadPlayer(e.getPlayer());
-		PlayerArena.getPlayerArena().loadPlayer(e.getPlayer());
-		PlayerGroupSave.getPlayerGroup().loadPlayer(e.getPlayer());
+		Player player = e.getPlayer();
 		
-		e.getPlayer().getInventory().clear();
-		InventoryGui.updateInventory(e.getPlayer());
+		/* Chargement du joueur */
+		PlayerEconomy.getEconomy().loadPlayer(player);
+		PlayerLevelStats.getPlayerLevelStats().loadPlayer(player); 
+		PlayerEquipment.getPlayerEquipment().loadPlayer(player);
+		PlayerArena.getPlayerArena().loadPlayer(player);
+		PlayerGroupSave.getPlayerGroup().loadPlayer(player);
+		
+		player.getInventory().clear();
+		e.setJoinMessage("§7[§2§l+§7] " + player.getName());
+		
+		LevelUtils.updateName(player);
+		
+		InventoryGui.updateInventory(player);
 		
 	}
 }

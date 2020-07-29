@@ -25,6 +25,7 @@ import fr.eazyender.donjon.commands.CommandMoney;
 import fr.eazyender.donjon.commands.CommandNPC;
 import fr.eazyender.donjon.donjon.DonjonEvents;
 import fr.eazyender.donjon.donjon.DonjonGenerator;
+import fr.eazyender.donjon.donjon.LevelUtils;
 import fr.eazyender.donjon.donjon.RoomsInit;
 import fr.eazyender.donjon.events.PlayerInteract;
 import fr.eazyender.donjon.events.PlayerJoin;
@@ -76,6 +77,7 @@ public class DonjonMain extends JavaPlugin{
 		getCommand("gweapon").setExecutor(new CommandGiveWeapon());
 		getCommand("npc").setExecutor(new CommandNPC());
 		
+		initMessages();
 		
 		ManaEvents.ManaMain();
 		
@@ -107,7 +109,7 @@ public class DonjonMain extends JavaPlugin{
 		pm.registerEvents(new PlayerInteract(), this);
 		
 		Bukkit.createWorld(new WorldCreator("donjon_1"));
-		
+		for(Player p : Bukkit.getOnlinePlayers()) LevelUtils.updateName(p);
 		loopTabList();
 		
 		new BukkitRunnable() {
@@ -151,7 +153,10 @@ public class DonjonMain extends JavaPlugin{
 
 	private void initMessages(){
 
-		messages.add(new IMessage("Ceci est un test",10));
+		String prefix = "§f[§4Serveur§f] : ";
+		messages.add(new IMessage(prefix + "Si vous rencontrez des §cbugs§r lors de l'alpha, merci de les §csignaler§r sur le discord.",60*30));
+		messages.add(new IMessage(prefix + "Envie d'un §cboost xp§r, d'être bien §caccompagné§r, d'être §céclatant§r en ville? Allez voir le §c/boutique§r (permet de supporter le serveur)", 60*30, 60*10));
+		messages.add(new IMessage(prefix + "Vous avez besoin d'aide ? Venez sur le discord : §chttps://discord.gg/kU4djME", 60*30, 60*20));
 
 	}
 	

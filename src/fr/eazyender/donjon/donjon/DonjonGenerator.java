@@ -19,6 +19,7 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.craftbukkit.libs.org.apache.commons.io.FileUtils;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -173,7 +174,9 @@ public class DonjonGenerator {
 			world.getLoadedChunks()[i].unload();
 			
 		}
-		
+		for (Entity entity : world.getEntities()) {
+			entity.remove();
+		}
 		
 	     Bukkit.unloadWorld(world, false);
 	     world = null;
@@ -205,8 +208,24 @@ public class DonjonGenerator {
 			
 			//IMPAIR
 			if(i % 2 == 1) {
-				//CORRIDOR
-				rooms_donjon.set(i, RoomUtils.getSimilarRooms(biome, 1).get(RandomNumber(0,RoomUtils.getNumberOfASimilarRoom(biome, 1)-1)));
+				//HIGH CHANCE TO GET A CORRIDOR BUT ALSO A FIGHT ROOM
+				int type = 2;
+				int chance = RandomNumber(1,100);
+				int[] proba = {50,67,85,95,100};
+				if(chance < proba[0]){type = 1;}
+				else if(chance < proba[1]){type = 2;}
+				else if(chance < proba[2]){type = 3;}
+				else if(chance <= proba[3]){type = 4;}
+				else if(chance <= proba[4]){type = 5;}
+				while(RoomUtils.getNumberOfASimilarRoom(biome, type) <= 0) {
+					chance = RandomNumber(1,100);
+					if(chance < proba[0]){type = 1;}
+					else if(chance < proba[1]){type = 2;}
+					else if(chance < proba[2]){type = 3;}
+					else if(chance <= proba[3]){type = 4;}
+					else if(chance <= proba[4]){type = 5;}
+				}
+				rooms_donjon.set(i, RoomUtils.getSimilarRooms(biome, type).get(RandomNumber(0,RoomUtils.getNumberOfASimilarRoom(biome, type)-1)));
 			}
 			//NO BOSS ROOM
 			else if(i < size-1) {

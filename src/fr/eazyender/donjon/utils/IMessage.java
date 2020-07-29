@@ -13,6 +13,13 @@ public class IMessage {
         enable = true;
         timer = 0;
     }
+    
+    public IMessage(String message, int cooldown, int timer){
+        this.cooldown = cooldown;
+        this.message = message;
+        enable = true;
+        this.timer = timer;
+    }
 
     public IMessage(String message, int cooldown, boolean enable){
         this.cooldown = cooldown;

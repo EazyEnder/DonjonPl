@@ -3,6 +3,7 @@ package fr.eazyender.donjon.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import fr.eazyender.donjon.files.PlayerArena;
 import fr.eazyender.donjon.files.PlayerGroupSave;
 import fr.eazyender.donjon.utils.PlayerGroup;
 import org.bukkit.GameMode;
@@ -21,6 +22,7 @@ import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 
+import fr.eazyender.donjon.arena.ArenaUtils;
 import fr.eazyender.donjon.donjon.LevelUtils;
 import fr.eazyender.donjon.donjon.LootUtils;
 import fr.eazyender.donjon.files.PlayerLevelStats;
@@ -64,12 +66,15 @@ public class InventoryGui implements Listener{
 				if(!SpellGui.spells_choose.get(player).isEmpty()) {
 				for (int i = 0; i < SpellGui.spells_choose.get(player).size(); i++) {
 					ItemStack spell = SpellUtils.getItemSpellById(SpellGui.spells_choose.get(player).get(i));
-					ItemMeta im = spell.getItemMeta();
+					ItemMeta im;
+					if(spell.hasItemMeta()) {
+					im = spell.getItemMeta();
 					List<String> lore = new ArrayList<String>();
 					lore = im.getLore();
 					lore.add("§cVous aurez ce sort dans le donjon.");
 					im.setLore(lore);
 					spell.setItemMeta(im);
+					}
 					if(spell != null)
 					player.getInventory().setItem(10+i, spell);
 				}
@@ -98,11 +103,10 @@ public class InventoryGui implements Listener{
 			List<String> str_leveling_PVP = new ArrayList<String>();
 			str_leveling_PVP.add("§fAffrontez de réels ennemis dans une arène");
 			str_leveling_PVP.add("§fsans merci afin de montrer votre puissance.");
-			//str_leveling_PVP.add("§fRang actuel : " + LevelUtils.getRankName(PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(player)));
-			//str_leveling_PVP.add("§fProgression : " + generateBar((int)((double)(PlayerLevelStats.getPlayerLevelStats().getXpDonjon(player))/(double)(LevelUtils.getXpNecessary(PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(player)+1))*100))+(int)((double)(PlayerLevelStats.getPlayerLevelStats().getXpDonjon(player))/(double)(LevelUtils.getXpNecessary(PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(player)+1))*100)+"%");
-			//str_leveling_PVP.add("§f;" + PlayerLevelStats.getPlayerLevelStats().getXpDonjon(player)+"/"+LevelUtils.getXpNecessary(PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(player)+1));
-			//ItemStack leveling_donjon_PVP = getCustomItemWithLore(Material.FEATHER,LevelUtils.getRankName(PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(player)),false,1,str_leveling);
-			ItemStack leveling_donjon_PVP = getCustomItemWithLore(Material.STICK,"§f§lRang : Bronze",false,1,str_leveling_PVP);
+			str_leveling_PVP.add("§fRang actuel : " + ArenaUtils.getNameOfRank(PlayerLevelStats.getPlayerLevelStats().getLevelRank(player)));
+			str_leveling_PVP.add("§fProgression : " + generateBar((int)((double)(PlayerLevelStats.getPlayerLevelStats().getXpRank(player))/(double)(ArenaUtils.xpRequired(PlayerLevelStats.getPlayerLevelStats().getLevelRank(player)+1))*100))+(int)((double)(PlayerLevelStats.getPlayerLevelStats().getXpRank(player))/(double)(ArenaUtils.xpRequired(PlayerLevelStats.getPlayerLevelStats().getLevelRank(player)+1))*100)+"%");
+			str_leveling_PVP.add("§f;" + PlayerLevelStats.getPlayerLevelStats().getXpRank(player)+"/"+ArenaUtils.xpRequired(PlayerLevelStats.getPlayerLevelStats().getLevelRank(player)+1));
+			ItemStack leveling_donjon_PVP = getCustomItemWithLore(Material.STICK,"§f§lRang : " + ArenaUtils.getNameOfRank(PlayerLevelStats.getPlayerLevelStats().getLevelRank(player)),false,1,str_leveling_PVP);
 			player.getInventory().setItem(17, leveling_donjon_PVP);
 			
 			List<String> str_potions = new ArrayList<String>();

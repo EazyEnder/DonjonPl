@@ -9,6 +9,8 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import fr.eazyender.donjon.arena.ArenaUtils;
+import fr.eazyender.donjon.files.PlayerArena;
 import fr.eazyender.donjon.files.PlayerEquipment;
 import fr.eazyender.donjon.files.PlayerLevelStats;
 import fr.eazyender.donjon.gui.InventoryGui;
@@ -29,11 +31,24 @@ public class LevelUtils {
 			PlayerLevelStats.getPlayerLevelStats().setLevelDonjon(player, level+1);
 			PlayerLevelStats.getPlayerLevelStats().setXpDonjon(player, 0);
 			
-			player.sendMessage("�8[�4Donjon�8] : �f" + "Vous �tes mont� d'un niveau ! (niveau:" + (level+1) +")");
+			player.sendMessage("§8[§4Donjon§8] : §f" + "Vous êtes monté d'un niveau ! (niveau:" + (level+1) +")");
 			PlayerLevelStats.getPlayerLevelStats().setSkillPoints(player, PlayerLevelStats.getPlayerLevelStats().getSkillPoints(player)+1);
+			
+			updateName(player);
 		}
 		InventoryGui.updateInventory(player);
 		
+	}
+	
+	public static void updateName(Player player) {
+		
+		String name = player.getName();
+		
+		int level = PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(player);
+		name = "§r§f[§r" +ArenaUtils.getCircleOfRank(PlayerLevelStats.getPlayerLevelStats().getLevelRank(player)) + "§r§f/" + LevelUtils.getRankName(level) + "§r§f]§r" + name;
+		if(player.isOp()) name = "§r§c[§4⚠§r§c]§r" + name;
+		
+		player.setDisplayName(name);
 	}
 	
 	public static void updateSkill(Player player, int id) {
@@ -94,14 +109,14 @@ public class LevelUtils {
 					}
 					break;
 				}
-				player.sendMessage("Vous avez gagn� : " + getAwardSkill(id, i).getItemMeta().getDisplayName() + " !");
+				player.sendMessage("Vous avez gagné : " + getAwardSkill(id, i).getItemMeta().getDisplayName() + " !");
 			}
 		}
 		
 	}
 	
 	public static ItemStack getAwardSkill(int id, int stape) {
-		ItemStack item = getCustomItemWithLore(Material.GRAY_CONCRETE, "�fPas de r�compense", false, 1, null);
+		ItemStack item = getCustomItemWithLore(Material.GRAY_CONCRETE, "§fPas de récompense", false, 1, null);
 		switch(id) {
 		//ATQ
 		case 1:
@@ -139,11 +154,13 @@ public class LevelUtils {
 	}
 	
 	public static String getRankName(int level) {
-		String rank = "�8Voyageur";
-		if(level < 1) {rank = "�8Voyageur";}
-		else if(level == 1) {rank = "�8Novice";}
-		else if(level <= 5) {rank = "�8Adepte";}
-		else if(level <= 10) {rank = "�8Aventurier";}
+		String rank = "§7Voyageur";
+		if(level < 1) {rank = "§7Voyageur";}
+		else if(level == 1) {rank = "§7Novice";}
+		else if(level <= 5) {rank = "§7Adepte";}
+		else if(level <= 10) {rank = "§7Aventurier§r§f-" + "§7PR";}
+		else if(level <= 20) {rank = "§7Aventurier§r§f-" + "§6CU";}
+		else if(level <= 30) {rank = "§7Aventurier§r§f-" + "§8FE";}
 		return rank;
 	}
 	

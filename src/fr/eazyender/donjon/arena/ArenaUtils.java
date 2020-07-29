@@ -11,6 +11,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
+import fr.eazyender.donjon.donjon.LevelUtils;
 import fr.eazyender.donjon.files.PlayerLevelStats;
 
 public class ArenaUtils {
@@ -26,6 +27,7 @@ public class ArenaUtils {
 			
 			player.sendMessage("§7[§6§lArena§r§7]§f : " + "Vous avez gagné 1 level !");
 			player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
+			LevelUtils.updateName(player);
 			
 			xp = xp - xpRequired(level+1);
 			level = level+1;
@@ -98,6 +100,27 @@ public class ArenaUtils {
 		case 14: return "§c§lAdamantite";
 		case 15: return "§d§lImmortel";
 		default: return "§fNovice";
+		}
+	}
+	
+	public static String getCircleOfRank(int level) {
+		switch(level) {
+		case 1: return "§7•";
+		case 2: return "§6•";
+		case 3: return "§f•";
+		case 4: return "§6•";
+		case 5: return "§7•";
+		case 6: return "§e•";
+		case 7: return "§6§l•";
+		case 8: return "§3§l•";
+		case 9: return "§a§l•";
+		case 10: return "§1§l•";
+		case 11: return "§9§l•";
+		case 12: return "§8§l•";
+		case 13: return "§e§l•";
+		case 14: return "§c§l•";
+		case 15: return "§d§l•";
+		default: return "§f•";
 		}
 	}
 	

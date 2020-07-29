@@ -23,6 +23,7 @@ public class PlayerQuit implements Listener {
 	@EventHandler
 	  public void onPlayerQuit(PlayerQuitEvent e) { 
 		
+		e.setQuitMessage("§7[§c§l-§7] " + e.getPlayer().getName());
 		Player player = e.getPlayer();
 		
 		if(PlayerGroup.aGroupContainPlayer(player.getUniqueId()))

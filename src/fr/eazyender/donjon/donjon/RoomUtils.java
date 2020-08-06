@@ -105,9 +105,7 @@ public class RoomUtils {
 		case "GRANITE_ARCHER_SQUELETON": skeleton.setCustomName("GRANITE_ARCHER_SQUELETON");
 			break;	
 		case "GRANITE_KNIGHT_SQUELETON": skeleton.setCustomName("GRANITE_KNIGHT_SQUELETON");
-		ItemStack sword = new ItemStack(Material.STONE_SWORD);
-		sword.getItemMeta().setDisplayName("§4Epee en granite endommagé");
-		skeleton.getEquipment().setItemInMainHand(sword);
+		skeleton.getEquipment().setItemInMainHand(LootUtils.getWeaponById(5));
 			break;	
 		case "GRANITE_KING_SQUELETON": skeleton.setCustomName("GRANITE_KING_SQUELETON");
 		ItemStack sword1 = LootUtils.getWeaponById(1);
@@ -162,6 +160,7 @@ public class RoomUtils {
 			case "ICE_SLIME": slime.setCustomName("ICE_SLIME");
 				break;
 			}
+			EntityEvents.launchEntityLoop(slime);
 			
 		}else if(name.contains("BAT")) {
 			Bat bat = (Bat) world.spawnEntity(loc, EntityType.BAT);
@@ -169,12 +168,16 @@ public class RoomUtils {
 			case "ICE_BAT": bat.setCustomName("ICE_BAT");
 				break;
 			}
+			EntityEvents.launchEntityLoop(bat);
 		}else if(name.contains("PILLAGER")) {
 			Pillager pillager = (Pillager)world.spawnEntity(loc,  EntityType.PILLAGER);
 			switch(name) {
 			case "ICE_PILLAGER": pillager.setCustomName("ICE_PILLAGER");
+			pillager.getEquipment().setItemInMainHand(LootUtils.getWeaponById(3));
 				break;
 			}
+			
+			EntityEvents.launchEntityLoop(pillager);
 		}else if(name.contains("BEAR")) {
 			PolarBear bear = (PolarBear)world.spawnEntity(loc,  EntityType.POLAR_BEAR);
 			switch(name) {
@@ -183,6 +186,7 @@ public class RoomUtils {
 			case "ICE_BEAR": bear.setCustomName("ICE_BEAR");
 				break;
 			}
+			EntityEvents.launchEntityLoop(bear);
 		}
 		
 	}

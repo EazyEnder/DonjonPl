@@ -3,10 +3,12 @@ package fr.eazyender.donjon.donjon;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.bukkit.Sound;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.PolarBear;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Zombie;
@@ -16,9 +18,11 @@ import fr.eazyender.donjon.DonjonMain;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.earth.SpellEarthChocWave;
 import fr.eazyender.donjon.spells.earth.SpellShield;
+import fr.eazyender.donjon.spells.physic.SpellSpeedBoost;
 import fr.eazyender.donjon.spells.poison.SpellPoisonousSacrifice;
 import fr.eazyender.donjon.spells.water.SpellIceJail;
 import fr.eazyender.donjon.spells.water.SpellIceSlowDown;
+import fr.eazyender.donjon.spells.water.SpellIceSlowDownAOE;
 
 public class EntityEvents {
 	
@@ -84,9 +88,11 @@ public class EntityEvents {
 				case "ICE_SLIME":
 						if(!entity.getNearbyEntities(7, 7, 7).isEmpty()) {
 							boolean ok = false;
+							Player player = null;
 							for (Entity entity : entity.getNearbyEntities(7, 7, 7)) {
 								if(entity instanceof Player) {
 									ok = true;
+									player = (Player) entity;
 								}
 							}
 							
@@ -95,7 +101,7 @@ public class EntityEvents {
 							if(slime.getTarget() != null) {
 									SpellIceSlowDown spell = new SpellIceSlowDown(1000*2); 
 									spell.launch(slime);
-									slime.remove();
+									slime.damage(10, player);
 							}
 							}
 						}
@@ -103,9 +109,11 @@ public class EntityEvents {
 				case "ICE_BAT":
 					if(!entity.getNearbyEntities(3, 3, 3).isEmpty()) {
 						boolean ok = false;
+						Player player = null;
 						for (Entity entity : entity.getNearbyEntities(7, 7, 7)) {
 							if(entity instanceof Player) {
 								ok = true;
+								player = (Player) entity;
 							}
 						}
 						
@@ -114,12 +122,49 @@ public class EntityEvents {
 							if(RandomNumber(0,100) < 50) {
 								SpellIceJail spell = new SpellIceJail(1000*2); 
 								spell.launch(bat);
-								bat.remove();
+								bat.damage(10, player);
 								
 							}
 						}
 					}
 				break;
+				case "ICE_BEAR": 
+					if(!entity.getNearbyEntities(7, 7, 7).isEmpty()) {
+						PolarBear bear = (PolarBear)entity;
+						if(bear.getTarget() != null) {
+							if(!ISpell.cooldowns.containsKey(entity)) ISpell.cooldowns.put(entity, new HashMap<Class<? extends ISpell>, Long>());
+							if(RandomNumber(0,100) < 5 * (bear.getMaxHealth() / bear.getHealth())) {
+								SpellSpeedBoost spell = new SpellSpeedBoost(1000*2); 
+								if(!ISpell.cooldowns.get(entity).containsKey(SpellSpeedBoost.class))
+								spell.launch(bear);
+								entity.getWorld().playSound(entity.getLocation(), Sound.ENTITY_POLAR_BEAR_WARNING, 3, 1);
+							}
+							if(RandomNumber(0,100) < 5) {
+								SpellIceSlowDownAOE spell = new SpellIceSlowDownAOE(1000*2); 
+								if(!ISpell.cooldowns.get(entity).containsKey(SpellIceSlowDownAOE.class))
+								spell.launch(bear);
+							}
+							if(RandomNumber(0,100) < 2) {
+								SpellShield spell = new SpellShield(1000*2); 
+								if(!ISpell.cooldowns.get(entity).containsKey(SpellEarthChocWave.class))
+								spell.launch(bear);
+							}
+						}
+					}
+				break;
+				case "SNOW_BEAR":
+					if(entity.getHealth() < 15) {
+						if(!entity.getNearbyEntities(5, 5, 5).isEmpty()) {
+							PolarBear bear = (PolarBear)entity;
+							if(bear.getTarget() != null) {
+								if(RandomNumber(0,100) < 50) {
+									SpellSpeedBoost spell = new SpellSpeedBoost(1000*2); 
+									spell.launch(bear);
+								}
+							}
+						}
+					}
+					break;
 				}
 				
 			}

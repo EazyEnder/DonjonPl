@@ -39,6 +39,10 @@ public class PlayerJoin implements Listener {
 		
 		LevelUtils.updateName(player);
 		
+		if(!player.hasPlayedBefore()) {
+
+		}
+		
 		InventoryGui.updateInventory(player);
 		
 	}

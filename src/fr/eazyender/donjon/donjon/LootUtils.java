@@ -54,7 +54,15 @@ public class LootUtils {
 		switch(id) {
 		case 1: item = getWeaponDrop(Material.STONE_SWORD, "§fEpee en §cGranite", false, 1, "§fArme faite à partir d'un certain type de roche", "E");
 			break;
-		case 2: item = getWeaponDrop(Material.LEGACY_WOOD_SWORD, "§fBaton magique en §6bois simple", false, 1, "§fUn simple baton infusé de magie", "F");
+		case 2: item = getWeaponDrop(Material.WOODEN_SWORD, "§fBaton magique en §6bois simple", false, 1, "§fUn simple baton infusé de magie", "F");
+			break;
+		case 3: item = getWeaponDrop(Material.STONE_AXE, "§fEpee des §bGlaces", false, 1, "§fUn bout de glace solidié par la magie ambiante", "E");
+			break;
+		case 4: item = getWeaponDrop(Material.WOODEN_SWORD, "§fEpee de §7Voyageur", false, 1, "§fUn simple manche bois à laquel est accroché de la pierre taillé", "F");
+			break;
+		case 5: item = getWeaponDrop(Material.WOODEN_AXE, "§fEpee fracture en §cGranite", false, 1, "§fL'épée en granite mais en moins bien", "F");
+			break;
+		case 6: item = getWeaponDrop(Material.WOODEN_SWORD, "§fBaton de l §bEau pur", false, 1, "§fBâton crystallisé par le mana humide ambiant avec le temps", "C");
 			break;
 		}
 		
@@ -95,7 +103,14 @@ public class LootUtils {
 			return 1;
 		}else if(item.equals(getWeaponDrop(Material.WOODEN_SWORD, "§fBaton magique en §6bois simple", false, 1, "§fUn simple baton infusé de magie", "F"))) {
 			return 2;
-		}
+		}else if(item.equals(getWeaponDrop(Material.STONE_AXE, "§fEpee des §bGlaces", false, 1, "§fUn bout de glace solidié par la magie ambiante", "E"))) {
+			return 3;
+		}else if(item.equals(getWeaponDrop(Material.WOODEN_SWORD, "§fEpee de §7Voyageur", false, 1, "§fUn simple manche bois à laquel est accroché de la pierre taillé", "F"))) {
+			return 4;
+		}else if(item.equals(getWeaponDrop(Material.WOODEN_AXE, "§fEpee fracture en §cGranite", false, 1, "§fL'épée en granite mais en moins bien", "F"))) {
+			return 5;
+		}else if(item.equals(getWeaponDrop(Material.WOODEN_SWORD, "§fBaton de l §bEau pur", false, 1, "§fBâton crystallisé par le mana humide ambiant avec le temps", "C"))) {
+			return 6;}
 		return 0;
 	}
 	

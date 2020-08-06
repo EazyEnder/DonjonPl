@@ -55,7 +55,9 @@ public class PlayerEquipment {
 		    potions.put(p.getUniqueId(), new ArrayList<String>());
 		    
 		    ConfigurationSection s = EquipmentConfig.createSection(p.getUniqueId().toString());  
-		    s.set("weapons", new ArrayList<Integer>());
+		    List<Integer> weaponslist = new ArrayList<Integer>();
+		    weaponslist.add(4);
+		    s.set("weapons", weaponslist);
 		    s.set("potions", new ArrayList<Double>());
 			s.set("spells", new ArrayList<Integer>());
 			s.set("ressources", new ArrayList<String>());

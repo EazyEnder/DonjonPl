@@ -1,4 +1,4 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.water;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -10,11 +10,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ISpell;
+import fr.eazyender.donjon.spells.ManaEvents;
+import fr.eazyender.donjon.spells.wind.SpellWindSlash;
 
 public class SpellWaterWave extends ISpell{
 	
-	static int basicCooldown = 5 * 1000;
-	static int basicCost = 60;
+	public static int basicCooldown = 5 * 1000;
+	public static int basicCost = 60;
 	
 	public SpellWaterWave(int cooldown) {
 		super(basicCooldown);

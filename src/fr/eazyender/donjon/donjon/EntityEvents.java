@@ -3,16 +3,22 @@ package fr.eazyender.donjon.donjon;
 import java.util.HashMap;
 import java.util.Random;
 
+import org.bukkit.entity.Bat;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Slime;
 import org.bukkit.entity.Zombie;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.eazyender.donjon.DonjonMain;
 import fr.eazyender.donjon.spells.ISpell;
-import fr.eazyender.donjon.spells.SpellEarthChocWave;
-import fr.eazyender.donjon.spells.SpellPoisonousSacrifice;
-import fr.eazyender.donjon.spells.SpellShield;
+import fr.eazyender.donjon.spells.earth.SpellEarthChocWave;
+import fr.eazyender.donjon.spells.earth.SpellShield;
+import fr.eazyender.donjon.spells.poison.SpellPoisonousSacrifice;
+import fr.eazyender.donjon.spells.water.SpellIceJail;
+import fr.eazyender.donjon.spells.water.SpellIceSlowDown;
 
 public class EntityEvents {
 	
@@ -75,6 +81,45 @@ public class EntityEvents {
 						}
 					}
 					break;
+				case "ICE_SLIME":
+						if(!entity.getNearbyEntities(7, 7, 7).isEmpty()) {
+							boolean ok = false;
+							for (Entity entity : entity.getNearbyEntities(7, 7, 7)) {
+								if(entity instanceof Player) {
+									ok = true;
+								}
+							}
+							
+							if(ok) {
+							Slime slime = (Slime)entity;
+							if(slime.getTarget() != null) {
+									SpellIceSlowDown spell = new SpellIceSlowDown(1000*2); 
+									spell.launch(slime);
+									slime.remove();
+							}
+							}
+						}
+					break;
+				case "ICE_BAT":
+					if(!entity.getNearbyEntities(3, 3, 3).isEmpty()) {
+						boolean ok = false;
+						for (Entity entity : entity.getNearbyEntities(7, 7, 7)) {
+							if(entity instanceof Player) {
+								ok = true;
+							}
+						}
+						
+						if(ok) {
+						Bat bat = (Bat)entity;
+							if(RandomNumber(0,100) < 50) {
+								SpellIceJail spell = new SpellIceJail(1000*2); 
+								spell.launch(bat);
+								bat.remove();
+								
+							}
+						}
+					}
+				break;
 				}
 				
 			}

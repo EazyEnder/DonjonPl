@@ -1,4 +1,4 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.wind;
 
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -9,11 +9,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ISpell;
+import fr.eazyender.donjon.spells.ManaEvents;
 
 public class SpellWindSpear extends ISpell{
 	
-	static int basicCooldown = 10 * 1000;
-	static int basicCost = 65;
+	public static int basicCooldown = 10 * 1000;
+	public static int basicCost = 65;
 	
 	public SpellWindSpear(int cooldown) {
 		super(basicCooldown);

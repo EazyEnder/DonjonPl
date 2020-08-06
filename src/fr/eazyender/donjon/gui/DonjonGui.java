@@ -74,7 +74,7 @@ public class DonjonGui implements Listener {
 				
 				if(current.equals(donjon)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
-					openDonjonMenu(player,0);
+					openDonjonMenu(player,0,0);
 				}else if(current.equals(custom)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
 					//open(player,2);
@@ -88,55 +88,108 @@ public class DonjonGui implements Listener {
 				str_donjon_1.add("§7Donjons lancés : " + RoomUtils.getLaunchDonjonOnABiome(1));
 				str_donjon_1.add("§7Salles différentes : " + RoomUtils.getRoomsOfABiome(1).size());
 				ItemStack donjon_1 = getCustomItemWithLore(Material.STICK,"§2§lGrotte Verdoyante",false,1,str_donjon_1);
+				List<String> str_donjon_2 = new ArrayList<String>();
+				str_donjon_2.add("§7Découvrez§f des tunnels §7glaciales§f et dangereux !");
+				str_donjon_2.add("§7Donjons lancés : " + RoomUtils.getLaunchDonjonOnABiome(2));
+				str_donjon_2.add("§7Salles différentes : " + RoomUtils.getRoomsOfABiome(2).size());
+				ItemStack donjon_2 = getCustomItemWithLore(Material.STICK,"§b§lTunnel Enneige",false,1,str_donjon_2);
+				
 				if(current.equals(donjon_1)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
-					openDonjonMenu(player,1);
+					openDonjonMenu(player,1,1);
+				}else if(current.equals(donjon_2)) {
+					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
+					openDonjonMenu(player,2,1);
 				}
 			}
 			
-			else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[1]: §8" + player.getDisplayName())) {
+			else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[1][1]: §8" + player.getDisplayName())) {
 				
 				if(current.equals(left)) {
 				}else if(current.equals(right)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
-					openDonjonMenu(player,2);
+					openDonjonMenu(player,1,2);
 				}else if(current.getType() == Material.BARRIER) {player.teleport(new Location(player.getWorld(),-7.55, 127.00, -16.82, -90, 0));player.closeInventory();}
 				else if(current.equals(launch)) {
 					DonjonGenerator.launchDonjon(player, 1, 1);
 				}
-			}else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[2]: §8" + player.getDisplayName())) {
+			}else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[1][2]: §8" + player.getDisplayName())) {
 				
 				if(current.equals(left)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
-					openDonjonMenu(player,1);
+					openDonjonMenu(player,1,1);
 				}else if(current.equals(right)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
-					openDonjonMenu(player,3);
+					openDonjonMenu(player,1,3);
 				}else if(current.getType() == Material.BARRIER) {player.teleport(new Location(player.getWorld(),-7.55, 127.00, -16.82, -90, 0));player.closeInventory();}
 				else if(current.equals(launch)) {
 					DonjonGenerator.launchDonjon(player, 1, 2);
 				}
-			}else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[3]: §8" + player.getDisplayName())) {
+			}else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[1][3]: §8" + player.getDisplayName())) {
 				
 				if(current.equals(left)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
-					openDonjonMenu(player,2);
+					openDonjonMenu(player,1,2);
 				}else if(current.equals(right)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
-					openDonjonMenu(player,4);
+					openDonjonMenu(player,1,4);
 				}else if(current.getType() == Material.BARRIER) {player.teleport(new Location(player.getWorld(),-7.55, 127.00, -16.82, -90, 0));player.closeInventory();}
 				else if(current.equals(launch)) {
 					DonjonGenerator.launchDonjon(player, 1, 3);
 				}
-			}else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[4]: §8" + player.getDisplayName())) {
+			}else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[1][4]: §8" + player.getDisplayName())) {
 				
 				if(current.equals(left)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
-					openDonjonMenu(player,3);
+					openDonjonMenu(player,1,3);
 				}else if(current.equals(right)) {
 				}else if(current.getType() == Material.BARRIER) {player.teleport(new Location(player.getWorld(),-7.55, 127.00, -16.82, -90, 0));player.closeInventory();}
 				else if(current.equals(launch)) {
 					DonjonGenerator.launchDonjon(player, 1, 4);
+				}
+			}else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[2][1]: §8" + player.getDisplayName())) {
+				
+				if(current.equals(left)) {
+				}else if(current.equals(right)) {
+					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
+					openDonjonMenu(player,2,2);
+				}else if(current.getType() == Material.BARRIER) {player.teleport(new Location(player.getWorld(),-7.55, 127.00, -16.82, -90, 0));player.closeInventory();}
+				else if(current.equals(launch)) {
+					DonjonGenerator.launchDonjon(player, 2, 1);
+				}
+			}else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[2][2]: §8" + player.getDisplayName())) {
+				
+				if(current.equals(left)) {
+					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
+					openDonjonMenu(player,2,1);
+				}else if(current.equals(right)) {
+					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
+					openDonjonMenu(player,2,3);
+				}else if(current.getType() == Material.BARRIER) {player.teleport(new Location(player.getWorld(),-7.55, 127.00, -16.82, -90, 0));player.closeInventory();}
+				else if(current.equals(launch)) {
+					DonjonGenerator.launchDonjon(player, 2, 2);
+				}
+			}else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[2][3]: §8" + player.getDisplayName())) {
+				
+				if(current.equals(left)) {
+					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
+					openDonjonMenu(player,2,2);
+				}else if(current.equals(right)) {
+					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
+					openDonjonMenu(player,2,4);
+				}else if(current.getType() == Material.BARRIER) {player.teleport(new Location(player.getWorld(),-7.55, 127.00, -16.82, -90, 0));player.closeInventory();}
+				else if(current.equals(launch)) {
+					DonjonGenerator.launchDonjon(player, 2, 3);
+				}
+			}else if(event.getView().getTitle().equalsIgnoreCase("§f§lDonjon Selection[2][4]: §8" + player.getDisplayName())) {
+				
+				if(current.equals(left)) {
+					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
+					openDonjonMenu(player,2,3);
+				}else if(current.equals(right)) {
+				}else if(current.getType() == Material.BARRIER) {player.teleport(new Location(player.getWorld(),-7.55, 127.00, -16.82, -90, 0));player.closeInventory();}
+				else if(current.equals(launch)) {
+					DonjonGenerator.launchDonjon(player, 2, 4);
 				}
 			}
 			event.setCancelled(true);
@@ -145,7 +198,7 @@ public class DonjonGui implements Listener {
 		
 	}
 	
-	private static void openDonjonMenu(Player player, int difficulty) {
+	private static void openDonjonMenu(Player player,int biome, int difficulty) {
 		
 		if(difficulty == 0) {
 			
@@ -158,13 +211,20 @@ public class DonjonGui implements Listener {
 			ItemStack donjon_1 = getCustomItemWithLore(Material.STICK,"§2§lGrotte Verdoyante",false,1,str_donjon_1);
 			inv.setItem(0, donjon_1);
 			
+			List<String> str_donjon_2 = new ArrayList<String>();
+			str_donjon_2.add("§7Découvrez§f des tunnels §7glaciales§f et dangereux !");
+			str_donjon_2.add("§7Donjons lancés : " + RoomUtils.getLaunchDonjonOnABiome(2));
+			str_donjon_2.add("§7Salles différentes : " + RoomUtils.getRoomsOfABiome(2).size());
+			ItemStack donjon_2 = getCustomItemWithLore(Material.STICK,"§b§lTunnel Enneige",false,1,str_donjon_2);
+			inv.setItem(1, donjon_2);
+			
 
 			player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
 			player.openInventory(inv);
 			
 		}else {
 			
-			Inventory inv = Bukkit.createInventory(null, 9 , "§f§lDonjon Selection["+difficulty+"]: §8" + player.getDisplayName());
+			Inventory inv = Bukkit.createInventory(null, 9 , "§f§lDonjon Selection["+biome+"]["+difficulty+"]: §8" + player.getDisplayName());
 			
 			ItemStack donjon_difficulty = null;
 			List<String> str_donjon_difficulty = new ArrayList<String>();

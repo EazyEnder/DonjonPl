@@ -9,6 +9,24 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import fr.eazyender.donjon.spells.earth.SpellEarthChocWave;
+import fr.eazyender.donjon.spells.earth.SpellShield;
+import fr.eazyender.donjon.spells.fire.SpellEmbrasement;
+import fr.eazyender.donjon.spells.fire.SpellFireProjectiles;
+import fr.eazyender.donjon.spells.fire.SpellFirebolt;
+import fr.eazyender.donjon.spells.fire.SpellSpatialFire;
+import fr.eazyender.donjon.spells.physic.SpellDash;
+import fr.eazyender.donjon.spells.physic.SpellOneTarget;
+import fr.eazyender.donjon.spells.physic.SpellSpeedBoost;
+import fr.eazyender.donjon.spells.poison.SpellPoisonousSacrifice;
+import fr.eazyender.donjon.spells.water.SpellHealProjectile;
+import fr.eazyender.donjon.spells.water.SpellIceJail;
+import fr.eazyender.donjon.spells.water.SpellIceSlowDown;
+import fr.eazyender.donjon.spells.water.SpellIceSlowDownAOE;
+import fr.eazyender.donjon.spells.water.SpellWaterWave;
+import fr.eazyender.donjon.spells.wind.SpellWindSlash;
+import fr.eazyender.donjon.spells.wind.SpellWindSpear;
+
 public class SpellUtils {
 	
 	/** SPELL ENTITY FRIENDLY : 
@@ -16,8 +34,9 @@ public class SpellUtils {
 	 * - EARTH CHOC WAVE
 	 * - SHIELD
 	 * - ICE SLOWDOWN
-	 * - ICE JAIL*/
-	public static int spellNumber = 15;
+	 * - ICE JAIL
+	 * - SPEEDBOOST*/
+public static int spellNumber = 17;
 	
 	public static int getIdSpellByItem(ItemStack item) {
 		
@@ -141,6 +160,21 @@ public class SpellUtils {
 		str14.add("§6§lTemps de recharge§r§7 : " +( SpellOneTarget.basicCooldown/1000));
 		ItemStack item15 = getCustomItemWithLore(Material.FEATHER, "§6§lUNE SEUL CIBLE", false, 1, str14);
 		all.add(item15);
+		List<String> str15 = new ArrayList<String>();
+		str15.add("§fAugmente votre vitesse pendant 1.5 secondes");
+		str15.add("§6§lType§r§7 : " + "§6§lPhysique" + " / " + "§7MANA");
+		str15.add("§6§lCoût§r§7 : " + SpellSpeedBoost.basicCost);
+		str15.add("§6§lTemps de recharge§r§7 : " +( SpellSpeedBoost.basicCooldown/1000));
+		ItemStack item16 = getCustomItemWithLore(Material.FEATHER, "§6§lACCELERATION", false, 1, str15);
+		all.add(item16);
+		List<String> str16 = new ArrayList<String>();
+		str16.add("§fCréer une zone autour de vue");
+		str16.add("§fralentissant les ennemis qui s'y trouve");
+		str16.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
+		str16.add("§3§lCoût§r§7 : " + SpellIceSlowDownAOE.basicCost);
+		str16.add("§3§lTemps de recharge§r§7 : " +( SpellIceSlowDownAOE.basicCooldown/1000));
+		ItemStack item17 = getCustomItemWithLore(Material.FEATHER, "§3§l(ZONE)LENTEUR DE GLACE", false, 1, str16);
+		all.add(item17);
 		
 		for (int i = 0; i < all.size(); i++) {
 			if(item.equals(all.get(i))) {
@@ -287,6 +321,23 @@ public class SpellUtils {
 			str14.add("§6§lCoût§r§7 : " + SpellOneTarget.basicCost);
 			str14.add("§6§lTemps de recharge§r§7 : " +( SpellOneTarget.basicCooldown/1000));
 			item = getCustomItemWithLore(Material.FEATHER, "§6§lUNE SEUL CIBLE", false, 1, str14);
+			break;
+		case 16:
+			List<String> str15 = new ArrayList<String>();
+			str15.add("§fAugmente votre vitesse pendant 1.5 secondes");
+			str15.add("§6§lType§r§7 : " + "§6§lPhysique" + " / " + "§7MANA");
+			str15.add("§6§lCoût§r§7 : " + SpellSpeedBoost.basicCost);
+			str15.add("§6§lTemps de recharge§r§7 : " +( SpellSpeedBoost.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§6§lACCELERATION", false, 1, str15);
+			break;
+		case 17:
+			List<String> str16 = new ArrayList<String>();
+			str16.add("§fCréer une zone autour de vue");
+			str16.add("§fralentissant les ennemis qui s'y trouve");
+			str16.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
+			str16.add("§3§lCoût§r§7 : " + SpellIceSlowDownAOE.basicCost);
+			str16.add("§3§lTemps de recharge§r§7 : " +( SpellIceSlowDownAOE.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§3§l(ZONE)LENTEUR DE GLACE", false, 1, str16);
 			break;
 		}
 		

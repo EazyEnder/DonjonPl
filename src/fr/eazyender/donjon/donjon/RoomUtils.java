@@ -8,10 +8,15 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.Bat;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Golem;
 import org.bukkit.entity.Phantom;
+import org.bukkit.entity.Pillager;
+import org.bukkit.entity.PolarBear;
 import org.bukkit.entity.Skeleton;
+import org.bukkit.entity.Skeleton.SkeletonType;
+import org.bukkit.entity.Slime;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -90,7 +95,9 @@ public class RoomUtils {
 	}
 	
 	public static void genCustomMobs(String name, Location loc, World world) {
+		
 		if(name.contains("SQUELETON")) {
+			
 		Skeleton skeleton = (Skeleton) world.spawnEntity(loc, EntityType.SKELETON);
 		switch(name) {
 		case "BUSH_SQUELETON": skeleton.setCustomName("BUSH_SQUELETON");
@@ -105,23 +112,20 @@ public class RoomUtils {
 		case "GRANITE_KING_SQUELETON": skeleton.setCustomName("GRANITE_KING_SQUELETON");
 		ItemStack sword1 = LootUtils.getWeaponById(1);
 		skeleton.getEquipment().setItemInMainHand(sword1);
-		ItemStack helmet = new ItemStack(Material.IRON_HELMET);
-		helmet.getItemMeta().setDisplayName("§7§lCasque en §c§lGranite");
-		skeleton.getEquipment().setHelmet(helmet);
-		ItemStack chestplate = new ItemStack(Material.IRON_CHESTPLATE);
-		chestplate.getItemMeta().setDisplayName("§7§lPlastron en §c§lGranite");
-		skeleton.getEquipment().setChestplate(chestplate);
-		ItemStack leggings = new ItemStack(Material.IRON_LEGGINGS);
-		leggings.getItemMeta().setDisplayName("§7§lJambiere en §c§lGranite");
-		skeleton.getEquipment().setLeggings(leggings);
-		ItemStack boots = new ItemStack(Material.IRON_BOOTS);
-		boots.getItemMeta().setDisplayName("§7§lBottes en §c§lGranite");
-		skeleton.getEquipment().setBoots(boots);
+		skeleton.getEquipment().setHelmet(LootUtils.getArmorById(1, 1, "IRON"));
+		skeleton.getEquipment().setChestplate(LootUtils.getArmorById(1, 2, "IRON"));
+		skeleton.getEquipment().setLeggings(LootUtils.getArmorById(1, 3, "IRON"));
+		skeleton.getEquipment().setBoots(LootUtils.getArmorById(1, 4, "IRON"));
 			break;	
+		case "ICE_SKELETON": skeleton.setCustomName("ICE_SKELETON");;
+		skeleton.setSkeletonType(SkeletonType.STRAY);
+			break;
 		}
 		skeleton.setCustomNameVisible(false);
 		EntityEvents.launchEntityLoop(skeleton);
+		
 		}else if(name.contains("ZOMBIE")) {
+			
 			Zombie zombie = (Zombie) world.spawnEntity(loc, EntityType.ZOMBIE);
 			switch(name) {
 			case "BUSH_ZOMBIE": zombie.setCustomName("BUSH_ZOMBIE");
@@ -129,7 +133,9 @@ public class RoomUtils {
 			}
 			zombie.setCustomNameVisible(false);
 			EntityEvents.launchEntityLoop(zombie);
+			
 		}else if(name.contains("GOLEM")) {
+			
 			Golem golem = (Golem) world.spawnEntity(loc, EntityType.IRON_GOLEM);
 				switch(name) {
 				case "BUSH_GOLEM": golem.setCustomName("BUSH_GOLEM");
@@ -138,7 +144,9 @@ public class RoomUtils {
 				}
 			golem.setCustomNameVisible(false);
 			EntityEvents.launchEntityLoop(golem);
+			
 		}else if(name.contains("PHANTOM")) {
+			
 			Phantom phantom = (Phantom) world.spawnEntity(loc, EntityType.PHANTOM);
 			switch(name) {
 			case "BUSH_PHANTOM": phantom.setCustomName("BUSH_PHANTOM");
@@ -146,6 +154,35 @@ public class RoomUtils {
 			}
 			phantom.setCustomNameVisible(false);
 			EntityEvents.launchEntityLoop(phantom);
+		}else if(name.contains("SLIME")) {
+			
+			Slime slime = (Slime) world.spawnEntity(loc,  EntityType.SLIME);
+			slime.setSize(1);
+			switch(name) {
+			case "ICE_SLIME": slime.setCustomName("ICE_SLIME");
+				break;
+			}
+			
+		}else if(name.contains("BAT")) {
+			Bat bat = (Bat) world.spawnEntity(loc, EntityType.BAT);
+			switch(name) {
+			case "ICE_BAT": bat.setCustomName("ICE_BAT");
+				break;
+			}
+		}else if(name.contains("PILLAGER")) {
+			Pillager pillager = (Pillager)world.spawnEntity(loc,  EntityType.PILLAGER);
+			switch(name) {
+			case "ICE_PILLAGER": pillager.setCustomName("ICE_PILLAGER");
+				break;
+			}
+		}else if(name.contains("BEAR")) {
+			PolarBear bear = (PolarBear)world.spawnEntity(loc,  EntityType.POLAR_BEAR);
+			switch(name) {
+			case "SNOW_BEAR": bear.setCustomName("SNOW_BEAR");
+				break;
+			case "ICE_BEAR": bear.setCustomName("ICE_BEAR");
+				break;
+			}
 		}
 		
 	}

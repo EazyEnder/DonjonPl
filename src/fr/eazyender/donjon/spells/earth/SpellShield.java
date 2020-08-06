@@ -1,4 +1,4 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.earth;
 
 import org.bukkit.Color;
 import org.bukkit.Particle;
@@ -10,13 +10,15 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ISpell;
+import fr.eazyender.donjon.spells.ManaEvents;
 
 public class SpellShield extends ISpell{
 	
-	static int basicCooldown = 10 * 1000;
+	public static int basicCooldown = 10 * 1000;
 	int timer = 0, maxTimer = 4*5;
 	double walkspeed = 0;
-	static int basicCost = 75;
+	public static int basicCost = 75;
 	
 	public SpellShield(int cooldown) {
 		super(basicCooldown);

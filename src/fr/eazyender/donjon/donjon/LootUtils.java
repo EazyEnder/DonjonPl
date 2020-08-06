@@ -61,6 +61,35 @@ public class LootUtils {
 		return item;
 	}
 	
+	public static ItemStack getArmorById(int id, int part, String material) {
+		ItemStack item = null;
+		String name = "";
+		
+		if(material.equals("IRON"));
+		switch(part) {
+		case 1: name = "Casque"; item = new ItemStack(Material.IRON_HELMET);
+			break;
+		case 2: name = "Plastron"; item = new ItemStack(Material.IRON_CHESTPLATE);
+			break;
+		case 3: name = "Jambiere"; item = new ItemStack(Material.IRON_LEGGINGS);
+			break;
+		case 4: name = "Bottes"; item = new ItemStack(Material.IRON_BOOTS);
+			break;
+		}
+		
+		switch(id) {
+		case 1:
+			ItemMeta im = item.getItemMeta();
+			im.setDisplayName("§7§l" + name + " en §2§lGranite");
+			item.setItemMeta(im);
+			break;
+		case 2:
+			break;
+		}
+		
+		return item;
+	}
+	
 	public static int getIDWeaponByItem(ItemStack item) {
 		if(item.equals(getWeaponDrop(Material.STONE_SWORD, "§fEpee en §cGranite", false, 1, "§fArme faite à partir d'un certain type de roche", "E"))) {
 			return 1;

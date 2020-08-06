@@ -1,4 +1,4 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.fire;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +14,8 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ISpell;
+import fr.eazyender.donjon.spells.ManaEvents;
 
 public class SpellFireProjectiles extends ISpell{
 	
@@ -21,9 +23,9 @@ public class SpellFireProjectiles extends ISpell{
 	List<BukkitRunnable> brun2 = new ArrayList<BukkitRunnable>();
 	List<BukkitRunnable> brun3 = new ArrayList<BukkitRunnable>();
 	List<BukkitRunnable> brun4 = new ArrayList<BukkitRunnable>();
-	static int basicCooldown = 2 * 1000;
+	public static int basicCooldown = 2 * 1000;
 	int timer = 0, maxTimer = 4*2;
-	static int basicCost = 75;
+	public static int basicCost = 75;
 	
 	public SpellFireProjectiles(int cooldown) {
 		super(basicCooldown);

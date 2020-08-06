@@ -1,14 +1,17 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.physic;
 
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.util.Vector;
 
+import fr.eazyender.donjon.spells.ISpell;
+import fr.eazyender.donjon.spells.ManaEvents;
+
 public class SpellDash extends ISpell{
 	
-	static int basicCooldown = 2 * 1000;
-	static int basicCost = 50;
+	public static int basicCooldown = 2 * 1000;
+	public static int basicCost = 50;
 	
 	public SpellDash(int cooldown) {
 		super(basicCooldown);

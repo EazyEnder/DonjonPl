@@ -1,4 +1,4 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.fire;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -9,11 +9,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ISpell;
+import fr.eazyender.donjon.spells.ManaEvents;
 
 public class SpellSpatialFire extends ISpell{
 	
-	static int basicCooldown = 2 * 1000;
-	static int basicCost = 100;
+	public static int basicCooldown = 30 * 1000;
+	public static int basicCost = 100;
 	int timer = 0, maxTimer = 4*5;
 	int timer2 = 0, maxTimer2 = 4*5;
 	

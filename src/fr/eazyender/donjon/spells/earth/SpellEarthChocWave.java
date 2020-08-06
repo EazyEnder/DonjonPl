@@ -1,4 +1,4 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.earth;
 
 import org.bukkit.Color;
 import org.bukkit.Location;
@@ -13,11 +13,13 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ISpell;
+import fr.eazyender.donjon.spells.ManaEvents;
 
 public class SpellEarthChocWave extends ISpell{
 	
-	static int basicCooldown = 5 * 1000;
-	static int basicCost = 65;
+	public static int basicCooldown = 5 * 1000;
+	public static int basicCost = 65;
 	private double walkspeed = 0;
 	
 	public SpellEarthChocWave(int cooldown) {
@@ -54,15 +56,24 @@ public class SpellEarthChocWave extends ISpell{
 			Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(115, 78, 72), 3.0F);
 			entity.getWorld().spawnParticle(Particle.LAVA, entity.getLocation().getX(),  entity.getLocation().getY(),  entity.getLocation().getZ(), 10, 0.5, 0, 0.5);
 		    
+			if(entity instanceof Player) {
+			walkspeed = ((Player)entity).getWalkSpeed();
+			((Player)entity).setWalkSpeed(0);
+			}else {
 		    walkspeed = entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue();
 		    entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0);
+			}
 		    
 		    new BukkitRunnable() {
 	    		
 				@Override
 				public void run() {
 				
+					if(entity instanceof Player) {
+					((Player)entity).setWalkSpeed((float) walkspeed);
+						}else {
 					entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(walkspeed);
+						}
 					
 				}
 		    	

@@ -1,4 +1,4 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.physic;
 
 import java.util.List;
 
@@ -7,10 +7,13 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 
+import fr.eazyender.donjon.spells.ISpell;
+import fr.eazyender.donjon.spells.ManaEvents;
+
 public class SpellOneTarget extends ISpell{
 	
-	static int basicCooldown = 15 * 1000;
-	static int basicCost = 50;
+	public static int basicCooldown = 15 * 1000;
+	public static int basicCost = 50;
 	
 	public SpellOneTarget(int cooldown) {
 		super(basicCooldown);

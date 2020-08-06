@@ -1,4 +1,4 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.water;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -15,12 +16,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ISpell;
+import fr.eazyender.donjon.spells.ManaEvents;
 
 public class SpellIceSlowDown extends ISpell{
 	
 	List<BukkitRunnable> brun = new ArrayList<BukkitRunnable>();
-	static int basicCooldown = 10 * 1000;
-	static int basicCost = 50;
+	public static int basicCooldown = 10 * 1000;
+	public static int basicCost = 50;
 	
 	public SpellIceSlowDown(int cooldown) {
 		super(basicCooldown);
@@ -43,8 +46,13 @@ public class SpellIceSlowDown extends ISpell{
 	   }else {
 		   if (super.launch(sender, SpellIceSlowDown.class)) {
            	
-			       sender.getWorld().playSound(sender.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 1);
-		    	   launchSpell(sender,sender.getEyeLocation(), sender.getTargetBlock(null, 40).getLocation());
+			   if(sender instanceof Monster) {
+				   sender.getWorld().playSound(sender.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 1);
+			       launchSpell(sender,sender.getEyeLocation(), ((Monster)sender).getTarget().getLocation());
+				   }else {
+				   sender.getWorld().playSound(sender.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 1);
+				   launchSpell(sender,sender.getEyeLocation(), sender.getNearbyEntities(7, 7, 7).get(0).getLocation().add(0, 1, 0));   
+				   }
 		    	   
 		       } else {
 		    	   

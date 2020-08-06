@@ -4,7 +4,9 @@ package fr.eazyender.donjon;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import fr.eazyender.donjon.utils.IEvent;
 import fr.eazyender.donjon.utils.IMessage;
 import fr.eazyender.donjon.utils.PlayerGroup;
 import org.bukkit.Bukkit;
@@ -21,6 +23,7 @@ import fr.eazyender.donjon.commands.CommandGivePotion;
 import fr.eazyender.donjon.commands.CommandGiveSpell;
 import fr.eazyender.donjon.commands.CommandGiveWeapon;
 import fr.eazyender.donjon.commands.CommandGroup;
+import fr.eazyender.donjon.commands.CommandHologrammes;
 import fr.eazyender.donjon.commands.CommandMoney;
 import fr.eazyender.donjon.commands.CommandNPC;
 import fr.eazyender.donjon.donjon.DonjonEvents;
@@ -47,6 +50,7 @@ import fr.eazyender.donjon.gui.WeaponGui;
 import fr.eazyender.donjon.potion.ItemPotionEvent;
 import fr.eazyender.donjon.spells.ItemSpellEvent;
 import fr.eazyender.donjon.spells.ManaEvents;
+import fr.eazyender.donjon.spells.SpellUtils;
 import fr.eazyender.donjon.utils.NPCManager;
 import net.minecraft.server.v1_14_R1.ChatComponentText;
 import net.minecraft.server.v1_14_R1.PacketPlayOutPlayerListHeaderFooter;
@@ -55,6 +59,7 @@ public class DonjonMain extends JavaPlugin{
 	
 	public static DonjonMain instance;
 
+	public static List<IEvent> events = new ArrayList<IEvent>();
 	private List<IMessage> messages = new ArrayList<IMessage>();
 	 private boolean tc = false;
 	 
@@ -76,6 +81,7 @@ public class DonjonMain extends JavaPlugin{
 		getCommand("gpotion").setExecutor(new CommandGivePotion());
 		getCommand("gweapon").setExecutor(new CommandGiveWeapon());
 		getCommand("npc").setExecutor(new CommandNPC());
+		getCommand("holo").setExecutor(new CommandHologrammes());
 		
 		initMessages();
 		
@@ -108,9 +114,12 @@ public class DonjonMain extends JavaPlugin{
 		pm.registerEvents(new PlayerQuit(), this);
 		pm.registerEvents(new PlayerInteract(), this);
 		
-		Bukkit.createWorld(new WorldCreator("donjon_1"));
+		new WorldCreator("donjon_2").createWorld();
+		new WorldCreator("donjon_1").createWorld();
+		
 		for(Player p : Bukkit.getOnlinePlayers()) LevelUtils.updateName(p);
 		loopTabList();
+		launchEventLoop();
 		
 		new BukkitRunnable() {
 			
@@ -142,7 +151,6 @@ public class DonjonMain extends JavaPlugin{
 		
 	}
 
-
 	@Override
 	public void onDisable() 
 	{
@@ -154,10 +162,57 @@ public class DonjonMain extends JavaPlugin{
 	private void initMessages(){
 
 		String prefix = "§f[§4Serveur§f] : ";
-		messages.add(new IMessage(prefix + "Si vous rencontrez des §cbugs§r lors de l'alpha, merci de les §csignaler§r sur le discord.",60*30));
-		messages.add(new IMessage(prefix + "Envie d'un §cboost xp§r, d'être bien §caccompagné§r, d'être §céclatant§r en ville? Allez voir le §c/boutique§r (permet de supporter le serveur)", 60*30, 60*10));
-		messages.add(new IMessage(prefix + "Vous avez besoin d'aide ? Venez sur le discord : §chttps://discord.gg/kU4djME", 60*30, 60*20));
+		messages.add(new IMessage(prefix + "Si vous rencontrez des §cbugs§r lors de l'alpha, merci de les §csignaler§r sur le discord.",60*40));
+		messages.add(new IMessage(prefix + "Envie d'un §cboost xp§r, d'être bien §caccompagné§r, d'être §céclatant§r en ville? Allez voir le §c/boutique§r (permet de supporter le serveur)", 60*40, 60*10));
+		messages.add(new IMessage(prefix + "Vous avez besoin d'aide ? Venez sur le discord : §chttps://discord.gg/kU4djME", 60*40, 60*20));
+		messages.add(new IMessage(prefix + "Vous ne voyez que des batons, des plumes ? Téléchargez Optifine !(Le serveur nécessite optifine)", 60*40, 60*30));
 
+	}
+	
+	private void launchEventLoop() {
+		
+		events.add(new IEvent("Boost XP Arena","L'xp que vous gagnez en arène est boosté x1.5(Durée : 15 minutes)!",20*60*15));
+		events.add(new IEvent("SpeedRun Donjon","Complétez un donjon commun avec les autres joueurs le plus rapidement possible !(Durée : 20 minutes)",20*60*20));
+		
+		new BukkitRunnable() {
+			
+			@Override
+			public void run() {
+				
+				boolean oneIsActived = false;
+				for (int i = 0; i < events.size(); i++) {
+					if(events.get(i).isEnable()) {oneIsActived = true;}
+					
+				}
+				if(!oneIsActived) {
+					launchEvent();
+				}
+				
+			}
+		}.runTaskTimer(this, 0, 20*60*60*2);
+		
+	}
+	
+	private void launchEvent() {
+		int chance = RandomNumber(1,events.size());
+		if(chance-1 < events.size() && chance-1 >= 0) {
+			IEvent event = events.get(chance);
+			Bukkit.broadcastMessage("§7[§bEvenement§7] §b" + event.getName() + "§r§f : " + event.getDescription());
+			event.setEnable(true);
+			
+			new BukkitRunnable() {
+
+				@Override
+				public void run() {
+					
+					//END
+					event.setEnable(false);
+					Bukkit.broadcastMessage("§7[§bEvenement§7] §b" + event.getName() + "§r§f est fini !");
+					
+				}
+				
+			}.runTaskLater(this, event.getDuration());
+		}
 	}
 	
 	private void loopTabList()
@@ -210,4 +265,15 @@ public class DonjonMain extends JavaPlugin{
 		}.runTaskTimer(this, 0, 20);
 		
 	}
+	
+	private static int RandomNumber(int Min , int Max)
+    {
+		if(Min == Max) {return Max;}
+		Min = Min-1;
+    	Random rand = new Random();
+    	int randomNbr = rand.nextInt(Max - Min) + Min;
+    	
+    	if(randomNbr > Max){randomNbr = Max;}
+    	if(randomNbr <= Min){randomNbr = Max;}
+    return randomNbr;}
 }

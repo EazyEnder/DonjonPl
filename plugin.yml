@@ -29,3 +29,6 @@ commands:
   npc:
     description: Spawn a custom NPC
     permission: admin.use
+  holo:
+    description: Spawn a holo
+    permission: admin.use

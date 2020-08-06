@@ -1,4 +1,4 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.poison;
 
 import org.bukkit.Color;
 import org.bukkit.Particle;
@@ -11,13 +11,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ISpell;
 
 public class SpellPoisonousSacrifice extends ISpell{
 	
-	static int basicCooldown = 10 * 1000;
+	public static int basicCooldown = 10 * 1000;
 	int timer = 0, maxTimer = 10*2;
 	double walkspeed = 0;
-	static int basicCost = 10;
+	public static int basicCost = 10;
 	
 	public SpellPoisonousSacrifice(int cooldown) {
 		super(basicCooldown);

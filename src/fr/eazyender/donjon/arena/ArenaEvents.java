@@ -156,6 +156,9 @@ public class ArenaEvents implements Listener {
 		if(!disconnect) {
 			
 			long newScore =  kills.get(player) * 10;
+			if(DonjonMain.events.get(0).isEnable()) {
+				newScore = (long) (newScore * 1.5);
+			}
 			score.replace(player, newScore);
 			
 			if(score.get(player) > 0)

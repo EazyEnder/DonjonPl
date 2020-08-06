@@ -1,9 +1,5 @@
-package fr.eazyender.donjon.spells;
+package fr.eazyender.donjon.spells.wind;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -13,24 +9,24 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ISpell;
+import fr.eazyender.donjon.spells.ManaEvents;
 
-public class SpellHealProjectile extends ISpell{
+public class SpellWindSlash extends ISpell{
 	
-	List<BukkitRunnable> brun = new ArrayList<BukkitRunnable>();
-	static int basicCooldown = 10 * 1000;
-	static int basicCost = 50;
-	boolean entitylock = false;
+	public static int basicCooldown = 2 * 1000;
+	public static int basicCost = 30;
 	
-	public SpellHealProjectile(int cooldown) {
+	public SpellWindSlash(int cooldown) {
 		super(basicCooldown);
 	}
 
    public void launch(Player player) {
 	   if(ManaEvents.canUseSpell(player, basicCost)) {
-       if (super.launch(player, SpellHealProjectile.class)) {
+       if (super.launch(player, SpellWindSlash.class)) {
                 	
-    	  player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 1);
-    	   launchSpell(player,player.getEyeLocation(), player.getTargetBlock(null, 40).getLocation());
+    	  player.getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_ATTACK_STRONG, 10, 1);
+    	   launchSpell(player,player.getEyeLocation(), player.getTargetBlock(null, 20).getLocation());
     	   ManaEvents.useSpell(player, basicCost);
     	   
        } else {
@@ -44,10 +40,11 @@ public class SpellHealProjectile extends ISpell{
 	    Vector v = target.toVector();
 	    Vector v2 = target2.toVector();
 	    Vector vector = v2.clone().subtract(v).normalize().multiply(0.25D);
+	    vector.setY(0);
 	    double length = 0.0D;
 	    for (int i = 0; length < distance;) {
 	    	int z = i;
-	    	brun.add(new BukkitRunnable() {
+	    	new BukkitRunnable() {
 				@Override
 				public void run() {
 					final int w = z;
@@ -59,50 +56,41 @@ public class SpellHealProjectile extends ISpell{
 					Location l = new Location(target.getWorld(),v1.getX(), v1.getBlockY(), v1.getBlockZ());
 					for (int j = 0; j < target.getWorld().getEntities().size(); j++) {
 						if(!(target.getWorld().getEntities().get(j).equals(player))  && target.getWorld().getEntities().get(j) instanceof LivingEntity) {
-							if(l.distance(target.getWorld().getEntities().get(j).getLocation()) < 2) {
+							if(l.distance(target.getWorld().getEntities().get(j).getLocation()) < 2.5) {
 								collide = true;
 							}
 						}
 					}
+					target.getWorld().playSound(v1.toLocation(target.getWorld()), Sound.ENTITY_PLAYER_ATTACK_WEAK, 1, 1);
 					if(!collide) {
-					  Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(132,165,255), 1.0F);
+						for (int k = 0; k < 360; k=k+40) {
+							target.getWorld().spawnParticle(Particle.SWEEP_ATTACK, v1.getX() + Math.cos(k) * 2, v1.getY(), v1.getZ() + Math.sin(k) * 2 , 0, 0D, 0D, 0D);
+						}
 					  
-					  target.getWorld().spawnParticle(Particle.REDSTONE, v1.getX(), v1.getY(), v1.getZ() , 0, 0D, 0D, 0D, dustOptions);
-				
 					}else {
-						  Particle.DustOptions dustOptions = new Particle.DustOptions(Color.RED, 0.8F);
+						
+						  target.getWorld().spawnParticle(Particle.EXPLOSION_LARGE, v1.getX(), v1.getY(), v1.getZ() , 0, 0D, 0D, 0D);
+						  
 						  for (int j = 0; j < target.getWorld().getEntities().size(); j++) {
 								if(!(target.getWorld().getEntities().get(j).equals(player)) && target.getWorld().getEntities().get(j) instanceof LivingEntity) {
-									if(!entitylock)
-									if(l.distance(target.getWorld().getEntities().get(j).getLocation()) < 2) {
+									if(l.distance(target.getWorld().getEntities().get(j).getLocation()) < 2.5) {
 										LivingEntity entity = (LivingEntity)target.getWorld().getEntities().get(j);
-										  player.getWorld().playSound(entity.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 3, 1);
-										  player.getWorld().spawnParticle(Particle.REDSTONE, entity.getLocation().getX() , entity.getLocation().getY() + 1, entity.getLocation().getZ(), 10, 0.5, 2, 0.5, dustOptions);
-										  entity.setHealth(entity.getHealth()+5);
-										  entitylock = true;
-												  }
+										entity.damage(5, player);
 									}
-							}
-						  
-						  
-						  for (int j = 0; j < brun.size(); j++) {
-								brun.get(j).cancel();
+								}
 							}
 						  
 						
 					}
 					  			
 				}
-			});   	
+			}.runTaskLater(DonjonMain.instance, (int)(Math.log(i)*10));   	
 	        
 	    	i++;
 	        length += 0.25D;
 	    }
-	    for (int j = 0; j < brun.size(); j++) {
-			brun.get(j).runTaskLater(DonjonMain.instance, (int)(Math.log(j)*10));
-		}
 	    
 	  }
-   
 
 }
+

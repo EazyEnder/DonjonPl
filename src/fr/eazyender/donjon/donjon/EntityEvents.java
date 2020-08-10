@@ -72,6 +72,19 @@ public class EntityEvents {
 						}
 					}
 					break;
+				case "ICE_ZOMBIE": 
+					if(!entity.getNearbyEntities(5, 5, 5).isEmpty()) {
+						Zombie zombie = (Zombie)entity;
+						if(zombie.getTarget() != null) {
+							if(!ISpell.cooldowns.containsKey(entity)) ISpell.cooldowns.put(entity, new HashMap<Class<? extends ISpell>, Long>());
+							if(RandomNumber(0,100) < 25) {
+								SpellSpeedBoost spell = new SpellSpeedBoost(1000*2); 
+								if(!ISpell.cooldowns.get(entity).containsKey(SpellSpeedBoost.class))
+								spell.launch(zombie);
+							}
+						}
+					}
+				break;
 				case "BUSH_SQUELETON": 
 					if(entity.getHealth() < 10) {
 						if(!entity.getNearbyEntities(5, 5, 5).isEmpty()) {

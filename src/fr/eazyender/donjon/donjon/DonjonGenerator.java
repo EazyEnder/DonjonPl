@@ -62,7 +62,7 @@ public class DonjonGenerator {
 		
 		IDonjon donjon = DonjonGenerator.genDonjon(host, biome, size, (short)difficulty);
 		Location donjon_loc = donjon.getDonjon().get(0).getDoors().get(0);
-		donjon_loc.setWorld(createNewDonjon(Bukkit.getWorld("donjon_"+biome), host));
+		donjon_loc.setWorld(createNewDonjon(DonjonMain.donjons.get(biome-1), host));
 		
 		
 		new BukkitRunnable() {

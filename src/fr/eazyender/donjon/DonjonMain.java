@@ -10,6 +10,7 @@ import fr.eazyender.donjon.utils.IEvent;
 import fr.eazyender.donjon.utils.IMessage;
 import fr.eazyender.donjon.utils.PlayerGroup;
 import org.bukkit.Bukkit;
+import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
 import org.bukkit.entity.Player;
@@ -50,7 +51,6 @@ import fr.eazyender.donjon.gui.WeaponGui;
 import fr.eazyender.donjon.potion.ItemPotionEvent;
 import fr.eazyender.donjon.spells.ItemSpellEvent;
 import fr.eazyender.donjon.spells.ManaEvents;
-import fr.eazyender.donjon.spells.SpellUtils;
 import fr.eazyender.donjon.utils.NPCManager;
 import net.minecraft.server.v1_14_R1.ChatComponentText;
 import net.minecraft.server.v1_14_R1.PacketPlayOutPlayerListHeaderFooter;
@@ -62,6 +62,8 @@ public class DonjonMain extends JavaPlugin{
 	public static List<IEvent> events = new ArrayList<IEvent>();
 	private List<IMessage> messages = new ArrayList<IMessage>();
 	 private boolean tc = false;
+	 
+	 public static List<World> donjons = new ArrayList<World>();
 	 
 	 public NPCManager npcManager;
 	
@@ -114,8 +116,9 @@ public class DonjonMain extends JavaPlugin{
 		pm.registerEvents(new PlayerQuit(), this);
 		pm.registerEvents(new PlayerInteract(), this);
 		
-		new WorldCreator("donjon_2").createWorld();
-		new WorldCreator("donjon_1").createWorld();
+		donjons.add(new WorldCreator("donjon_1").createWorld());
+		donjons.add(new WorldCreator("donjon_2").createWorld());
+		donjons.add(new WorldCreator("donjon_3").createWorld());
 		
 		for(Player p : Bukkit.getOnlinePlayers()) LevelUtils.updateName(p);
 		loopTabList();
@@ -189,14 +192,15 @@ public class DonjonMain extends JavaPlugin{
 				}
 				
 			}
-		}.runTaskTimer(this, 0, 20*60*60*2);
+		}.runTaskTimer(this, 20*60*60*2, 20*60*60*2);
 		
 	}
 	
 	private void launchEvent() {
 		int chance = RandomNumber(1,events.size());
 		if(chance-1 < events.size() && chance-1 >= 0) {
-			IEvent event = events.get(chance);
+			IEvent event = events.get(chance-1);
+			if(event != null) {
 			Bukkit.broadcastMessage("§7[§bEvenement§7] §b" + event.getName() + "§r§f : " + event.getDescription());
 			event.setEnable(true);
 			
@@ -211,7 +215,7 @@ public class DonjonMain extends JavaPlugin{
 					
 				}
 				
-			}.runTaskLater(this, event.getDuration());
+			}.runTaskLater(this, event.getDuration());}
 		}
 	}
 	

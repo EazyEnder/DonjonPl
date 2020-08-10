@@ -9,11 +9,13 @@ public class RoomsInit {
 	
 	public static List<IRoom> rooms_1 = new ArrayList<IRoom>();
 	public static List<IRoom> rooms_2 = new ArrayList<IRoom>();
+	public static List<IRoom> rooms_3 = new ArrayList<IRoom>();
 	
 	public static void initRooms()
 	{
 		initRoomsLVL1();
 		initRoomsLVL2();
+		initRoomsLVL3();
 	}
 	
 	public static void initRoomsLVL1() {
@@ -372,7 +374,7 @@ public class RoomsInit {
 		M1_entity_type.add("ICE_PILLAGER");
 		M1_entity_type.add("ICE_PILLAGER");
 		M1_entity_type.add("ICE_PILLAGER");
-		M1_entity_type.add("ICE_SKELETON");
+		M1_entity_type.add("ICE_SQUELETON");
 		M1_entity_type.add("ICE_SLIME");
 		M1_entity_type.add("ICE_SLIME");
 		M1_entity_type.add("ICE_SLIME");
@@ -414,7 +416,7 @@ public class RoomsInit {
 		M_3_entity_type.add("ICE_PILLAGER");
 		M_3_entity_type.add("ICE_PILLAGER");
 		M_3_entity_type.add("ICE_PILLAGER");
-		M_3_entity_type.add("ICE_SKELETON");
+		M_3_entity_type.add("ICE_SQUELETON");
 		M_3_entity_type.add("ICE_BAT");
 		M_3_entity_type.add("ICE_BAT");
 		IRoom M_3 = new IRoom(M_3_Loc, 3, 2, M_3_entity_loc, M_3_entity_type, 0, 50, 12);
@@ -434,8 +436,8 @@ public class RoomsInit {
 		M_4_entity_type.add("ICE_PILLAGER");
 		M_4_entity_type.add("ICE_PILLAGER");
 		M_4_entity_type.add("ICE_PILLAGER");
-		M_4_entity_type.add("ICE_SKELETON");
-		M_4_entity_type.add("ICE_SKELETON");
+		M_4_entity_type.add("ICE_SQUELETON");
+		M_4_entity_type.add("ICE_SQUELETON");
 		M_4_entity_type.add("ICE_SLIME");
 		IRoom M_4 = new IRoom(M_4_Loc, 3, 2, M_4_entity_loc, M_4_entity_type, 0, 50, 13);
 		rooms_2.add(M_4);
@@ -451,17 +453,178 @@ public class RoomsInit {
 		M_5_entity_loc.add(new Location(null, -42.28, 7.00, 116.16));
 		M_5_entity_loc.add(new Location(null, -48.59, 10.00, 109.53));
 		List<String> M_5_entity_type = new ArrayList<String>();
-		M_5_entity_type.add("ICE_SKELETON");
+		M_5_entity_type.add("ICE_SQUELETON");
 		M_5_entity_type.add("SNOW_BEAR");
 		M_5_entity_type.add("SNOW_BEAR");
 		M_5_entity_type.add("ICE_SLIME");
 		M_5_entity_type.add("ICE_SLIME");
-		M_5_entity_type.add("ICE_SKELETON");
+		M_5_entity_type.add("ICE_SQUELETON");
 		IRoom M_5 = new IRoom(M_5_Loc, 3, 2, M_5_entity_loc, M_5_entity_type, 0, 50, 14);
 		rooms_2.add(M_5);
 		
+		List<Location> B_1_Loc = new ArrayList<Location>();
+		B_1_Loc.add(new Location(null, 108.87, 11.00, 34.95, 0, 0)); //ENTREE
+		B_1_Loc.add(new Location(null,103.82, 6.00, 81.25, 180, 0)); //SORTIE
+		List<Location> B_1_entity_loc = new ArrayList<Location>();
+		B_1_entity_loc.add(new Location(null, 101.76, 7.00, 68.25));
+		B_1_entity_loc.add(new Location(null, 105.35, 8.00, 56.59));
+		B_1_entity_loc.add(new Location(null, 97.83, 13.00, 69.69));
+		B_1_entity_loc.add(new Location(null, 100.13, 14.00, 50.36));
+		B_1_entity_loc.add(new Location(null, 118.47, 13.00, 51.23));
+		B_1_entity_loc.add(new Location(null, 110.43, 16.00, 65.44));
+		B_1_entity_loc.add(new Location(null, 119.55, 11.00, 66.31));
+		B_1_entity_loc.add(new Location(null, 112.20, 16.00, 52.58));
+		B_1_entity_loc.add(new Location(null, 99.74, 8.00, 64.54));
+		List<String> B_1_entity_type = new ArrayList<String>();
+		B_1_entity_type.add("ICE_PILLAGER");
+		B_1_entity_type.add("ICE_PILLAGER");
+		B_1_entity_type.add("ICE_SQUELETON");
+		B_1_entity_type.add("ICE_SQUELETON");
+		B_1_entity_type.add("ICE_PILLAGER");
+		B_1_entity_type.add("ICE_PILLAGER");
+		B_1_entity_type.add("ICE_PILLAGER");
+		B_1_entity_type.add("ICE_BAT");
+		B_1_entity_type.add("ICE_BAT");
+		IRoom B_1 = new IRoom(B_1_Loc, 4, 2, B_1_entity_loc, B_1_entity_type, 0, 75, 21);
+		rooms_2.add(B_1);
+		
+		List<Location> B_2_Loc = new ArrayList<Location>();
+		B_2_Loc.add(new Location(null, 50.88, 8.00, 34.90, 0, 0)); //ENTREE
+		B_2_Loc.add(new Location(null, 52.21, 8.00, 81.06, 180, 0)); //SORTIE
+		List<Location> B_2_entity_loc = new ArrayList<Location>();
+		B_2_entity_loc.add(new Location(null, 44.98, 8.00, 46.29));
+		B_2_entity_loc.add(new Location(null, 51.73, 8.00, 54.57));
+		B_2_entity_loc.add(new Location(null, 67.81, 8.00, 47.09));
+		B_2_entity_loc.add(new Location(null, 61.43, 8.00, 67.52));
+		B_2_entity_loc.add(new Location(null, 37.30, 7.00, 65.94));
+		B_2_entity_loc.add(new Location(null, 35.89, 7.00, 49.52));
+		B_2_entity_loc.add(new Location(null, 52.81, 8.00, 58.24));
+		B_2_entity_loc.add(new Location(null, 44.98, 8.00, 46.29));
+		B_2_entity_loc.add(new Location(null, 51.73, 8.00, 54.57));
+		B_2_entity_loc.add(new Location(null, 67.81, 8.00, 47.09));
+		B_2_entity_loc.add(new Location(null, 61.43, 8.00, 67.52));
+		B_2_entity_loc.add(new Location(null, 37.30, 7.00, 65.94));
+		B_2_entity_loc.add(new Location(null, 35.89, 7.00, 49.52));
+		B_2_entity_loc.add(new Location(null, 52.81, 8.00, 58.24));
+		List<String> B_2_entity_type = new ArrayList<String>();
+		B_2_entity_type.add("ICE_ZOMBIE");
+		B_2_entity_type.add("ICE_ZOMBIE");
+		B_2_entity_type.add("ICE_ZOMBIE");
+		B_2_entity_type.add("ICE_ZOMBIE");
+		B_2_entity_type.add("ICE_ZOMBIE");
+		B_2_entity_type.add("ICE_ZOMBIE");
+		B_2_entity_type.add("ICE_ZOMBIE");
+		B_2_entity_type.add("ICE_SLIME");
+		B_2_entity_type.add("ICE_SLIME");
+		B_2_entity_type.add("ICE_SLIME");
+		B_2_entity_type.add("ICE_SLIME");
+		B_2_entity_type.add("ICE_SLIME");
+		B_2_entity_type.add("ICE_SLIME");
+		B_2_entity_type.add("ICE_SLIME");
+		IRoom B_2 = new IRoom(B_2_Loc, 4, 2, B_2_entity_loc, B_2_entity_type, 0, 75, 21);
+		rooms_2.add(B_2);
+		
+		List<Location> B_3_Loc = new ArrayList<Location>();
+		B_3_Loc.add(new Location(null, 9.95, 7.00, 34.85, 0, 0)); //ENTREE
+		B_3_Loc.add(new Location(null, 2.99, 5.00, 81.21, 180, 0)); //SORTIE
+		List<Location> B_3_entity_loc = new ArrayList<Location>();
+		B_3_entity_loc.add(new Location(null, -6.19, 4.00, 65.93));
+		B_3_entity_loc.add(new Location(null, -10.07, 4.00, 45.56));
+		B_3_entity_loc.add(new Location(null, -19.96, 9.00, 40.28));
+		B_3_entity_loc.add(new Location(null, -20.17, 15.00, 45.61));
+		B_3_entity_loc.add(new Location(null, -1.86, 16.00, 48.75));
+		B_3_entity_loc.add(new Location(null, 4.68, 10.00, 58.57));
+		B_3_entity_loc.add(new Location(null, 0.56, 7.00, 43.25));
+		B_3_entity_loc.add(new Location(null, -6.19, 4.00, 65.93));
+		B_3_entity_loc.add(new Location(null, -10.07, 4.00, 45.56));
+		B_3_entity_loc.add(new Location(null, -1.86, 16.00, 48.75));
+		B_3_entity_loc.add(new Location(null, 4.68, 10.00, 58.57));
+		B_3_entity_loc.add(new Location(null, 0.56, 7.00, 43.25));
+		List<String> B_3_entity_type = new ArrayList<String>();
+		B_3_entity_type.add("ICE_PILLAGER");
+		B_3_entity_type.add("ICE_PILLAGER");
+		B_3_entity_type.add("ICE_ZOMBIE");
+		B_3_entity_type.add("ICE_SQUELETON");
+		B_3_entity_type.add("ICE_PILLAGER");
+		B_3_entity_type.add("ICE_PILLAGER");
+		B_3_entity_type.add("ICE_PILLAGER");
+		B_2_entity_type.add("ICE_SLIME");
+		B_2_entity_type.add("ICE_BAT");
+		B_2_entity_type.add("ICE_SLIME");
+		B_2_entity_type.add("ICE_BAT");
+		B_2_entity_type.add("ICE_SLIME");
+		IRoom B_3 = new IRoom(B_3_Loc, 4, 2, B_3_entity_loc, B_3_entity_type, 0, 80, 24);
+		rooms_2.add(B_3);
+		
+		List<Location> B_4_Loc = new ArrayList<Location>();
+		B_4_Loc.add(new Location(null, -58.89, 13.00, 35.02, 0, 0)); //ENTREE
+		B_4_Loc.add(new Location(null, -58.89, 13.00, 35.02, 180, 0)); //SORTIE
+		List<Location> B_4_entity_loc = new ArrayList<Location>();
+		B_4_entity_loc.add(new Location(null, -69.22, 18.00, 59.68));
+		B_4_entity_loc.add(new Location(null, -47.06, 17.00, 59.10));
+		B_4_entity_loc.add(new Location(null, -51.37, 18.00, 48.85));
+		B_4_entity_loc.add(new Location(null, -60.77, 12.00, 62.33));
+		B_4_entity_loc.add(new Location(null, -45.65, 10.00, 57.03));
+		B_4_entity_loc.add(new Location(null, -55.26, 12.00, 68.13));
+		B_4_entity_loc.add(new Location(null, -61.32, 12.00, 61.97));
+		B_4_entity_loc.add(new Location(null, -66.59, 5.00, 59.08));
+		List<String> B_4_entity_type = new ArrayList<String>();
+		B_4_entity_type.add("ICE_SQUELETON");
+		B_4_entity_type.add("ICE_SQUELETON");
+		B_4_entity_type.add("ICE_PILLAGER");
+		B_4_entity_type.add("ICE_PILLAGER");
+		B_4_entity_type.add("ICE_PILLAGER");
+		B_4_entity_type.add("ICE_PILLAGER");
+		B_4_entity_type.add("SNOW_BEAR");
+		B_2_entity_type.add("ICE_PILLAGER");
+		IRoom B_4 = new IRoom(B_4_Loc, 4, 2, B_4_entity_loc, B_4_entity_type, 0, 65, 22);
+		rooms_2.add(B_4);
+		
+		List<Location> H_1_Loc = new ArrayList<Location>();
+		H_1_Loc.add(new Location(null, 128.22, 8.00, 133.59, 0, 0)); //ENTREE
+		H_1_Loc.add(new Location(null, 112.98, 15.00, 204.98, 180, 0)); //SORTIE
+		List<Location> H1_entity_loc = new ArrayList<Location>();
+		H1_entity_loc.add(new Location(null, 114.08, 18.00, 164.34));
+		H1_entity_loc.add(new Location(null, 106.56, 22.00, 172.55));
+		H1_entity_loc.add(new Location(null, 116.37, 16.00, 180.62));
+		H1_entity_loc.add(new Location(null, 130.33, 22.00, 158.53));
+		H1_entity_loc.add(new Location(null, 108.91, 8.00, 153.17));
+		H1_entity_loc.add(new Location(null, 117.64, 10.00, 170.63));
+		H1_entity_loc.add(new Location(null, 132.74, 10.00, 175.05));
+		H1_entity_loc.add(new Location(null, 94.34, 10.00, 172.80));
+		H1_entity_loc.add(new Location(null, 109.26, 14.00, 198.54));
+		
+		H1_entity_loc.add(new Location(null, 117.53, 16.00, 180.80));
+		H1_entity_loc.add(new Location(null, 106.07, 22.00, 178.91));
+		H1_entity_loc.add(new Location(null, 89.71, 23.00, 170.79));
+		H1_entity_loc.add(new Location(null, 103.97, 26.00, 166.20));
+		H1_entity_loc.add(new Location(null, 124.66, 23.00, 157.71));
+		H1_entity_loc.add(new Location(null, 137.68, 23.00, 169.18));
+		H1_entity_loc.add(new Location(null, 122.54, 18.00, 159.28));
+		H1_entity_loc.add(new Location(null, 102.56, 18.00, 164.39));
+		List<String> H1_entity_type = new ArrayList<String>();
+		H1_entity_type.add("ICE_SQUELETON");
+		H1_entity_type.add("ICE_SQUELETON");
+		H1_entity_type.add("ICE_SQUELETON");
+		H1_entity_type.add("ICE_SQUELETON");
+		H1_entity_type.add("ICE_ZOMBIE");
+		H1_entity_type.add("ICE_ZOMBIE");
+		H1_entity_type.add("ICE_ZOMBIE");
+		H1_entity_type.add("ICE_ZOMBIE");
+		H1_entity_type.add("SNOW_BEAR");
+		H1_entity_type.add("ICE_PILLAGER");
+		H1_entity_type.add("ICE_PILLAGER");
+		H1_entity_type.add("ICE_PILLAGER");
+		H1_entity_type.add("ICE_PILLAGER");
+		H1_entity_type.add("ICE_PILLAGER");
+		H1_entity_type.add("ICE_PILLAGER");
+		H1_entity_type.add("ICE_PILLAGER");
+		H1_entity_type.add("ICE_PILLAGER");
+		IRoom H_1 = new IRoom(H_1_Loc, 5, 2, H1_entity_loc, H1_entity_type, 0, 200, 40);
+		rooms_2.add(H_1);
+		
 		List<Location> BOOS_1_Loc = new ArrayList<Location>();
-		BOOS_1_Loc.add(new Location(null, 45.56, 15.00, 134.38, 180, 0)); //ENTREE
+		BOOS_1_Loc.add(new Location(null, 45.56, 15.00, 134.38, 0, 0)); //ENTREE
 		List<Location> BOOS_1_entity_loc = new ArrayList<Location>();
 		BOOS_1_entity_loc.add(new Location(null, 40.49, 15.00, 159.54, 0, 0));
 		BOOS_1_entity_loc.add(new Location(null, 40.49+1, 15.00, 159.54, 0, 0));
@@ -477,4 +640,147 @@ public class RoomsInit {
 		IRoom BOOS_1 = new IRoom(BOOS_1_Loc, 6, 2, BOOS_1_entity_loc, BOOS_1_entity_type, 0, 40, 7);
 		rooms_2.add(BOOS_1);
 	}
+
+	public static void initRoomsLVL3() {
+		
+		List<Location> I_1_Loc = new ArrayList<Location>();
+		I_1_Loc.add(new Location(null, -139.48, 16.00, 16.52, 0, 0)); //SPAWN
+		I_1_Loc.add(new Location(null, -139.21, 13.00, 33.53, 180, 0)); //SORTIE
+		IRoom I_1 = new IRoom(I_1_Loc, 0, 3, null, null, 0, 10, 0);
+		rooms_3.add(I_1);
+		
+		List<Location> C_1_Loc = new ArrayList<Location>();
+		C_1_Loc.add(new Location(null, -10.27, 13.00, 11.69, 0, 0)); //ENTREE
+		C_1_Loc.add(new Location(null, -14.62, 9.00, 33.37, 180, 0)); //SORTIE
+		IRoom C_1 = new IRoom(C_1_Loc, 1, 3, null, null, 0, 10, 0);
+		rooms_3.add(C_1);
+		
+		List<Location> C_2_Loc = new ArrayList<Location>();
+		C_2_Loc.add(new Location(null, -42.19, 14.00, 11.94, 0, 0)); //ENTREE
+		C_2_Loc.add(new Location(null, -38.95, 13.00, 33.40, 180, 0)); //SORTIE
+		IRoom C_2 = new IRoom(C_2_Loc, 1, 3, null, null, 0, 10, 0);
+		rooms_3.add(C_2);
+		
+		List<Location> C_3_Loc = new ArrayList<Location>();
+		C_3_Loc.add(new Location(null, -80.97, 12.00, 12.00, 0, 0)); //ENTREE
+		C_3_Loc.add(new Location(null, -76.99, 12.00, 33.12, 180, 0)); //SORTIE
+		IRoom C_3 = new IRoom(C_3_Loc, 1, 3, null, null, 0, 10, 0);
+		rooms_3.add(C_3);
+		
+		List<Location> C_4_Loc = new ArrayList<Location>();
+		C_4_Loc.add(new Location(null, -110.98, 11.00, 11.73, 0, 0)); //ENTREE
+		C_4_Loc.add(new Location(null, -108.01, 11.00, 33.37, 180, 0)); //SORTIE
+		IRoom C_4 = new IRoom(C_4_Loc, 1, 3, null, null, 0, 10, 0);
+		rooms_3.add(C_4);
+		
+		List<Location> C_5_Loc = new ArrayList<Location>();
+		C_5_Loc.add(new Location(null, -9.46, 38.00, 11.96, 0, 0)); //ENTREE
+		C_5_Loc.add(new Location(null, -12.43, 38.00, 33.30, 180, 0)); //SORTIE
+		IRoom C_5 = new IRoom(C_5_Loc, 1, 3, null, null, 0, 10, 0);
+		rooms_3.add(C_5);
+		
+		List<Location> C_6_Loc = new ArrayList<Location>();
+		C_6_Loc.add(new Location(null, -43.01, 40.00, 11.70, 0, 0)); //ENTREE
+		C_6_Loc.add(new Location(null, -44.52, 41.00, 33.35, 180, 0)); //SORTIE
+		IRoom C_6 = new IRoom(C_6_Loc, 1, 3, null, null, 0, 10, 0);
+		rooms_3.add(C_6);
+		
+		List<Location> M_1_Loc = new ArrayList<Location>();
+		M_1_Loc.add(new Location(null, -12.89, 11.00, 101.04, 0, 0)); //ENTREE
+		M_1_Loc.add(new Location(null, -17.03, 11.00, 132.35, 180, 0)); //SORTIE
+		List<Location> M1_entity_loc = new ArrayList<Location>();
+		M1_entity_loc.add(new Location(null,-7.88, 10.00, 113.50));
+		M1_entity_loc.add(new Location(null, -21.39, 11.00, 125.11));
+		M1_entity_loc.add(new Location(null, -16.41, 11.00, 113.08));
+		M1_entity_loc.add(new Location(null,-25.39, 19.00, 117.83));
+		M1_entity_loc.add(new Location(null,-6.50, 18.00, 124.13));
+		M1_entity_loc.add(new Location(null,-18.76, 19.00, 120.16));
+		M1_entity_loc.add(new Location(null,-7.67, 18.00, 123.18));
+		M1_entity_loc.add(new Location(null,-25.77, 18.00, 127.64));
+		List<String> M1_entity_type = new ArrayList<String>();
+		M1_entity_type.add("BONE_SILVERFISH");
+		M1_entity_type.add("BONE_SILVERFISH");
+		M1_entity_type.add("MOMIE_ZOMBIE");
+		M1_entity_type.add("MOMIE_ZOMBIE");
+		M1_entity_type.add("MOMIE_ZOMBIE");
+		M1_entity_type.add("SAND_SQUELETON");
+		M1_entity_type.add("SAND_SQUELETON");
+		M1_entity_type.add("SAND_SQUELETON");
+		IRoom M_1 = new IRoom(M_1_Loc, 3, 3, M1_entity_loc, M1_entity_type, 0, 45, 30);
+		rooms_3.add(M_1);
+		
+		List<Location> M_2_Loc = new ArrayList<Location>();
+		M_2_Loc.add(new Location(null, -57.02, 12.00, 100.86, 0, 0)); //ENTREE
+		M_2_Loc.add(new Location(null, -56.85, 20.00, 132.43, 180, 0)); //SORTIE
+		List<Location> M_2_entity_loc = new ArrayList<Location>();
+		M_2_entity_loc.add(new Location(null,-62.66, 15.00, 123.43));
+		M_2_entity_loc.add(new Location(null, -65.92, 13.00, 120.29));
+		M_2_entity_loc.add(new Location(null, -66.42, 12.00, 106.84));
+		M_2_entity_loc.add(new Location(null,-49.19, 21.00, 115.56));
+		M_2_entity_loc.add(new Location(null,-57.37, 13.00, 120.77));
+		M_2_entity_loc.add(new Location(null,-59.59, 21.00, 127.51));
+		M_2_entity_loc.add(new Location(null,-50.12, 13.00, 110.56));
+		List<String> M_2_entity_type = new ArrayList<String>();
+		M_2_entity_type.add("BONE_SILVERFISH");
+		M_2_entity_type.add("BONE_SILVERFISH");
+		M_2_entity_type.add("MOMIE_ZOMBIE");
+		M_2_entity_type.add("MOMIE_ZOMBIE");
+		M_2_entity_type.add("SAND_SQUELETON");
+		M_2_entity_type.add("SAND_SQUELETON");
+		M_2_entity_type.add("SAND_SQUELETON");
+		IRoom M_2 = new IRoom(M_2_Loc, 3, 3, M_2_entity_loc, M_2_entity_type, 0, 40, 25);
+		rooms_3.add(M_2);
+		
+		List<Location> M_3_Loc = new ArrayList<Location>();
+		M_3_Loc.add(new Location(null, -98.40, 14.00, 100.85, 0, 0)); //ENTREE
+		M_3_Loc.add(new Location(null, -98.03, 12.00, 132.09, 180, 0)); //SORTIE
+		List<Location> M_3_entity_loc = new ArrayList<Location>();
+		M_3_entity_loc.add(new Location(null,-94.50, 14.00, 117.66));
+		M_3_entity_loc.add(new Location(null, -96.17, 14.00, 121.62));
+		M_3_entity_loc.add(new Location(null, -90.98, 15.00, 116.87));
+		M_3_entity_loc.add(new Location(null,-102.08, 15.00, 115.21));
+		M_3_entity_loc.add(new Location(null,-100.52, 14.00, 120.16));
+		M_3_entity_loc.add(new Location(null,-110.75, 18.00, 114.28));
+		M_3_entity_loc.add(new Location(null,-95.51, 14.00, 121.12));
+		List<String> M_3_entity_type = new ArrayList<String>();
+		M_3_entity_type.add("BONE_SILVERFISH");
+		M_3_entity_type.add("BONE_SILVERFISH");
+		M_3_entity_type.add("BONE_SILVERFISH");
+		M_3_entity_type.add("BONE_SILVERFISH");
+		M_3_entity_type.add("BONE_SILVERFISH");
+		M_3_entity_type.add("ANCIENT_SQUELETON");
+		M_3_entity_type.add("SAND_SQUELETON");
+		IRoom M_3 = new IRoom(M_3_Loc, 3, 3, M_3_entity_loc, M_3_entity_type, 0, 35, 20);
+		rooms_3.add(M_3);
+		
+		List<Location> M_4_Loc = new ArrayList<Location>();
+		M_4_Loc.add(new Location(null, -139.87, 17.00, 100.74, 0, 0)); //ENTREE
+		M_4_Loc.add(new Location(null, -140.42, 12.00, 132.12, 180, 0)); //SORTIE
+		List<Location> M_4_entity_loc = new ArrayList<Location>();
+		M_4_entity_loc.add(new Location(null,-146.05, 16.00, 107.89));
+		M_4_entity_loc.add(new Location(null, -133.49, 19.00, 120.26));
+		M_4_entity_loc.add(new Location(null, -136.95, 20.00, 109.73));
+		M_4_entity_loc.add(new Location(null,-146.15, 17.00, 106.28));
+		M_4_entity_loc.add(new Location(null,-150.18, 17.00, 122.98));
+		M_4_entity_loc.add(new Location(null,-132.67, 19.00, 120.66));
+		List<String> M_4_entity_type = new ArrayList<String>();
+		M_4_entity_type.add("MOMIE_ZOMBIE");
+		M_4_entity_type.add("MOMIE_ZOMBIE");
+		M_4_entity_type.add("MOMIE_ZOMBIE");
+		M_4_entity_type.add("SAND_SPIDER");
+		M_4_entity_type.add("SAND_SPIDER");
+		M_4_entity_type.add("SAND_SPIDER");
+		IRoom M_4 = new IRoom(M_4_Loc, 3, 3, M_4_entity_loc, M_4_entity_type, 0, 35, 24);
+		rooms_3.add(M_4);
+		
+		List<Location> BOOS_1_Loc = new ArrayList<Location>();
+		BOOS_1_Loc.add(new Location(null, -112.25, 41.00, 143.23, 0, 0)); //ENTREE
+		List<Location> BOOS_1_entity_loc = new ArrayList<Location>();
+		BOOS_1_entity_loc.add(new Location(null, -109.5, 42.00, 170.5, 0, 0));
+		List<String> BOOS_1_entity_type = new ArrayList<String>();
+		BOOS_1_entity_type.add("BONE_GOLEM");
+		IRoom BOOS_1 = new IRoom(BOOS_1_Loc, 6, 3, BOOS_1_entity_loc, BOOS_1_entity_type, 0, 40, 7);
+		rooms_3.add(BOOS_1);
+	}
+	
 }

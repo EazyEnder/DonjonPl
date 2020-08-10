@@ -14,9 +14,11 @@ import org.bukkit.entity.Golem;
 import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Pillager;
 import org.bukkit.entity.PolarBear;
+import org.bukkit.entity.Silverfish;
 import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Skeleton.SkeletonType;
 import org.bukkit.entity.Slime;
+import org.bukkit.entity.Spider;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -38,18 +40,21 @@ public class RoomUtils {
 	}
 	
 	public static int getNumberOfBiomes() {
-		return 2;
+		return 3;
 	}
 	
 	public static int getLaunchDonjonOnABiome(int biome) {
 
 		int count = 0;
-		if(!DonjonGenerator.donjons.isEmpty())
-		for (int i = 0; i < DonjonGenerator.donjons.size(); i++) {
-			IDonjon donjon = DonjonGenerator.donjons.get(i);
+		if(!DonjonGenerator.donjons.isEmpty()) {
+		List<IDonjon> dj = new ArrayList<IDonjon>();
+		dj.addAll(DonjonGenerator.donjons.values());
+		for (int i = 0; i < dj.size(); i++) {
+			IDonjon donjon = dj.get(i);
 			if(donjon.getBiome() == biome) {
 				count++;
 			}
+		}
 		}
 		return count;
 		
@@ -59,6 +64,7 @@ public class RoomUtils {
 		switch(biome) {
 		case 1: return RoomsInit.rooms_1;
 		case 2: return RoomsInit.rooms_2;
+		case 3: return RoomsInit.rooms_3;
 		default: return null;
 		}
 	}
@@ -115,8 +121,14 @@ public class RoomUtils {
 		skeleton.getEquipment().setLeggings(LootUtils.getArmorById(1, 3, "IRON"));
 		skeleton.getEquipment().setBoots(LootUtils.getArmorById(1, 4, "IRON"));
 			break;	
-		case "ICE_SKELETON": skeleton.setCustomName("ICE_SKELETON");;
+		case "ICE_SQUELETON": skeleton.setCustomName("ICE_SQUELETON");
 		skeleton.setSkeletonType(SkeletonType.STRAY);
+			break;
+		case "SAND_SQUELETON": skeleton.setCustomName("SAND_SQUELETON");
+		skeleton.setMaxHealth(30); skeleton.setHealth(30);
+			break;
+		case "ANCIENT_SQUELETON": skeleton.setCustomName("ANCIENT_SQUELETON");
+		skeleton.setMaxHealth(45); skeleton.setHealth(45);
 			break;
 		}
 		skeleton.setCustomNameVisible(false);
@@ -127,7 +139,11 @@ public class RoomUtils {
 			Zombie zombie = (Zombie) world.spawnEntity(loc, EntityType.ZOMBIE);
 			switch(name) {
 			case "BUSH_ZOMBIE": zombie.setCustomName("BUSH_ZOMBIE");
-				break;	
+				break;
+			case "ICE_ZOMBIE": zombie.setCustomName("ICE_ZOMBIE");
+				break;
+			case "MOMIE_ZOMBIE": zombie.setCustomName("MOMIE_ZOMBIE");zombie.setMaxHealth(40);zombie.setHealth(40);
+				break;
 			}
 			zombie.setCustomNameVisible(false);
 			EntityEvents.launchEntityLoop(zombie);
@@ -137,7 +153,8 @@ public class RoomUtils {
 			Golem golem = (Golem) world.spawnEntity(loc, EntityType.IRON_GOLEM);
 				switch(name) {
 				case "BUSH_GOLEM": golem.setCustomName("BUSH_GOLEM");
-					//golem.setMaxHealth(200);
+					break;
+				case "BONE_GOLEM": golem.setCustomName("BONE_GOLEM");
 					break;
 				}
 			golem.setCustomNameVisible(false);
@@ -183,10 +200,24 @@ public class RoomUtils {
 			switch(name) {
 			case "SNOW_BEAR": bear.setCustomName("SNOW_BEAR");
 				break;
-			case "ICE_BEAR": bear.setCustomName("ICE_BEAR");
+			case "ICE_BEAR": bear.setCustomName("ICE_BEAR"); bear.setMaxHealth(100); bear.setHealth(100);
 				break;
 			}
 			EntityEvents.launchEntityLoop(bear);
+		}else if(name.contains("SPIDER")) {
+			Spider spider = (Spider)world.spawnEntity(loc, EntityType.SPIDER);
+			switch(name) {
+			case "SAND_SPIDER": spider.setCustomName("SAND_SPIDER");
+				break;
+			
+			}
+		}else if(name.contains("SILVERFISH")) {
+			Silverfish silverfish = (Silverfish)world.spawnEntity(loc, EntityType.SILVERFISH);
+			switch(name) {
+			case "BONE_SILVERFISH": silverfish.setCustomName("SAND_SILVERFISH");
+				break;
+			
+			}
 		}
 		
 	}

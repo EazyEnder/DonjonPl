@@ -45,8 +45,8 @@ public class LevelUtils {
 		String name = player.getName();
 		
 		int level = PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(player);
-		name = "Â§rÂ§f[Â§r" +ArenaUtils.getCircleOfRank(PlayerLevelStats.getPlayerLevelStats().getLevelRank(player)) + "Â§rÂ§f/" + LevelUtils.getRankName(level) + "Â§rÂ§f]Â§r" + name;
-		if(player.isOp()) name = "Â§rÂ§c[Â§4âš Â§rÂ§c]Â§r" + name;
+		name = "§r§f[§r" +ArenaUtils.getCircleOfRank(PlayerLevelStats.getPlayerLevelStats().getLevelRank(player)) + "§r§f/" + LevelUtils.getRankName(level) + "§r§f]§r" + name;
+		if(player.isOp()) name = "§r§c[§4!§r§c]§r" + name;
 		
 		player.setDisplayName(name);
 	}
@@ -154,13 +154,13 @@ public class LevelUtils {
 	}
 	
 	public static String getRankName(int level) {
-		String rank = "Â§7Voyageur";
-		if(level < 1) {rank = "Â§7Voyageur";}
-		else if(level == 1) {rank = "Â§7Novice";}
-		else if(level <= 5) {rank = "Â§7Adepte";}
-		else if(level <= 10) {rank = "Â§7AventurierÂ§rÂ§f-" + "Â§7PR";}
-		else if(level <= 20) {rank = "Â§7AventurierÂ§rÂ§f-" + "Â§6CU";}
-		else if(level <= 30) {rank = "Â§7AventurierÂ§rÂ§f-" + "Â§8FE";}
+		String rank = "§7Voyageur";
+		if(level < 1) {rank = "§7Voyageur";}
+		else if(level == 1) {rank = "§7Novice";}
+		else if(level <= 5) {rank = "§7Adepte";}
+		else if(level <= 10) {rank = "§7Aventurier§r§f-" + "§7PR";}
+		else if(level <= 20) {rank = "§7Aventurier§r§f-" + "§6CU";}
+		else if(level <= 30) {rank = "§7Aventurier§r§f-" + "§8FE";}
 		return rank;
 	}
 	

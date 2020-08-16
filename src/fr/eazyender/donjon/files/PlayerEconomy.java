@@ -46,7 +46,7 @@ public class PlayerEconomy {
 
         ConfigurationSection s = economyConfig.createSection(p.getUniqueId().toString());
         s.set("money", 0);
-        s.set("essences", 3000);
+        s.set("essences", 0);
 
         saveFile();
     }

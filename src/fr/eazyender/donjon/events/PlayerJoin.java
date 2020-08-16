@@ -21,6 +21,7 @@ import fr.eazyender.donjon.files.PlayerEconomy;
 import fr.eazyender.donjon.files.PlayerEquipment;
 import fr.eazyender.donjon.files.PlayerGroupSave;
 import fr.eazyender.donjon.files.PlayerLevelStats;
+import fr.eazyender.donjon.files.PlayerShop;
 import fr.eazyender.donjon.gui.InventoryGui;
 import fr.eazyender.donjon.spells.ColorUtils;
 import net.md_5.bungee.api.ChatMessageType;
@@ -41,6 +42,7 @@ public class PlayerJoin implements Listener {
 		PlayerArena.getPlayerArena().loadPlayer(player);
 		PlayerGroupSave.getPlayerGroup().loadPlayer(player);
 		PlayerChromatiques.getPlayerChromatiques().loadPlayer(player);
+		PlayerShop.getPlayerShopProfil().loadPlayer(player);
 		
 		player.getInventory().clear();
 		e.setJoinMessage("§7[§2§l+§7] " + player.getName());

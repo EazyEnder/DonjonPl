@@ -17,6 +17,7 @@ import fr.eazyender.donjon.files.PlayerEconomy;
 import fr.eazyender.donjon.files.PlayerEquipment;
 import fr.eazyender.donjon.files.PlayerGroupSave;
 import fr.eazyender.donjon.files.PlayerLevelStats;
+import fr.eazyender.donjon.files.PlayerShop;
 import fr.eazyender.donjon.gui.ShopSpellChromaGui;
 import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.utils.PlayerGroup;

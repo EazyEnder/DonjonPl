@@ -13,6 +13,7 @@ import fr.eazyender.donjon.arena.ArenaUtils;
 import fr.eazyender.donjon.files.PlayerArena;
 import fr.eazyender.donjon.files.PlayerEquipment;
 import fr.eazyender.donjon.files.PlayerLevelStats;
+import fr.eazyender.donjon.files.PlayerShop;
 import fr.eazyender.donjon.gui.InventoryGui;
 import fr.eazyender.donjon.potion.PotionUtils;
 import fr.eazyender.donjon.spells.SpellUtils;
@@ -47,6 +48,16 @@ public class LevelUtils {
 		
 		int level = PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(player);
 		name = "§r§f[§r" +ArenaUtils.getCircleOfRank(PlayerLevelStats.getPlayerLevelStats().getLevelRank(player)) + "§r§f/" + LevelUtils.getRankName(level) + "§r§f]§r" + name;
+		if(PlayerShop.getPlayerShopProfil().getGrade(player) > 0) {
+			switch(PlayerShop.getPlayerShopProfil().getGrade(player)) {
+			case 1: name = "§r§f[§3§lI§r§f]§f" + name;
+				break;
+			case 2: name = "§r§f[§1§lII§r§f]§f" + name;
+				break;
+			case 3: name = "§r§f[§9§lIII§r§f]§f" + name;
+				break;
+			}
+		}
 		if(player.isOp()) name = "§r§c[§4!§r§c]§r" + name;
 		
 		player.setDisplayName(name);

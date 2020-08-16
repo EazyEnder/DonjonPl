@@ -10,6 +10,7 @@ import fr.eazyender.donjon.utils.IEvent;
 import fr.eazyender.donjon.utils.IMessage;
 import fr.eazyender.donjon.utils.PlayerGroup;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
@@ -42,6 +43,7 @@ import fr.eazyender.donjon.files.PlayerEconomy;
 import fr.eazyender.donjon.files.PlayerEquipment;
 import fr.eazyender.donjon.files.PlayerGroupSave;
 import fr.eazyender.donjon.files.PlayerLevelStats;
+import fr.eazyender.donjon.files.PlayerShop;
 import fr.eazyender.donjon.gui.ArenaGui;
 import fr.eazyender.donjon.gui.CraftPotionsGui;
 import fr.eazyender.donjon.gui.DonjonGui;
@@ -106,6 +108,7 @@ public class DonjonMain extends JavaPlugin{
 		PlayerEconomy file_economy = new PlayerEconomy();
 		PlayerGroupSave file_groups = new PlayerGroupSave();
 		PlayerChromatiques file_chromas = new PlayerChromatiques();
+		PlayerShop file_shopprofil = new PlayerShop();
 
 		/**UI*/
 		pm.registerEvents(new DonjonGui()	, this);
@@ -147,7 +150,36 @@ public class DonjonMain extends JavaPlugin{
 			@Override
 			public void run() {
 				
-				for(Player p : Bukkit.getOnlinePlayers()) p.setFoodLevel(20);
+				long time = System.currentTimeMillis() / 1000;
+				int mois = 60*60*24*31;
+				for(Player p : Bukkit.getOnlinePlayers()) { p.setFoodLevel(20);
+				
+				if(PlayerShop.getPlayerShopProfil().getGrade(p) > 0) {
+					long timebuy = PlayerShop.getPlayerShopProfil().getTimeBuy(p);
+					
+					if(timebuy / 1000 > 0 && time - timebuy >= mois) {
+						PlayerShop.getPlayerShopProfil().setTimeBuy(p, 0);
+					 	PlayerShop.getPlayerShopProfil().setGrade(p, 0);
+					 	p.sendMessage("§fVotre grade a expiré !");
+					}
+					
+				}
+				
+				}
+				
+				for(OfflinePlayer p : Bukkit.getOfflinePlayers()) { 
+				
+				if(PlayerShop.getPlayerShopProfil().getGrade(p) > 0) {
+					long timebuy = PlayerShop.getPlayerShopProfil().getTimeBuy(p);
+					
+					if(timebuy / 1000> 0 && time - timebuy >= mois) {
+						PlayerShop.getPlayerShopProfil().setTimeBuy(p, 0);
+					 	PlayerShop.getPlayerShopProfil().setGrade(p, 0);
+					}
+					
+				}
+				
+				}
 
 				for (IMessage message: messages) {
 					if(message.getTimer() >= message.getCooldown()){
@@ -178,8 +210,8 @@ public class DonjonMain extends JavaPlugin{
 		PlayerEquipment.getPlayerEquipment().onDisable();
 		PlayerLevelStats.getPlayerLevelStats().onDisable();
 		PlayerEconomy.getEconomy().onDisable();
-		
 		PlayerChromatiques.getPlayerChromatiques().onDisable();
+		PlayerShop.getPlayerShopProfil().onDisable();
 	}
 
 	private void initMessages(){

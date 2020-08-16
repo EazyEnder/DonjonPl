@@ -50,13 +50,13 @@ public class PlayerEquipment {
 		  }
 	  
 	  public static void createPlayerEquipment(Player p) {
-		    weapons.put(p.getUniqueId(), new ArrayList<Integer>());
+		  	List<Integer> weaponslist = new ArrayList<Integer>();
+		    weaponslist.add(4);
+		    weapons.put(p.getUniqueId(), weaponslist);
 		    spells.put(p.getUniqueId(), new ArrayList<Integer>());
 		    potions.put(p.getUniqueId(), new ArrayList<String>());
 		    
 		    ConfigurationSection s = EquipmentConfig.createSection(p.getUniqueId().toString());  
-		    List<Integer> weaponslist = new ArrayList<Integer>();
-		    weaponslist.add(4);
 		    s.set("weapons", weaponslist);
 		    s.set("potions", new ArrayList<Double>());
 			s.set("spells", new ArrayList<Integer>());

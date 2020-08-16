@@ -81,7 +81,7 @@ public class CommandGroup implements CommandExecutor {
                 							requests.put(target.getUniqueId(), asks);
                 						}
                 						player.sendMessage(srv_msg + "Vous avez invité " + target.getName());
-                						target.sendMessage(srv_msg + player.getName() + " vous a invité, pour accepter faites : /yes <player>");
+                						target.sendMessage(srv_msg + player.getName() + " vous a invité, pour accepter faites : /accept <player>");
                 						player.playSound(player.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
 										target.playSound(target.getLocation(), Sound.BLOCK_NOTE_BLOCK_BASS, 1, 1);
                 						

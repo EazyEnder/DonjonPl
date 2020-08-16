@@ -12,6 +12,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.ManaEvents;
 
@@ -54,11 +55,15 @@ public class SpellIceSlowDownAOE extends ISpell{
    private void launchSpell(LivingEntity sender) {
 	    
 	   Location send = sender.getLocation();
-	   Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(132,165,255), 3.0F);
 		  
 		  new BukkitRunnable() {
 			  @Override
 				public void run() {
+				  
+				  Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(132,165,255), 3.0F);
+				  if(sender instanceof Player) {
+					  dustOptions = new Particle.DustOptions(ColorUtils.getSkins().get((Player)sender).get(2), 3.0F);
+				  }
 				  
 				  if(timer < maxTimer) {
 				  

@@ -19,10 +19,13 @@ import org.bukkit.entity.Skeleton;
 import org.bukkit.entity.Skeleton.SkeletonType;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Spider;
+import org.bukkit.entity.Stray;
 import org.bukkit.entity.Zombie;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 public class RoomUtils {
 	
@@ -121,8 +124,9 @@ public class RoomUtils {
 		skeleton.getEquipment().setLeggings(LootUtils.getArmorById(1, 3, "IRON"));
 		skeleton.getEquipment().setBoots(LootUtils.getArmorById(1, 4, "IRON"));
 			break;	
-		case "ICE_SQUELETON": skeleton.setCustomName("ICE_SQUELETON");
-		skeleton.setSkeletonType(SkeletonType.STRAY);
+		case "ICE_SQUELETON": Stray stray = (Stray) world.spawnEntity(loc, EntityType.STRAY);
+		stray.setCustomName("ICE_SQUELETON"); skeleton.remove();
+		
 			break;
 		case "SAND_SQUELETON": skeleton.setCustomName("SAND_SQUELETON");
 		skeleton.setMaxHealth(30); skeleton.setHealth(30);
@@ -140,9 +144,9 @@ public class RoomUtils {
 			switch(name) {
 			case "BUSH_ZOMBIE": zombie.setCustomName("BUSH_ZOMBIE");
 				break;
-			case "ICE_ZOMBIE": zombie.setCustomName("ICE_ZOMBIE");
+			case "ICE_ZOMBIE": zombie.setCustomName("ICE_ZOMBIE"); zombie.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, 1, true));
 				break;
-			case "MOMIE_ZOMBIE": zombie.setCustomName("MOMIE_ZOMBIE");zombie.setMaxHealth(40);zombie.setHealth(40);
+			case "MOMIE_ZOMBIE": zombie.setCustomName("MOMIE_ZOMBIE");zombie.setMaxHealth(45);zombie.setHealth(45);
 				break;
 			}
 			zombie.setCustomNameVisible(false);
@@ -152,7 +156,7 @@ public class RoomUtils {
 			
 			Golem golem = (Golem) world.spawnEntity(loc, EntityType.IRON_GOLEM);
 				switch(name) {
-				case "BUSH_GOLEM": golem.setCustomName("BUSH_GOLEM");
+				case "BUSH_GOLEM": golem.setCustomName("BUSH_GOLEM"); golem.setHealth(45); golem.setMaxHealth(45);
 					break;
 				case "BONE_GOLEM": golem.setCustomName("BONE_GOLEM");
 					break;
@@ -189,8 +193,9 @@ public class RoomUtils {
 		}else if(name.contains("PILLAGER")) {
 			Pillager pillager = (Pillager)world.spawnEntity(loc,  EntityType.PILLAGER);
 			switch(name) {
-			case "ICE_PILLAGER": pillager.setCustomName("ICE_PILLAGER");
+			case "ICE_PILLAGER": pillager.setCustomName("ICE_PILLAGER"); 
 			pillager.getEquipment().setItemInMainHand(LootUtils.getWeaponById(3));
+			pillager.setMaxHealth(35); pillager.setHealth(35);
 				break;
 			}
 			
@@ -198,9 +203,9 @@ public class RoomUtils {
 		}else if(name.contains("BEAR")) {
 			PolarBear bear = (PolarBear)world.spawnEntity(loc,  EntityType.POLAR_BEAR);
 			switch(name) {
-			case "SNOW_BEAR": bear.setCustomName("SNOW_BEAR");
+			case "SNOW_BEAR": bear.setCustomName("SNOW_BEAR"); bear.setAdult();  bear.setAdult(); bear.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, 0, true));
 				break;
-			case "ICE_BEAR": bear.setCustomName("ICE_BEAR"); bear.setMaxHealth(100); bear.setHealth(100);
+			case "ICE_BEAR": bear.setCustomName("ICE_BEAR"); bear.setMaxHealth(100); bear.setHealth(100); bear.setAdult(); bear.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, 1, true));
 				break;
 			}
 			EntityEvents.launchEntityLoop(bear);

@@ -18,6 +18,7 @@ public class PlayerEconomy {
     public static PlayerEconomy playerEconomy;
 
     private static Map<UUID, Long> money = new HashMap<UUID, Long>();
+    private static Map<UUID, Long> essences = new HashMap<UUID, Long>();
 
     private static File economyFile;
     private static FileConfiguration economyConfig;
@@ -34,6 +35,7 @@ public class PlayerEconomy {
         for (Player ps : Bukkit.getOnlinePlayers()) {
             ConfigurationSection s = economyConfig.getConfigurationSection(ps.getUniqueId().toString());
             s.set("money", money.get(ps.getUniqueId()));
+            s.set("essences", essences.get(ps.getUniqueId()));
 
         }
         saveFile();
@@ -44,6 +46,7 @@ public class PlayerEconomy {
 
         ConfigurationSection s = economyConfig.createSection(p.getUniqueId().toString());
         s.set("money", 0);
+        s.set("essences", 3000);
 
         saveFile();
     }
@@ -65,6 +68,8 @@ public class PlayerEconomy {
         if (economyConfig.contains(p.getUniqueId().toString())) {
             ConfigurationSection s = economyConfig.getConfigurationSection(p.getUniqueId().toString());
             long moneyl = s.getLong("money");
+            long essencesl = s.getLong("essences");
+            essences.put(p.getUniqueId(), essencesl);
             money.put(p.getUniqueId(), moneyl);
         } else {
             createPlayerEconomy(p);
@@ -82,6 +87,17 @@ public class PlayerEconomy {
             money.replace(p.getUniqueId(), newValue);
         }else {System.out.println("Player doesn't exist");}
     }
+    public long getEssences(Player p) {
+        if (playerExist(p)) {
+            return essences.get(p.getUniqueId());
+        }else {System.out.println("Player doesn't exist");
+            return 0;}
+    }
+    public void setEssences(Player p, long newValue) {
+        if (playerExist(p)) {
+            essences.replace(p.getUniqueId(), newValue);
+        }else {System.out.println("Player doesn't exist");}
+    }
     public void unloadPlayer(Player p) {
         onDisable();
         if (playerExist(p)) {
@@ -91,7 +107,7 @@ public class PlayerEconomy {
 
     public static PlayerEconomy getEconomy() { return playerEconomy;  }
 
-    public boolean playerExist(Player p) { return money.containsKey(p.getUniqueId()); }
+    public boolean playerExist(Player p) { return money.containsKey(p.getUniqueId()) && essences.containsKey(p.getUniqueId()); }
 
 
 }

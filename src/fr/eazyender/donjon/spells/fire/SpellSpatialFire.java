@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.ManaEvents;
 
@@ -39,7 +40,7 @@ public class SpellSpatialFire extends ISpell{
    private void launchSpell(Player player) {
 	   
 	   	Location target = player.getTargetBlock(null, 40).getLocation();
-					  Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(67,0,0), 5F);
+					  Particle.DustOptions dustOptions = new Particle.DustOptions(ColorUtils.getSkins().get(player).get(1), 5F);
 					  
 					  new BukkitRunnable() {
 						  @Override

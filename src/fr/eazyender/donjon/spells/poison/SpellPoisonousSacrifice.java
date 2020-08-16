@@ -5,12 +5,14 @@ import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 
 public class SpellPoisonousSacrifice extends ISpell{
@@ -44,6 +46,8 @@ public class SpellPoisonousSacrifice extends ISpell{
 						  @Override
 							public void run() {
 							  Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(0,120,0), 1.5F);
+							  if(entity instanceof Player)
+							 dustOptions = new Particle.DustOptions(ColorUtils.getSkins().get((Player)entity).get(6), 1.5F);
 							  if(timer < maxTimer) {
 							  
 							  Vector v1 = entity.getLocation().toVector();

@@ -18,6 +18,9 @@ commands:
   money:
     description: Check Money
     permission: player.use
+  chromatique:
+    description: Open Chromatiques GUI
+    permission: player.use
   group:
     description: Add a friend to your group
     permission: player.use

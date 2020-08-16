@@ -15,6 +15,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.ManaEvents;
 
@@ -89,6 +90,9 @@ public class SpellIceJail extends ISpell{
 					}
 					if(!collide) {
 					  Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(132,165,255), 1.0F);
+					  if(sender instanceof Player) {
+						  dustOptions = new Particle.DustOptions(ColorUtils.getSkins().get((Player)sender).get(2), 1.0F);
+					  }
 					  
 					  target.getWorld().spawnParticle(Particle.REDSTONE, v1.getX(), v1.getY(), v1.getZ() , 0, 0D, 0D, 0D, dustOptions);
 				

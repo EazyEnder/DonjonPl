@@ -139,6 +139,12 @@ public class InventoryGui implements Listener{
 			ItemStack ressources = getCustomItemWithLore(Material.STICK,"§f§lRessources",false,1,str_rsc);
 			player.getInventory().setItem(35, ressources);
 			
+			List<String> str_shop = new ArrayList<String>();
+			str_shop.add("§fAchetez des cosmétiques et autre");
+			str_shop.add("§fPermettant ainsi de supporter le serveur");
+			ItemStack shop = getCustomItemWithLore(Material.STICK,"§f§lBoutique",false,1,str_shop);
+			player.getInventory().setItem(25, shop);
+			
 			List<String> str_friend_no = new ArrayList<String>();
 			str_friend_no.add("§fVous pouvez inviter un ami");
 			str_friend_no.add("§fdans cet emplacement afin qu'il");
@@ -196,6 +202,10 @@ public class InventoryGui implements Listener{
 			List<String> str_rsc = new ArrayList<String>();
 			str_rsc.add("§fObservez ce que vous avez loot");
 			str_rsc.add("§fdans le donjon.");
+			List<String> str_shop = new ArrayList<String>();
+			str_shop.add("§fAchetez des cosmétiques et autre");
+			str_shop.add("§fPermettant ainsi de supporter le serveur");
+			ItemStack shop = getCustomItemWithLore(Material.STICK,"§f§lBoutique",false,1,str_shop);
 			ItemStack ressources = getCustomItemWithLore(Material.STICK,"§f§lRessources",false,1,str_rsc);
 			List<String> str_spell = new ArrayList<String>();
 			str_spell.add("§fCombattre sans sorts ?");
@@ -232,6 +242,9 @@ public class InventoryGui implements Listener{
 			}else if(current.equals(potions)) {
 				player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
 				PotionGui.createGui(player);
+			}else if(current.equals(shop)) {
+				player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
+				ShopGui.createGui(player);
 			}
 			
 			event.setCancelled(true);

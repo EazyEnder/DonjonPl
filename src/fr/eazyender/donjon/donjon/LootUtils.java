@@ -240,5 +240,65 @@ public class LootUtils {
 		PlayerEquipment.getPlayerEquipment().setRessources(player, ids);
 		
 	}
+	
+	public static void removeItemsOfRessources(Player player, List<ItemStack> items) {
+		
+		List<String> ids = PlayerEquipment.getPlayerEquipment().getRessources(player);
+		
+		for (int j = 0; j < items.size(); j++) {
+			for (int i = 0; i < ids.size(); i++) {
+				
+				String build = getIdByLoot(items.get(j)) + ":";
+				if(ids.get(i).contains(build)) {
+					
+					int decimal = Integer.parseInt(ids.get(i).split("\\:")[1]);
+					if(decimal > items.get(j).getAmount()) {
+						decimal = decimal - items.get(j).getAmount();
+						build = build + decimal;
+						ids.set(i, build);
+					}else {
+						ids.remove(i);
+					}
+						
+				}
+					
+			}
+		}
+		
+		PlayerEquipment.getPlayerEquipment().setRessources(player, ids);
+		
+	}
+	
+	public static boolean hasRessource(Player player, ItemStack ressource) {
+		
+		boolean has = false;
+		List<String> ids = PlayerEquipment.getPlayerEquipment().getRessources(player);
+		
+			for (int i = 0; i < ids.size(); i++) {
+				
+				String build = getIdByLoot(ressource) + ":";
+				if(ids.get(i).contains(build)) {
+					
+					int decimal = Integer.parseInt(ids.get(i).split("\\:")[1]);
+					if(decimal >= ressource.getAmount()) 
+					has = true;
+				}
+					
+			}
+		
+		return has;
+	}
+	
+	public static boolean hasRessources(Player player, List<ItemStack> ressources) {
+		
+		boolean has = true;
+		
+		for (ItemStack item : ressources) {
+			if(!hasRessource(player,item)) has = false;
+		}
+		
+		return has;
+		
+	}
 
 }

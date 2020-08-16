@@ -3,6 +3,7 @@ package fr.eazyender.donjon.spells;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
@@ -36,7 +37,7 @@ public class SpellUtils {
 	 * - ICE SLOWDOWN
 	 * - ICE JAIL
 	 * - SPEEDBOOST*/
-public static int spellNumber = 17;
+	public static int spellNumber = 17;
 	
 	public static int getIdSpellByItem(ItemStack item) {
 		

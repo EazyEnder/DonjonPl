@@ -14,6 +14,7 @@ import fr.eazyender.donjon.files.PlayerArena;
 import fr.eazyender.donjon.files.PlayerEquipment;
 import fr.eazyender.donjon.files.PlayerLevelStats;
 import fr.eazyender.donjon.gui.InventoryGui;
+import fr.eazyender.donjon.potion.PotionUtils;
 import fr.eazyender.donjon.spells.SpellUtils;
 
 public class LevelUtils {
@@ -31,7 +32,7 @@ public class LevelUtils {
 			PlayerLevelStats.getPlayerLevelStats().setLevelDonjon(player, level+1);
 			PlayerLevelStats.getPlayerLevelStats().setXpDonjon(player, 0);
 			
-			player.sendMessage("Â§8[Â§4DonjonÂ§8] : Â§f" + "Vous Ãªtes montÃ© d'un niveau ! (niveau:" + (level+1) +")");
+			player.sendMessage("§8[§4Donjon§8] : §f" + "Vous êtes monté d'un niveau ! (niveau:" + (level+1) +")");
 			PlayerLevelStats.getPlayerLevelStats().setSkillPoints(player, PlayerLevelStats.getPlayerLevelStats().getSkillPoints(player)+1);
 			
 			updateName(player);
@@ -59,7 +60,7 @@ public class LevelUtils {
 				case 1: 
 					switch(i) {
 					case 0:
-						
+						PotionUtils.givePotion(player,3,3);
 						break;
 					case 1:
 						if(!PlayerEquipment.getPlayerEquipment().getSpells(player).contains(3))
@@ -78,6 +79,7 @@ public class LevelUtils {
 				case 2:
 					switch(i) {
 					case 0:
+						PotionUtils.givePotion(player,1,3);
 						break;
 					case 1:
 						if(!PlayerEquipment.getPlayerEquipment().getSpells(player).contains(2))
@@ -92,7 +94,7 @@ public class LevelUtils {
 				case 3:
 					switch(i) {
 					case 0:
-						
+						PotionUtils.givePotion(player,2,3);
 						break;
 					case 1:
 						if(!PlayerEquipment.getPlayerEquipment().getSpells(player).contains(1))
@@ -109,18 +111,20 @@ public class LevelUtils {
 					}
 					break;
 				}
-				player.sendMessage("Vous avez gagnÃ© : " + getAwardSkill(id, i).getItemMeta().getDisplayName() + " !");
+				player.sendMessage("Vous avez gagné : " + getAwardSkill(id, i).getItemMeta().getDisplayName() + " !");
 			}
 		}
 		
 	}
 	
 	public static ItemStack getAwardSkill(int id, int stape) {
-		ItemStack item = getCustomItemWithLore(Material.GRAY_CONCRETE, "Â§fPas de rÃ©compense", false, 1, null);
+		ItemStack item = getCustomItemWithLore(Material.GRAY_CONCRETE, "§fPas de récompense", false, 1, null);
 		switch(id) {
 		//ATQ
 		case 1:
 			switch(stape) {
+			case 0: item = PotionUtils.getItemPotionById("3"); item.setAmount(3);
+				break;
 			case 1: item = SpellUtils.getItemSpellById(3);
 				break;
 			case 2: item = SpellUtils.getItemSpellById(5);
@@ -132,6 +136,8 @@ public class LevelUtils {
 		//DEF
 		case 2:
 			switch(stape) {
+			case 0: item = PotionUtils.getItemPotionById("1"); item.setAmount(3);
+				break;
 			case 1: item = SpellUtils.getItemSpellById(2);
 				break;
 			case 2: item = SpellUtils.getItemSpellById(15);
@@ -141,6 +147,8 @@ public class LevelUtils {
 		//MAG
 		case 3:
 			switch(stape) {
+			case 0: item = PotionUtils.getItemPotionById("2"); item.setAmount(3);
+				break;
 			case 1: item = SpellUtils.getItemSpellById(1);
 				break;
 			case 2: item = SpellUtils.getItemSpellById(8);

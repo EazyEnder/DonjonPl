@@ -13,6 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.ManaEvents;
 
@@ -54,6 +55,8 @@ public class SpellEarthChocWave extends ISpell{
 	   Location loc = entity.getLocation();
 	   
 			Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(115, 78, 72), 3.0F);
+			 if(entity instanceof Player)
+			dustOptions = new Particle.DustOptions(ColorUtils.getSkins().get((Player)entity).get(0), 1.5F);
 			entity.getWorld().spawnParticle(Particle.LAVA, entity.getLocation().getX(),  entity.getLocation().getY(),  entity.getLocation().getZ(), 10, 0.5, 0, 0.5);
 		    
 			if(entity instanceof Player) {
@@ -86,9 +89,12 @@ public class SpellEarthChocWave extends ISpell{
 					@Override
 					public void run() {
 					
+						Particle.DustOptions dd = new Particle.DustOptions(Color.fromRGB(115, 78, 72), 3.0F);
+						 if(entity instanceof Player)
+							 dd = new Particle.DustOptions(ColorUtils.getSkins().get((Player)entity).get(0), 1.5F);
 						 for (int j = 0; j < 360; j=j+5) {
 							 for (int k = 1; k <= w; k++) {
-								 entity.getWorld().spawnParticle(Particle.REDSTONE, loc.getX() + (Math.cos(j) * w), loc.getY() + (k*0.2), loc.getZ() + (Math.sin(j) * w) , 0, 10D, 0D, 0D, dustOptions);
+								 entity.getWorld().spawnParticle(Particle.REDSTONE, loc.getX() + (Math.cos(j) * w), loc.getY() + (k*0.2), loc.getZ() + (Math.sin(j) * w) , 0, 10D, 0D, 0D, dd);
 								 entity.getWorld().spawnParticle(Particle.SMOKE_NORMAL, loc.getX() + (Math.cos(j + 2.5) * w), loc.getY() + (k*0.2), loc.getZ() + (Math.sin(j + 2.5) * w) , 0, 0D, 0D, 0D);
 							}
 							 

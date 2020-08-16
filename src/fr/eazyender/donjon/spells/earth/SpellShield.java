@@ -10,6 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.ManaEvents;
 
@@ -30,7 +31,7 @@ public class SpellShield extends ISpell{
        if (super.launch(entity, SpellShield.class)) {
                 	
     	   entity.getWorld().playSound(entity.getLocation(), Sound.BLOCK_BEACON_ACTIVATE, 3, 1);
-    	   launchSpell(entity, Color.ORANGE);
+    	   launchSpell(entity, ColorUtils.getSkins().get((Player)entity).get(0));
     	   ManaEvents.useSpell((Player)entity, basicCost);
     	   
        } else {

@@ -14,6 +14,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.ManaEvents;
 
@@ -47,7 +48,7 @@ public class SpellFireProjectiles extends ISpell{
    
    private void launchSpell(Player player) {
 	   
-					  Particle.DustOptions dustOptions = new Particle.DustOptions(Color.ORANGE, 0.75F);
+					  Particle.DustOptions dustOptions = new Particle.DustOptions(ColorUtils.getSkins().get(player).get(1), 0.75F);
 					  
 					  new BukkitRunnable() {
 						  @Override
@@ -75,10 +76,10 @@ public class SpellFireProjectiles extends ISpell{
 								 
 									  
 									  
-								  	launchFirebolt(player, player.getLocation().add(RandomNumber(-2,2), RandomNumber(-2,2), RandomNumber(-2,2)), player.getTargetBlock(null, 40).getLocation().add(Math.random(),Math.random(),Math.random()), Color.ORANGE,1);
-								  	launchFirebolt(player, player.getLocation().add(RandomNumber(-2,2), RandomNumber(-2,2), RandomNumber(-2,2)), player.getTargetBlock(null, 40).getLocation().add(Math.random(),Math.random(),Math.random()), Color.ORANGE,2);
-								  	launchFirebolt(player, player.getLocation().add(RandomNumber(-2,2), RandomNumber(-2,2), RandomNumber(-2,2)), player.getTargetBlock(null, 40).getLocation().add(Math.random(),Math.random(),Math.random()), Color.ORANGE,3);
-								  	launchFirebolt(player, player.getLocation().add(RandomNumber(-2,2), RandomNumber(-2,2), RandomNumber(-2,2)), player.getTargetBlock(null, 40).getLocation().add(Math.random(),Math.random(),Math.random()), Color.ORANGE,4);
+								  	launchFirebolt(player, player.getLocation().add(RandomNumber(-2,2), RandomNumber(-2,2), RandomNumber(-2,2)), player.getTargetBlock(null, 40).getLocation().add(Math.random(),Math.random(),Math.random()), ColorUtils.getSkins().get(player).get(1),1);
+								  	launchFirebolt(player, player.getLocation().add(RandomNumber(-2,2), RandomNumber(-2,2), RandomNumber(-2,2)), player.getTargetBlock(null, 40).getLocation().add(Math.random(),Math.random(),Math.random()), ColorUtils.getSkins().get(player).get(1),2);
+								  	launchFirebolt(player, player.getLocation().add(RandomNumber(-2,2), RandomNumber(-2,2), RandomNumber(-2,2)), player.getTargetBlock(null, 40).getLocation().add(Math.random(),Math.random(),Math.random()), ColorUtils.getSkins().get(player).get(1),3);
+								  	launchFirebolt(player, player.getLocation().add(RandomNumber(-2,2), RandomNumber(-2,2), RandomNumber(-2,2)), player.getTargetBlock(null, 40).getLocation().add(Math.random(),Math.random(),Math.random()), ColorUtils.getSkins().get(player).get(1),4);
 									  player.getWorld().playSound(player.getLocation(), Sound.ENTITY_FIREWORK_ROCKET_BLAST, 3, 1);
 									  
 									 

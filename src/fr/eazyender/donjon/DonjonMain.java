@@ -20,6 +20,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import fr.eazyender.donjon.arena.ArenaEvents;
 import fr.eazyender.donjon.commands.CommandAccept;
+import fr.eazyender.donjon.commands.CommandChromatiques;
 import fr.eazyender.donjon.commands.CommandGivePotion;
 import fr.eazyender.donjon.commands.CommandGiveSpell;
 import fr.eazyender.donjon.commands.CommandGiveWeapon;
@@ -36,19 +37,25 @@ import fr.eazyender.donjon.events.PlayerJoin;
 import fr.eazyender.donjon.events.PlayerQuit;
 import fr.eazyender.donjon.events.PortalInteract;
 import fr.eazyender.donjon.files.PlayerArena;
+import fr.eazyender.donjon.files.PlayerChromatiques;
 import fr.eazyender.donjon.files.PlayerEconomy;
 import fr.eazyender.donjon.files.PlayerEquipment;
 import fr.eazyender.donjon.files.PlayerGroupSave;
 import fr.eazyender.donjon.files.PlayerLevelStats;
 import fr.eazyender.donjon.gui.ArenaGui;
+import fr.eazyender.donjon.gui.CraftPotionsGui;
 import fr.eazyender.donjon.gui.DonjonGui;
 import fr.eazyender.donjon.gui.InventoryGui;
 import fr.eazyender.donjon.gui.PlayerSkillGui;
 import fr.eazyender.donjon.gui.PotionGui;
 import fr.eazyender.donjon.gui.RessourcesGui;
+import fr.eazyender.donjon.gui.ShopGui;
+import fr.eazyender.donjon.gui.ShopSpellChromaGui;
 import fr.eazyender.donjon.gui.SpellGui;
 import fr.eazyender.donjon.gui.WeaponGui;
 import fr.eazyender.donjon.potion.ItemPotionEvent;
+import fr.eazyender.donjon.potion.RecipePotions;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ItemSpellEvent;
 import fr.eazyender.donjon.spells.ManaEvents;
 import fr.eazyender.donjon.utils.NPCManager;
@@ -72,6 +79,7 @@ public class DonjonMain extends JavaPlugin{
 	{
 		instance = this;
 		this.npcManager = new NPCManager();
+		ColorUtils.initColorSkin();
 		
 		RoomsInit.initRooms();
 		PluginManager pm = getServer().getPluginManager();
@@ -84,8 +92,10 @@ public class DonjonMain extends JavaPlugin{
 		getCommand("gweapon").setExecutor(new CommandGiveWeapon());
 		getCommand("npc").setExecutor(new CommandNPC());
 		getCommand("holo").setExecutor(new CommandHologrammes());
+		getCommand("chromatique").setExecutor(new CommandChromatiques());
 		
 		initMessages();
+		RecipePotions.initRecipes();
 		
 		ManaEvents.ManaMain();
 		
@@ -95,6 +105,7 @@ public class DonjonMain extends JavaPlugin{
 		PlayerArena file_arena = new PlayerArena();
 		PlayerEconomy file_economy = new PlayerEconomy();
 		PlayerGroupSave file_groups = new PlayerGroupSave();
+		PlayerChromatiques file_chromas = new PlayerChromatiques();
 
 		/**UI*/
 		pm.registerEvents(new DonjonGui()	, this);
@@ -105,6 +116,9 @@ public class DonjonMain extends JavaPlugin{
 		pm.registerEvents(new WeaponGui()	, this);
 		pm.registerEvents(new PotionGui()	, this);
 		pm.registerEvents(new ArenaGui()	, this);
+		pm.registerEvents(new CraftPotionsGui()   , this);
+		pm.registerEvents(new ShopSpellChromaGui()  , this);
+		pm.registerEvents(new ShopGui()  , this);
 		
 		pm.registerEvents(new DonjonEvents(), this);
 		pm.registerEvents(new ArenaEvents(), this);
@@ -119,8 +133,12 @@ public class DonjonMain extends JavaPlugin{
 		donjons.add(new WorldCreator("donjon_1").createWorld());
 		donjons.add(new WorldCreator("donjon_2").createWorld());
 		donjons.add(new WorldCreator("donjon_3").createWorld());
+		System.out.println(donjons.get(0));
+		System.out.println(donjons.get(1));
+		System.out.println(donjons.get(2));
 		
-		for(Player p : Bukkit.getOnlinePlayers()) LevelUtils.updateName(p);
+		for(Player p : Bukkit.getOnlinePlayers()) {LevelUtils.updateName(p); 	ColorUtils.loadPlayer(p);}
+		
 		loopTabList();
 		launchEventLoop();
 		
@@ -160,6 +178,8 @@ public class DonjonMain extends JavaPlugin{
 		PlayerEquipment.getPlayerEquipment().onDisable();
 		PlayerLevelStats.getPlayerLevelStats().onDisable();
 		PlayerEconomy.getEconomy().onDisable();
+		
+		PlayerChromatiques.getPlayerChromatiques().onDisable();
 	}
 
 	private void initMessages(){
@@ -240,7 +260,8 @@ public class DonjonMain extends JavaPlugin{
 					Object header2 = new ChatComponentText("§4§lDonjon \n§7By Eazy_Ender\n§7-------------------");
 					Object footer = new ChatComponentText("§r§7-------------------\n"
 							+ "§r§4§lInformations\n"
-							//+ "§eArgent : §6" + PlayerEconomy.getPlayerEconomy().getMoney(ps) + "\n"
+							+ "§7Votre Argent : §c" + PlayerEconomy.getEconomy().getMoney(ps) + "\n"
+							+ "§7Vos Essences : §c" + PlayerEconomy.getEconomy().getEssences(ps) + "\n"
 							+ "§7Donjons §flancés : §c" + DonjonGenerator.donjons.size() + "\n"
 							+ "§r§7-------------------\n"
 							+ "§r§7Joueurs§f en ligne : §c " + Bukkit.getServer().getOnlinePlayers().size()

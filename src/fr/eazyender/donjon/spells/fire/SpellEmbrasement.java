@@ -9,6 +9,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.ManaEvents;
 
@@ -44,7 +45,7 @@ public class SpellEmbrasement extends ISpell{
 					  new BukkitRunnable() {
 						  @Override
 							public void run() {
-							  Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(120,0,0), 1.0F + ((float)timer/10F));
+							  Particle.DustOptions dustOptions = new Particle.DustOptions(ColorUtils.getSkins().get(player).get(1), 1.0F + ((float)timer/10F));
 							  if(timer < maxTimer) {
 							  
 							  Vector v1 = player.getLocation().toVector();

@@ -12,10 +12,13 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import fr.eazyender.donjon.commands.CommandGroup;
+import fr.eazyender.donjon.files.PlayerChromatiques;
 import fr.eazyender.donjon.files.PlayerEconomy;
 import fr.eazyender.donjon.files.PlayerEquipment;
 import fr.eazyender.donjon.files.PlayerGroupSave;
 import fr.eazyender.donjon.files.PlayerLevelStats;
+import fr.eazyender.donjon.gui.ShopSpellChromaGui;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.utils.PlayerGroup;
 
 public class PlayerQuit implements Listener {
@@ -57,6 +60,11 @@ public class PlayerQuit implements Listener {
 		PlayerEquipment.getPlayerEquipment().unloadPlayer(player);
 		PlayerEconomy.getEconomy().unloadPlayer(player);
 		PlayerGroupSave.getPlayerGroup().unloadPlayer(player);
+		PlayerChromatiques.getPlayerChromatiques().unloadPlayer(player);
+		
+		ColorUtils.unloadPlayer(player);
+		
+		ShopSpellChromaGui.chromas_choose.remove(player);
 		
 	}
 }

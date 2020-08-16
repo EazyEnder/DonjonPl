@@ -7,6 +7,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Pillager;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.PolarBear;
 import org.bukkit.entity.Skeleton;
@@ -114,13 +115,31 @@ public class EntityEvents {
 							if(slime.getTarget() != null) {
 									SpellIceSlowDown spell = new SpellIceSlowDown(1000*2); 
 									spell.launch(slime);
-									slime.damage(10, player);
 							}
 							}
 						}
 					break;
+				case "ICE_PILLAGER":
+					if(!entity.getNearbyEntities(7, 7, 7).isEmpty()) {
+						boolean ok = false;
+						Player player = null;
+						for (Entity entity : entity.getNearbyEntities(7, 7, 7)) {
+							if(entity instanceof Player) {
+								ok = true;
+								player = (Player) entity;
+							}
+						}
+						
+						if(ok) {
+						Pillager pillager = (Pillager)entity;
+						if(pillager.getTarget() == null || !(pillager.getTarget() instanceof Player)) {
+								pillager.setTarget(player);
+						}
+						}
+					}
+					break;
 				case "ICE_BAT":
-					if(!entity.getNearbyEntities(3, 3, 3).isEmpty()) {
+					if(!entity.getNearbyEntities(7, 7, 7).isEmpty()) {
 						boolean ok = false;
 						Player player = null;
 						for (Entity entity : entity.getNearbyEntities(7, 7, 7)) {
@@ -135,7 +154,6 @@ public class EntityEvents {
 							if(RandomNumber(0,100) < 50) {
 								SpellIceJail spell = new SpellIceJail(1000*2); 
 								spell.launch(bat);
-								bat.damage(10, player);
 								
 							}
 						}

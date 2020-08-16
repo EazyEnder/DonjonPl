@@ -102,7 +102,10 @@ public class DonjonEvents implements Listener {
 						        bar.setTitle("§fMonstres restants : " + donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs() + "/" +  donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs());
 								}
 							}else if(donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs() > 0){
-
+								BossBar bar = current_entity.get(player);
+								bar.setColor(BarColor.RED);
+						        bar.setProgress((double) donjon.getDonjon().get(positionPlayer.get(player)).getNumberOfMobs() / (double) donjon.getDonjon().get(positionPlayer.get(player)).getEntity_loc().size());
+						        bar.setTitle("§fMonstres restants : " + donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs() + "/" +  donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs());
 							}
 							
 							positionPlayer.replace(player, positionPlayer.get(player)+1);

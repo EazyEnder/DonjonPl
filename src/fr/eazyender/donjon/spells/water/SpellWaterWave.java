@@ -10,6 +10,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.ManaEvents;
 import fr.eazyender.donjon.spells.wind.SpellWindSlash;
@@ -71,7 +72,7 @@ public class SpellWaterWave extends ISpell{
 					target.getWorld().playSound(v1.toLocation(target.getWorld()), Sound.ENTITY_PLAYER_ATTACK_WEAK, 1, 1);
 					if(!collide) {
 		
-							Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(132,165,255), 3F);
+							Particle.DustOptions dustOptions = new Particle.DustOptions(ColorUtils.getSkins().get(player).get(2), 3F);
 							for (double j = 0; j < 7; j=j+1) {
 								target.getWorld().spawnParticle(Particle.REDSTONE, v1.getX(), v1.getY() + j, v1.getZ(), 10, 2+Math.random(), 0D, 2+Math.random(), dustOptions);
 							}

@@ -52,6 +52,21 @@ public class ItemPotionEvent implements Listener{
 		        	}	
 		        	potion1.launch(p);
 		        	break;
+		        case 3: 
+		        	PotionSmallSpeed potion2 = new PotionSmallSpeed(1000*5);
+		        	if(IPotion.cooldowns.containsKey(p))
+		        	if(!IPotion.cooldowns.get(p).containsKey(PotionSmallSpeed.class))
+		        	{
+		        		if(event.getItem().getAmount() == 1) p.getInventory().removeItem(event.getItem());
+		        		else event.getItem().setAmount(event.getItem().getAmount()-1);
+		        	RemovePotion(p, 3);}
+		        	else if(PotionSmallSpeed.getRemainingCooldown(p, potion2) <= 0) {
+		        		if(event.getItem().getAmount() == 1) p.getInventory().removeItem(event.getItem());
+		        		else event.getItem().setAmount(event.getItem().getAmount()-1);
+		        	RemovePotion(p, 3);
+		        	}	
+		        	potion2.launch(p);
+		        	break;
 		        }
 		    }
 		}
@@ -100,6 +115,23 @@ public class ItemPotionEvent implements Listener{
 			        	}
 			        	
 			      potion1.launch(p);
+		        p.getInventory().setHeldItemSlot(0);
+		        	break;
+		        case 3: 
+		        	PotionSmallSpeed potion2 = new PotionSmallSpeed(1000*5);
+		        	if(IPotion.cooldowns.containsKey(p))
+			        	if(!IPotion.cooldowns.get(p).containsKey(PotionSmallSpeed.class))
+			        	{
+			        		if(p.getInventory().getItem(event.getNewSlot()).getAmount() == 1) p.getInventory().removeItem(p.getInventory().getItem(event.getNewSlot()));
+			        		else p.getInventory().getItem(event.getNewSlot()).setAmount(p.getInventory().getItem(event.getNewSlot()).getAmount()-1);
+			        	RemovePotion(p, 3);}
+			        	else if(PotionSmallSpeed.getRemainingCooldown(p, potion2) <= 0) {
+			        		if(p.getInventory().getItem(event.getNewSlot()).getAmount() == 1) p.getInventory().removeItem(p.getInventory().getItem(event.getNewSlot()));
+			        		else p.getInventory().getItem(event.getNewSlot()).setAmount(p.getInventory().getItem(event.getNewSlot()).getAmount()-1);
+			        	RemovePotion(p, 3);
+			        	}
+			        	
+			      potion2.launch(p);
 		        p.getInventory().setHeldItemSlot(0);
 		        	break;
 		        }

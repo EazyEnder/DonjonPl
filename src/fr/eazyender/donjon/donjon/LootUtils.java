@@ -17,7 +17,6 @@ public class LootUtils {
 	
 	public static ItemStack getLootById(int id) {
 		ItemStack item = null;
-		List<String> lore = new ArrayList<String>();
 		switch(id) {
 		case 1: item = getDrop(Material.STICK, "§fEssence de la §2foret", false, 1, "§fEtrange substance mouvante remplis d'§2énergie", "Commun");
 			break;
@@ -134,29 +133,43 @@ public class LootUtils {
 		
 		List<ItemStack> loots = new ArrayList<ItemStack>();
 		
-		switch(name) {
-		case "BUSH_ZOMBIE":
-			if(RandomNumber(1,100) <= 50) {loots.add(LootUtils.getLootById(1));}
-			if(RandomNumber(1,100) <= 10) {loots.add(LootUtils.getLootById(3));}
+		double m = 1;
+		switch(difficulty) {
+		case 1:  m = 0.5;
 			break;
-		case "BUSH_SQUELETON":
-			if(RandomNumber(1,100) <= 50) {loots.add(LootUtils.getLootById(1));}
-			if(RandomNumber(1,100) <= 10) {loots.add(LootUtils.getLootById(3));}
+		case 2: m = 1;
 			break;
-		case "GRANITE_KNIGHT_SQUELETON":
-			if(RandomNumber(1,100) <= 50) {loots.add(LootUtils.getLootById(2));}
-			break;	
-		case "GRANITE_ARCHER_SQUELETON":
-			if(RandomNumber(1,100) <= 50) {loots.add(LootUtils.getLootById(2));}
+		case 3: m = 1.25;
 			break;
-		case "GRANITE_KING_SQUELETON":
-			if(RandomNumber(1,100) <= 100) {loots.add(LootUtils.getLootById(2));}
-			break;
-		case "BUSH_PHANTOM":
-			if(RandomNumber(1,100) <= 50) {loots.add(LootUtils.getLootById(1));}
-			if(RandomNumber(1,100) <= 15) {loots.add(LootUtils.getLootById(4));}
+		case 4: m = 1.75;
 			break;
 		}
+		
+		switch(name) {
+		case "BUSH_ZOMBIE":
+			if(RandomNumber(1,100) <= 50 * m) {loots.add(LootUtils.getLootById(1));}
+			if(RandomNumber(1,100) <= 10 * m) {loots.add(LootUtils.getLootById(3));}
+			break;
+		case "BUSH_SQUELETON":
+			if(RandomNumber(1,100) <= 50 * m) {loots.add(LootUtils.getLootById(1));}
+			if(RandomNumber(1,100) <= 10 * m) {loots.add(LootUtils.getLootById(3));}
+			break;
+		case "GRANITE_KNIGHT_SQUELETON":
+			if(RandomNumber(1,100) <= 50 * m) {loots.add(LootUtils.getLootById(2));}
+			break;	
+		case "GRANITE_ARCHER_SQUELETON":
+			if(RandomNumber(1,100) <= 50 * m) {loots.add(LootUtils.getLootById(2));}
+			break;
+		case "GRANITE_KING_SQUELETON":
+			if(RandomNumber(1,100) <= 100 * m) {loots.add(LootUtils.getLootById(2));}
+			break;
+		case "BUSH_PHANTOM":
+			if(RandomNumber(1,100) <= 50 * m) {loots.add(LootUtils.getLootById(1));}
+			if(RandomNumber(1,100) <= 15 * m) {loots.add(LootUtils.getLootById(4));}
+			break;
+		}
+		
+		
 		
 		return loots;
 	}

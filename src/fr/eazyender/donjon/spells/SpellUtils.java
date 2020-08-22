@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import fr.eazyender.donjon.spells.earth.SpellEarthChocWave;
+import fr.eazyender.donjon.spells.earth.SpellEarthGraplin;
 import fr.eazyender.donjon.spells.earth.SpellShield;
 import fr.eazyender.donjon.spells.fire.SpellEmbrasement;
 import fr.eazyender.donjon.spells.fire.SpellFireProjectiles;
@@ -20,6 +21,7 @@ import fr.eazyender.donjon.spells.physic.SpellDash;
 import fr.eazyender.donjon.spells.physic.SpellOneTarget;
 import fr.eazyender.donjon.spells.physic.SpellSpeedBoost;
 import fr.eazyender.donjon.spells.poison.SpellPoisonousSacrifice;
+import fr.eazyender.donjon.spells.shadow.SpellShadowSwitch;
 import fr.eazyender.donjon.spells.water.SpellHealProjectile;
 import fr.eazyender.donjon.spells.water.SpellIceJail;
 import fr.eazyender.donjon.spells.water.SpellIceSlowDown;
@@ -36,8 +38,11 @@ public class SpellUtils {
 	 * - SHIELD
 	 * - ICE SLOWDOWN
 	 * - ICE JAIL
-	 * - SPEEDBOOST*/
-	public static int spellNumber = 17;
+	 * - ICE SLOWDOWN AOE
+	 * - SPEEDBOOST
+	 * - SHADOW SWITCH
+	 * - EARTH GRAPLIN*/
+	public static int spellNumber = 19;
 	
 	public static int getIdSpellByItem(ItemStack item) {
 		
@@ -169,13 +174,29 @@ public class SpellUtils {
 		ItemStack item16 = getCustomItemWithLore(Material.FEATHER, "§6§lACCELERATION", false, 1, str15);
 		all.add(item16);
 		List<String> str16 = new ArrayList<String>();
-		str16.add("§fCréer une zone autour de vue");
+		str16.add("§fCréer une zone autour de vous");
 		str16.add("§fralentissant les ennemis qui s'y trouve");
 		str16.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
 		str16.add("§3§lCoût§r§7 : " + SpellIceSlowDownAOE.basicCost);
 		str16.add("§3§lTemps de recharge§r§7 : " +( SpellIceSlowDownAOE.basicCooldown/1000));
-		ItemStack item17 = getCustomItemWithLore(Material.FEATHER, "§3§l(ZONE)LENTEUR DE GLACE", false, 1, str16);
+		ItemStack item17 = getCustomItemWithLore(Material.FEATHER, "§3§lZONE LENTEUR DE GLACE", false, 1, str16);
 		all.add(item17);
+		List<String> str17 = new ArrayList<String>();
+		str17.add("§fEnvoie un projectile qui si il touche");
+		str17.add("§fchange votre position avec celle de la cible");
+		str17.add("§5§lType§r§7 : " + "§5§lTENEBRE" + " / " + "§7MANA");
+		str17.add("§5§lCoût§r§7 : " + SpellShadowSwitch.basicCost);
+		str17.add("§5§lTemps de recharge§r§7 : " +( SpellShadowSwitch.basicCooldown/1000));
+		ItemStack item18 = getCustomItemWithLore(Material.FEATHER, "§5§lCHANGEMENT DES OMBRES", false, 1, str17);
+		all.add(item18);
+		List<String> str18 = new ArrayList<String>();
+		str18.add("§fEnvoie un projectile qui si il touche");
+		str18.add("§framène la cible vers vous");
+		str18.add("§6§lType§r§7 : " + "§6§lTERRE" + " / " + "§7MANA");
+		str18.add("§6§lCoût§r§7 : " + SpellEarthGraplin.basicCost);
+		str18.add("§6§lTemps de recharge§r§7 : " +( SpellEarthGraplin.basicCooldown/1000));
+		ItemStack item19 = getCustomItemWithLore(Material.FEATHER, "§6§lGRAPIN DES SABLES", false, 1, str18);
+		all.add(item19);
 		
 		for (int i = 0; i < all.size(); i++) {
 			if(item.equals(all.get(i))) {
@@ -333,12 +354,30 @@ public class SpellUtils {
 			break;
 		case 17:
 			List<String> str16 = new ArrayList<String>();
-			str16.add("§fCréer une zone autour de vue");
+			str16.add("§fCréer une zone autour de vous");
 			str16.add("§fralentissant les ennemis qui s'y trouve");
 			str16.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
 			str16.add("§3§lCoût§r§7 : " + SpellIceSlowDownAOE.basicCost);
 			str16.add("§3§lTemps de recharge§r§7 : " +( SpellIceSlowDownAOE.basicCooldown/1000));
-			item = getCustomItemWithLore(Material.FEATHER, "§3§l(ZONE)LENTEUR DE GLACE", false, 1, str16);
+			item = getCustomItemWithLore(Material.FEATHER, "§3§lZONE LENTEUR DE GLACE", false, 1, str16);
+			break;
+		case 18:
+			List<String> str17 = new ArrayList<String>();
+			str17.add("§fEnvoie un projectile qui si il touche");
+			str17.add("§fchange votre position avec celle de la cible");
+			str17.add("§5§lType§r§7 : " + "§5§lTENEBRE" + " / " + "§7MANA");
+			str17.add("§5§lCoût§r§7 : " + SpellShadowSwitch.basicCost);
+			str17.add("§5§lTemps de recharge§r§7 : " +( SpellShadowSwitch.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§5§lCHANGEMENT DES OMBRES", false, 1, str17);
+			break;
+		case 19:
+			List<String> str18 = new ArrayList<String>();
+			str18.add("§fEnvoie un projectile qui si il touche");
+			str18.add("§framène la cible vers vous");
+			str18.add("§6§lType§r§7 : " + "§6§lTERRE" + " / " + "§7MANA");
+			str18.add("§6§lCoût§r§7 : " + SpellEarthGraplin.basicCost);
+			str18.add("§6§lTemps de recharge§r§7 : " +( SpellEarthGraplin.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§6§lGRAPIN DES SABLES", false, 1, str18);
 			break;
 		}
 		

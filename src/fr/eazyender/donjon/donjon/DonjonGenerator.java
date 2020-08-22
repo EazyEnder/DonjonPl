@@ -56,13 +56,13 @@ public class DonjonGenerator {
 			break;
 		case 3: size = 13;
 			break;
-		case 4: size = 15;
+		case 4: size = 17;
 			break;
 		}
 		
 		IDonjon donjon = DonjonGenerator.genDonjon(host, biome, size, (short)difficulty);
 		Location donjon_loc = donjon.getDonjon().get(0).getDoors().get(0);
-		donjon_loc.setWorld(createNewDonjon(DonjonMain.donjons.get(biome-1), host));
+		donjon_loc.setWorld(createNewDonjon(donjon, DonjonMain.donjons.get(biome-1), host));
 		
 		
 		new BukkitRunnable() {
@@ -140,7 +140,7 @@ public class DonjonGenerator {
 		
 	}
 	
-	private static World createNewDonjon(World world, Player player){
+	private static World createNewDonjon(IDonjon donjon, World world, Player player){
 	     File worldDir = world.getWorldFolder();
 	     String newName = world.getName() + "_temp" + "_" + player.getName();
 	     
@@ -155,8 +155,12 @@ public class DonjonGenerator {
 	     
 	     WorldCreator creator = new WorldCreator(newName);
 	     World newWorld = Bukkit.createWorld(creator);
-	     newWorld.setGameRule(GameRule.NATURAL_REGENERATION, true);
+	     if(donjon.getDifficulty() != 4)
+	    	 newWorld.setGameRule(GameRule.NATURAL_REGENERATION, true);
+	     else
+	    	  newWorld.setGameRule(GameRule.NATURAL_REGENERATION, false);
 	     newWorld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+	     newWorld.setGameRule(GameRule.KEEP_INVENTORY, true);
 	     return newWorld;
 	}
 	

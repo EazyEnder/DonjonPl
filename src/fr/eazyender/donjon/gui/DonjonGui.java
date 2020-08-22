@@ -292,27 +292,27 @@ public class DonjonGui implements Listener {
 			case 1:
 				str_donjon_difficulty.add("§7Difficulté : §2FACILE");
 				str_donjon_difficulty.add("§7Régénération de vie | 5 salles");
-				str_donjon_difficulty.add("§70.5xXP | 0.5xLoot");
+				str_donjon_difficulty.add("§70.5xXP | 0.5xCLoot | Monstres 0.5HP");
 				donjon_difficulty = getCustomItemWithLore(Material.STICK,"§2§lFACILE",false,1,str_donjon_difficulty);
 			break;
 			case 2:
 				str_donjon_difficulty.add("§7Difficulté : §eMOYEN");
-				str_donjon_difficulty.add("§7Pas de Régénération de vie | 9 salles");
-				str_donjon_difficulty.add("§71xXP | 1xLoot");
+				str_donjon_difficulty.add("§7Régénération de vie | 9 salles");
+				str_donjon_difficulty.add("§71xXP | 1xCLoot");
 				donjon_difficulty = getCustomItemWithLore(Material.STICK,"§e§lMOYEN",false,2,str_donjon_difficulty);
 				break;
 			case 3:
 				str_donjon_difficulty.add("§7Difficulté : §4DIFFICILE");
 				str_donjon_difficulty.add("§7Régénération de vie | 13 salles");
 				str_donjon_difficulty.add("§72xMonstres");
-				str_donjon_difficulty.add("§71.5xXP | 1.5xLoot");
+				str_donjon_difficulty.add("§71.5xXP | 1.25xCLoot");
 				donjon_difficulty = getCustomItemWithLore(Material.STICK,"§4§lDIFFICILE",false,3,str_donjon_difficulty);
 				break;
 			case 4:
 				str_donjon_difficulty.add("§7Difficulté : §8EXPERT");
-				str_donjon_difficulty.add("§7Pas de Régénération de vie | 15 salles");
-				str_donjon_difficulty.add("§72.5xMonstres");
-				str_donjon_difficulty.add("§72.5xXP | 2.5xLoot");
+				str_donjon_difficulty.add("§7Pas de Régénération de vie | 17 salles");
+				str_donjon_difficulty.add("§73xMonstres");
+				str_donjon_difficulty.add("§72xXP | 1.75xCLoot");
 				donjon_difficulty = getCustomItemWithLore(Material.STICK,"§8§lEXPERT",false,4,str_donjon_difficulty);
 				break;
 			}

@@ -113,7 +113,7 @@ public class SpellShield extends ISpell{
 								  if(!(entity instanceof Player)) {
 								  entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(walkspeed);
 								  }else {
-								  ((Player)(entity)).setWalkSpeed((float)walkspeed);  
+								  ((Player)(entity)).setWalkSpeed((float)0.2);  
 								  }
 								  entity.setInvulnerable(false);
 							  }

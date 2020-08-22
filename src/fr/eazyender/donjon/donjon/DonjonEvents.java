@@ -92,9 +92,20 @@ public class DonjonEvents implements Listener {
 							
 							if(maxPositionPlayer.get(group) < positionPlayer.get(player)+1) {
 								maxPositionPlayer.replace(group, positionPlayer.get(player)+1);
+								int mMob = 1;
+								switch(donjon.getDifficulty()) {
+								case 1: mMob = 1;
+									break;
+								case 2: mMob = 1;
+									break;
+								case 3: mMob = 2;
+									break;
+								case 4: mMob = 3;
+									break;
+								}
 								if(donjon.getDonjon().get(positionPlayer.get(player)+1).getEntity_loc() != null) {
-								donjon.getDonjon().get(positionPlayer.get(player)+1).setNumberOfMobs(donjon.getDonjon().get(positionPlayer.get(player)+1).getEntity_loc().size());
-								RoomUtils.genEntity(donjon.getDonjon().get(positionPlayer.get(player)+1), player.getWorld());
+								donjon.getDonjon().get(positionPlayer.get(player)+1).setNumberOfMobs(donjon.getDonjon().get(positionPlayer.get(player)+1).getEntity_loc().size() * mMob);
+								RoomUtils.genEntity(donjon, donjon.getDonjon().get(positionPlayer.get(player)+1), player.getWorld());
 								
 								BossBar bar = current_entity.get(player);
 								bar.setColor(BarColor.RED);
@@ -144,7 +155,17 @@ public class DonjonEvents implements Listener {
 				
 				IDonjon donjon = DonjonGenerator.donjons.get(group);
 				donjon.getDonjon().get(positionPlayer.get(player)).setNumberOfMobs(donjon.getDonjon().get(positionPlayer.get(player)).getNumberOfMobs()-1);
-					
+				int mMob = 1;
+				switch(donjon.getDifficulty()) {
+				case 1: mMob = 1;
+					break;
+				case 2: mMob = 1;
+					break;
+				case 3: mMob = 2;
+					break;
+				case 4: mMob = 3;
+					break;
+				}
 					
 					if(!drops_ressource.containsKey(group)) {
 						drops_ressource.put(group, new ArrayList<ItemStack>());
@@ -177,13 +198,13 @@ public class DonjonEvents implements Listener {
 				for (int i = 0; i < group.getPlayersInARoom(positionPlayer.get(player)).size(); i++) {
 					List<Player> players = group.getPlayersInARoom(positionPlayer.get(player));
 					BossBar bar = current_entity.get(players.get(i));
-					if (((double) donjon.getDonjon().get(positionPlayer.get(players.get(i))).getNumberOfMobs() / (double) donjon.getDonjon().get(positionPlayer.get(players.get(i))).getEntity_loc().size()) > 0.5) {
+					if (((double) donjon.getDonjon().get(positionPlayer.get(players.get(i))).getNumberOfMobs() / (double) donjon.getDonjon().get(positionPlayer.get(players.get(i))).getEntity_loc().size()) * mMob > 0.5) {
 						bar.setColor(BarColor.RED);
 					} else {
 						bar.setColor(BarColor.YELLOW);
 					}
-					bar.setProgress((double) donjon.getDonjon().get(positionPlayer.get(players.get(i))).getNumberOfMobs() / (double) donjon.getDonjon().get(positionPlayer.get(players.get(i))).getEntity_loc().size());
-					bar.setTitle("§fMonstres restants : " + donjon.getDonjon().get(positionPlayer.get(players.get(i))).getNumberOfMobs() + "/" + donjon.getDonjon().get(positionPlayer.get(players.get(i))).getEntity_loc().size());
+					bar.setProgress((double) donjon.getDonjon().get(positionPlayer.get(players.get(i))).getNumberOfMobs() / (double) donjon.getDonjon().get(positionPlayer.get(players.get(i))).getEntity_loc().size()*mMob);
+					bar.setTitle("§fMonstres restants : " + donjon.getDonjon().get(positionPlayer.get(players.get(i))).getNumberOfMobs() + "/" + donjon.getDonjon().get(positionPlayer.get(players.get(i))).getEntity_loc().size()* mMob);
 
 					if (donjon.getDonjon().get(positionPlayer.get(players.get(i))).getNumberOfMobs() <= 0) {
 						bar.setTitle("Pas de monstres !");
@@ -277,13 +298,25 @@ public class DonjonEvents implements Listener {
 		int difficulty = DonjonGenerator.donjons.get(group).getDifficulty();
 		Long time = timer.get(group);
 		
+		double mTime = 1;
+		switch(difficulty) {
+		case 1: mTime = 0.8;
+			break;
+		case 2: mTime = 1;
+			break;
+		case 3: mTime = 1.7;
+			break;
+		case 4: mTime = 2.5;
+			break;
+		}
+		
 		int score = 0;
 		int endtime = 0;
 		String rank = "F";
 		int xp = 0;
 		List<IRoom> rooms = DonjonGenerator.donjons.get(group).getDonjon();
 		for (int i = 0; i < rooms.size(); i++) {
-			endtime = endtime + rooms.get(i).getMaxTime();
+			endtime = endtime + (int)(rooms.get(i).getMaxTime() * mTime);
 			xp = xp + rooms.get(i).getXp();
 		}
 		if(time <= endtime / 1.5) {
@@ -301,6 +334,17 @@ public class DonjonEvents implements Listener {
 		}else {
 			score = 0;
 			rank = "§4F";
+		}
+		
+		switch(difficulty) {
+		case 1: score = score / 2;
+			break;
+		case 2: 
+			break;
+		case 3: score = (int) (1.5 * score);
+			break;
+		case 4: score = 2 * score;
+			break;
 		}
 
 			for (Player player : group.getPlayers()) {

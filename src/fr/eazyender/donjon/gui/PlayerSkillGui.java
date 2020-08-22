@@ -114,7 +114,7 @@ public class PlayerSkillGui implements Listener{
 				PlayerLevelStats.getPlayerLevelStats().setStatsPoints(player, 1, (int) (PlayerLevelStats.getPlayerLevelStats().getAStatsPoints(player, 1)+1));
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 				createSkillGui(player, 1);
-				LevelUtils.updateSkill(player, 3);
+				LevelUtils.updateSkill(player, 1);
 				InventoryGui.updateInventory(player);
 				}	
 			}
@@ -138,7 +138,7 @@ public class PlayerSkillGui implements Listener{
 				PlayerLevelStats.getPlayerLevelStats().setStatsPoints(player, 2, (int) (PlayerLevelStats.getPlayerLevelStats().getAStatsPoints(player, 2)+1));
 				player.playSound(player.getLocation(), Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1);
 				createSkillGui(player, 2);
-				LevelUtils.updateSkill(player, 3);
+				LevelUtils.updateSkill(player, 2);
 				InventoryGui.updateInventory(player);
 				}	
 			}

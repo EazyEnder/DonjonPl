@@ -35,3 +35,6 @@ commands:
   holo:
     description: Spawn a holo
     permission: admin.use
+  reset:
+    description: Reset a stats
+    permission: admin.use

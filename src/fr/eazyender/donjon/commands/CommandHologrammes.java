@@ -170,6 +170,59 @@ public class CommandHologrammes implements CommandExecutor {
 									player.getLocation().getY() - 0.3,
 									player.getLocation().getZ());
 							createHologram(lc2,"§f§lAchetez ou vendez des biens");
+						}else if(args[0].equals("teleporter_city2")) {
+							Location lc2 = new Location(
+									player.getWorld(),
+									player.getLocation().getX(),
+									player.getLocation().getY(),
+									player.getLocation().getZ());
+							createHologram(lc2,"§f§lVVVVVVVVVVVVVVV");
+							Location lc3 = new Location(
+									player.getWorld(),
+									player.getLocation().getX(),
+									player.getLocation().getY() - 0.3,
+									player.getLocation().getZ());
+							createHologram(lc3,"§f§l-Vers §6Hunger Game");
+						}else if(args[0].equals("hungergame")) {
+							
+							Location lc = player.getLocation();
+							createHologram(lc,"§r§f§l§kKKK§6§l§nHunger Game§r§f§l§kKKK");
+							Location lc2 = new Location(
+									player.getWorld(),
+									player.getLocation().getX(),
+									player.getLocation().getY() - 0.3,
+									player.getLocation().getZ());
+							createHologram(lc2,"§r§f§lUn mode de jeu §r§e§lPVP§r§f§l !");
+							Location lc3 = new Location(
+									player.getWorld(),
+									player.getLocation().getX(),
+									player.getLocation().getY() - 0.6,
+									player.getLocation().getZ());
+							createHologram(lc3,"§f§l§r§e§lExplorez§r§f§l une géante §r§e§lîle volante§r§f§l");
+							Location lc4 = new Location(
+									player.getWorld(),
+									player.getLocation().getX(),
+									player.getLocation().getY() - 0.9,
+									player.getLocation().getZ());
+							createHologram(lc4,"§f§lAfin de lootez les plus forts §r§e§lsorts, armes et équipement§r§f§l");
+							Location lc5 = new Location(
+									player.getWorld(),
+									player.getLocation().getX(),
+									player.getLocation().getY() - 1.2,
+									player.getLocation().getZ());
+							createHologram(lc5,"§f§lEn prévision de §r§e§lrencontre dangereuses§r§f§l avec d'autres joueurs");
+							Location lc6 = new Location(
+									player.getWorld(),
+									player.getLocation().getX(),
+									player.getLocation().getY() - 1.5,
+									player.getLocation().getZ());
+							createHologram(lc6,"§f§lFaites attention à la §r§e§lbordure§r§f§l qui rétrécit au fil de la partie");
+							Location lc7 = new Location(
+									player.getWorld(),
+									player.getLocation().getX(),
+									player.getLocation().getY() - 1.8,
+									player.getLocation().getZ());
+							createHologram(lc7,"§f§l§r§e§lSurvivez§r§f§l jusqu'à la fin !");
 						}
 					
 				}

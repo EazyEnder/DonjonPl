@@ -7,6 +7,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 
 import fr.eazyender.donjon.spells.earth.SpellEarthChocWave;
+import fr.eazyender.donjon.spells.earth.SpellEarthGraplin;
 import fr.eazyender.donjon.spells.earth.SpellShield;
 import fr.eazyender.donjon.spells.fire.SpellEmbrasement;
 import fr.eazyender.donjon.spells.fire.SpellFireProjectiles;
@@ -16,6 +17,7 @@ import fr.eazyender.donjon.spells.physic.SpellDash;
 import fr.eazyender.donjon.spells.physic.SpellOneTarget;
 import fr.eazyender.donjon.spells.physic.SpellSpeedBoost;
 import fr.eazyender.donjon.spells.poison.SpellPoisonousSacrifice;
+import fr.eazyender.donjon.spells.shadow.SpellShadowSwitch;
 import fr.eazyender.donjon.spells.water.SpellHealProjectile;
 import fr.eazyender.donjon.spells.water.SpellIceJail;
 import fr.eazyender.donjon.spells.water.SpellIceSlowDown;
@@ -68,6 +70,10 @@ public class ItemSpellEvent implements Listener{
         			break;
 		        case 17: SpellIceSlowDownAOE spell17 = new SpellIceSlowDownAOE(1000*2); spell17.launch(p);
         			break;
+		        case 18: SpellShadowSwitch spell18 = new SpellShadowSwitch(1000*2); spell18.launch(p);
+    				break;
+		        case 19: SpellEarthGraplin spell19 = new SpellEarthGraplin(1000*2); spell19.launch(p);
+					break;
 		        }
 		    }
 		}
@@ -112,9 +118,13 @@ public class ItemSpellEvent implements Listener{
 		        case 15: SpellOneTarget spell15 = new SpellOneTarget(1000*2); spell15.launch(p);
         			break;
 		        case 16: SpellSpeedBoost spell16 = new SpellSpeedBoost(1000*2); spell16.launch(p);
-    			break;
+    				break;
 		        case 17: SpellIceSlowDownAOE spell17 = new SpellIceSlowDownAOE(1000*2); spell17.launch(p);
-    			break;
+    				break;
+		        case 18: SpellShadowSwitch spell18 = new SpellShadowSwitch(1000*2); spell18.launch(p);
+					break;
+		        case 19: SpellEarthGraplin spell19 = new SpellEarthGraplin(1000*2); spell19.launch(p);
+					break;
 		        }
 		        p.getInventory().setHeldItemSlot(0);
 		    }

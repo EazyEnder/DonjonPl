@@ -2,7 +2,6 @@ package fr.eazyender.donjon.donjon;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -16,7 +15,6 @@ import org.bukkit.entity.Pillager;
 import org.bukkit.entity.PolarBear;
 import org.bukkit.entity.Silverfish;
 import org.bukkit.entity.Skeleton;
-import org.bukkit.entity.Skeleton.SkeletonType;
 import org.bukkit.entity.Slime;
 import org.bukkit.entity.Spider;
 import org.bukkit.entity.Stray;
@@ -95,25 +93,52 @@ public class RoomUtils {
 		
 	}
 	
-	public static void genEntity(IRoom room,World world) {
+	public static void genEntity(IDonjon donjon,IRoom room,World world) {
+		
+		int mMob = 1;
+		switch(donjon.getDifficulty()) {
+		case 1: mMob = 1;
+			break;
+		case 2: mMob = 1;
+			break;
+		case 3: mMob = 2;
+			break;
+		case 4: mMob = 3;
+			break;
+		}
 		
 		for (int i = 0; i < room.getEntity_loc().size(); i++) {
-			genCustomMobs(room.getEntity_type().get(i), room.getEntity_loc().get(i), world);
+			for (int j = 0; j < mMob; j++) {
+				genCustomMobs(donjon,room.getEntity_type().get(i), room.getEntity_loc().get(i), world);
+			}
 		}
 		
 	}
 	
-	public static void genCustomMobs(String name, Location loc, World world) {
+	@SuppressWarnings("deprecation")
+	public static void genCustomMobs(IDonjon donjon, String name, Location loc, World world) {
+		
+		double mHp = 1;
+		switch(donjon.getDifficulty()) {
+		case 1: mHp = 0.5;
+			break;
+		case 2: mHp = 1;
+			break;
+		case 3: mHp = 1;
+			break;
+		case 4: mHp = 1;
+			break;
+		}
 		
 		if(name.contains("SQUELETON")) {
 			
 		Skeleton skeleton = (Skeleton) world.spawnEntity(loc, EntityType.SKELETON);
 		switch(name) {
-		case "BUSH_SQUELETON": skeleton.setCustomName("BUSH_SQUELETON");
+		case "BUSH_SQUELETON": skeleton.setCustomName("BUSH_SQUELETON"); skeleton.setHealth(mHp*skeleton.getMaxHealth()); skeleton.setMaxHealth(mHp*skeleton.getMaxHealth());
 			break;	
-		case "GRANITE_ARCHER_SQUELETON": skeleton.setCustomName("GRANITE_ARCHER_SQUELETON");
+		case "GRANITE_ARCHER_SQUELETON": skeleton.setCustomName("GRANITE_ARCHER_SQUELETON");skeleton.setHealth(mHp*skeleton.getMaxHealth()); skeleton.setMaxHealth(mHp*skeleton.getMaxHealth());
 			break;	
-		case "GRANITE_KNIGHT_SQUELETON": skeleton.setCustomName("GRANITE_KNIGHT_SQUELETON");
+		case "GRANITE_KNIGHT_SQUELETON": skeleton.setCustomName("GRANITE_KNIGHT_SQUELETON");skeleton.setHealth(mHp*skeleton.getMaxHealth()); skeleton.setMaxHealth(mHp*skeleton.getMaxHealth());
 		skeleton.getEquipment().setItemInMainHand(LootUtils.getWeaponById(5));
 			break;	
 		case "GRANITE_KING_SQUELETON": skeleton.setCustomName("GRANITE_KING_SQUELETON");
@@ -123,16 +148,18 @@ public class RoomUtils {
 		skeleton.getEquipment().setChestplate(LootUtils.getArmorById(1, 2, "IRON"));
 		skeleton.getEquipment().setLeggings(LootUtils.getArmorById(1, 3, "IRON"));
 		skeleton.getEquipment().setBoots(LootUtils.getArmorById(1, 4, "IRON"));
+		skeleton.setHealth(mHp*skeleton.getMaxHealth()); skeleton.setMaxHealth(mHp*skeleton.getMaxHealth());
 			break;	
 		case "ICE_SQUELETON": Stray stray = (Stray) world.spawnEntity(loc, EntityType.STRAY);
 		stray.setCustomName("ICE_SQUELETON"); skeleton.remove();
+		skeleton.setHealth(mHp*skeleton.getMaxHealth()); skeleton.setMaxHealth(mHp*skeleton.getMaxHealth());
 		
 			break;
 		case "SAND_SQUELETON": skeleton.setCustomName("SAND_SQUELETON");
-		skeleton.setMaxHealth(30); skeleton.setHealth(30);
+		skeleton.setMaxHealth(mHp*30); skeleton.setHealth(mHp*30);
 			break;
 		case "ANCIENT_SQUELETON": skeleton.setCustomName("ANCIENT_SQUELETON");
-		skeleton.setMaxHealth(45); skeleton.setHealth(45);
+		skeleton.setMaxHealth(mHp*45); skeleton.setHealth(mHp*45);
 			break;
 		}
 		skeleton.setCustomNameVisible(false);
@@ -143,10 +170,12 @@ public class RoomUtils {
 			Zombie zombie = (Zombie) world.spawnEntity(loc, EntityType.ZOMBIE);
 			switch(name) {
 			case "BUSH_ZOMBIE": zombie.setCustomName("BUSH_ZOMBIE");
+			zombie.setHealth(mHp*zombie.getMaxHealth()); zombie.setMaxHealth(mHp*zombie.getMaxHealth());
 				break;
 			case "ICE_ZOMBIE": zombie.setCustomName("ICE_ZOMBIE"); zombie.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, 1, true));
+			zombie.setHealth(mHp*zombie.getMaxHealth()); zombie.setMaxHealth(mHp*zombie.getMaxHealth());
 				break;
-			case "MOMIE_ZOMBIE": zombie.setCustomName("MOMIE_ZOMBIE");zombie.setMaxHealth(45);zombie.setHealth(45);
+			case "MOMIE_ZOMBIE": zombie.setCustomName("MOMIE_ZOMBIE");zombie.setMaxHealth(45*mHp);zombie.setHealth(45*mHp);
 				break;
 			}
 			zombie.setCustomNameVisible(false);
@@ -156,9 +185,10 @@ public class RoomUtils {
 			
 			Golem golem = (Golem) world.spawnEntity(loc, EntityType.IRON_GOLEM);
 				switch(name) {
-				case "BUSH_GOLEM": golem.setCustomName("BUSH_GOLEM"); golem.setHealth(45); golem.setMaxHealth(45);
+				case "BUSH_GOLEM": golem.setCustomName("BUSH_GOLEM"); golem.setHealth(45*mHp); golem.setMaxHealth(45*mHp);
 					break;
 				case "BONE_GOLEM": golem.setCustomName("BONE_GOLEM");
+				golem.setHealth(mHp*golem.getMaxHealth()); golem.setMaxHealth(mHp*golem.getMaxHealth());
 					break;
 				}
 			golem.setCustomNameVisible(false);
@@ -169,6 +199,7 @@ public class RoomUtils {
 			Phantom phantom = (Phantom) world.spawnEntity(loc, EntityType.PHANTOM);
 			switch(name) {
 			case "BUSH_PHANTOM": phantom.setCustomName("BUSH_PHANTOM");
+			phantom.setHealth(mHp*phantom.getMaxHealth()); phantom.setMaxHealth(mHp*phantom.getMaxHealth());
 				break;
 			}
 			phantom.setCustomNameVisible(false);
@@ -195,7 +226,7 @@ public class RoomUtils {
 			switch(name) {
 			case "ICE_PILLAGER": pillager.setCustomName("ICE_PILLAGER"); 
 			pillager.getEquipment().setItemInMainHand(LootUtils.getWeaponById(3));
-			pillager.setMaxHealth(35); pillager.setHealth(35);
+			pillager.setMaxHealth(35*mHp); pillager.setHealth(35*mHp);
 				break;
 			}
 			
@@ -204,8 +235,9 @@ public class RoomUtils {
 			PolarBear bear = (PolarBear)world.spawnEntity(loc,  EntityType.POLAR_BEAR);
 			switch(name) {
 			case "SNOW_BEAR": bear.setCustomName("SNOW_BEAR"); bear.setAdult();  bear.setAdult(); bear.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, 0, true));
-				break;
-			case "ICE_BEAR": bear.setCustomName("ICE_BEAR"); bear.setMaxHealth(100); bear.setHealth(100); bear.setAdult(); bear.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, 1, true));
+			bear.setMaxHealth(bear.getMaxHealth()*mHp); bear.setHealth(bear.getMaxHealth()*mHp);	
+			break;
+			case "ICE_BEAR": bear.setCustomName("ICE_BEAR"); bear.setMaxHealth(100*mHp); bear.setHealth(100*mHp); bear.setAdult(); bear.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, 1, true));
 				break;
 			}
 			EntityEvents.launchEntityLoop(bear);
@@ -213,6 +245,7 @@ public class RoomUtils {
 			Spider spider = (Spider)world.spawnEntity(loc, EntityType.SPIDER);
 			switch(name) {
 			case "SAND_SPIDER": spider.setCustomName("SAND_SPIDER");
+			spider.setMaxHealth(spider.getMaxHealth()*mHp); spider.setHealth(spider.getMaxHealth()*mHp);	
 				break;
 			
 			}
@@ -226,17 +259,6 @@ public class RoomUtils {
 		}
 		
 	}
-	
-	private static int RandomNumber(int Min , int Max)
-    {
-		if(Min == Max) {return Max;}
-		Min = Min-1;
-    	Random rand = new Random();
-    	int randomNbr = rand.nextInt(Max - Min) + Min;
-    	
-    	if(randomNbr > Max){randomNbr = Max;}
-    	if(randomNbr <= Min){randomNbr = Max;}
-    return randomNbr;}
 	
 	public static ItemStack getCustomItemWithLore(Material material, String customName, boolean EnchantEffect, int nbr, List<String> lore) {
 		

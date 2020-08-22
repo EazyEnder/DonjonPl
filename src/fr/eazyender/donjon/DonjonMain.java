@@ -29,6 +29,7 @@ import fr.eazyender.donjon.commands.CommandGroup;
 import fr.eazyender.donjon.commands.CommandHologrammes;
 import fr.eazyender.donjon.commands.CommandMoney;
 import fr.eazyender.donjon.commands.CommandNPC;
+import fr.eazyender.donjon.commands.CommandReset;
 import fr.eazyender.donjon.donjon.DonjonEvents;
 import fr.eazyender.donjon.donjon.DonjonGenerator;
 import fr.eazyender.donjon.donjon.LevelUtils;
@@ -94,6 +95,7 @@ public class DonjonMain extends JavaPlugin{
 		getCommand("gweapon").setExecutor(new CommandGiveWeapon());
 		getCommand("npc").setExecutor(new CommandNPC());
 		getCommand("holo").setExecutor(new CommandHologrammes());
+		getCommand("reset").setExecutor(new CommandReset());
 		getCommand("chromatique").setExecutor(new CommandChromatiques());
 		
 		initMessages();
@@ -155,9 +157,9 @@ public class DonjonMain extends JavaPlugin{
 				for(Player p : Bukkit.getOnlinePlayers()) { p.setFoodLevel(20);
 				
 				if(PlayerShop.getPlayerShopProfil().getGrade(p) > 0) {
-					long timebuy = PlayerShop.getPlayerShopProfil().getTimeBuy(p);
+					long timebuy = PlayerShop.getPlayerShopProfil().getTimeBuy(p) / 1000;
 					
-					if(timebuy / 1000 > 0 && time - timebuy >= mois) {
+					if(timebuy > 0 && time - timebuy >= mois) {
 						PlayerShop.getPlayerShopProfil().setTimeBuy(p, 0);
 					 	PlayerShop.getPlayerShopProfil().setGrade(p, 0);
 					 	p.sendMessage("§fVotre grade a expiré !");
@@ -170,9 +172,9 @@ public class DonjonMain extends JavaPlugin{
 				for(OfflinePlayer p : Bukkit.getOfflinePlayers()) { 
 				
 				if(PlayerShop.getPlayerShopProfil().getGrade(p) > 0) {
-					long timebuy = PlayerShop.getPlayerShopProfil().getTimeBuy(p);
+					long timebuy = PlayerShop.getPlayerShopProfil().getTimeBuy(p) / 1000;
 					
-					if(timebuy / 1000> 0 && time - timebuy >= mois) {
+					if(timebuy > 0 && time - timebuy >= mois) {
 						PlayerShop.getPlayerShopProfil().setTimeBuy(p, 0);
 					 	PlayerShop.getPlayerShopProfil().setGrade(p, 0);
 					}

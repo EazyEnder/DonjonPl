@@ -66,7 +66,7 @@ public class LevelUtils {
 	public static void updateSkill(Player player, int id) {
 		
 		for (int i = 0; i < pallierSkill.length; i++) {
-			if(PlayerLevelStats.getPlayerLevelStats().getAStatsPoints(player, id) == pallierSkill[i]+1) {
+			if(PlayerLevelStats.getPlayerLevelStats().getAStatsPoints(player, id) == pallierSkill[i]) {
 				switch(id) {
 				case 1: 
 					switch(i) {

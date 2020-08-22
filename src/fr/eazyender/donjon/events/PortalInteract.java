@@ -20,16 +20,22 @@ public class PortalInteract implements Listener{
 		if(player.getWorld().getName().contains("lobby")) {
 			Location portalToDj = new Location(player.getWorld(), 3.43, 128.00, -16.65);
 			Location portalToArena = new Location(player.getWorld(), -42.5, 127.00, 21.5);
+			Location passagetocityI = new Location(player.getWorld(), 110.5, 133.00, 85.5);
+			Location passagetocityII = new Location(player.getWorld(), -6.5, 127.00, 8.5);
 			if(player.getLocation().distance(portalToDj) < 3) {
 				if(!PlayerGroup.aGroupContainPlayer(player.getUniqueId())) {
 					DonjonGui.createGui(player);
 				}else{
 					player.teleport(new Location(player.getWorld(),-7.55, 127.00, -16.82, -90, 0));
-					player.sendMessage("Vous n'Ãªtes pas le chef du groupe, vous ne pouvez pas lancer un donjon");
+					player.sendMessage("Vous n'êtes pas le chef du groupe, vous ne pouvez pas lancer un donjon");
 				}
 			}
 			else if(player.getLocation().distance(portalToArena) < 3) {
 				ArenaGui.createGui(player);
+			}else if(player.getLocation().distance(passagetocityI) < 3) {
+				player.teleport(new Location(player.getWorld(), -6.5, 127.00, 2.5, 180, 0));
+			}else if(player.getLocation().distance(passagetocityII) < 3) {
+				player.teleport(new Location(player.getWorld(), 109.5, 133.00, 97.5, 0, 0));
 			}
 		}
 		

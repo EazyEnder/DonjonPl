@@ -6,19 +6,25 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerItemHeldEvent;
 
+import fr.eazyender.donjon.spells.blood.SpellBloodyBurst;
+import fr.eazyender.donjon.spells.blood.SpellBloodyPond;
 import fr.eazyender.donjon.spells.earth.SpellEarthChocWave;
 import fr.eazyender.donjon.spells.earth.SpellEarthGraplin;
 import fr.eazyender.donjon.spells.earth.SpellShield;
 import fr.eazyender.donjon.spells.fire.SpellEmbrasement;
+import fr.eazyender.donjon.spells.fire.SpellFireNeedle;
 import fr.eazyender.donjon.spells.fire.SpellFireProjectiles;
 import fr.eazyender.donjon.spells.fire.SpellFirebolt;
 import fr.eazyender.donjon.spells.fire.SpellSpatialFire;
+import fr.eazyender.donjon.spells.light.SpellLightBang;
 import fr.eazyender.donjon.spells.physic.SpellDash;
 import fr.eazyender.donjon.spells.physic.SpellOneTarget;
 import fr.eazyender.donjon.spells.physic.SpellSpeedBoost;
+import fr.eazyender.donjon.spells.poison.SpellPoisonousRain;
 import fr.eazyender.donjon.spells.poison.SpellPoisonousSacrifice;
 import fr.eazyender.donjon.spells.shadow.SpellShadowSwitch;
 import fr.eazyender.donjon.spells.water.SpellHealProjectile;
+import fr.eazyender.donjon.spells.water.SpellIceCollapse;
 import fr.eazyender.donjon.spells.water.SpellIceJail;
 import fr.eazyender.donjon.spells.water.SpellIceSlowDown;
 import fr.eazyender.donjon.spells.water.SpellIceSlowDownAOE;
@@ -74,6 +80,18 @@ public class ItemSpellEvent implements Listener{
     				break;
 		        case 19: SpellEarthGraplin spell19 = new SpellEarthGraplin(1000*2); spell19.launch(p);
 					break;
+		        case 20: SpellBloodyBurst spell20 = new SpellBloodyBurst(1000*2); spell20.launch(p);
+					break;
+		        case 21: SpellBloodyPond spell21 = new SpellBloodyPond(1000*2); spell21.launch(p);
+					break;
+		        case 22: SpellPoisonousRain spell22 = new SpellPoisonousRain(1000*2); spell22.launch(p);
+					break;
+		        case 23: SpellLightBang spell23 = new SpellLightBang(1000*2); spell23.launch(p);
+					break;
+		        case 24: SpellFireNeedle spell24 = new SpellFireNeedle(1000*2); spell24.launch(p);
+					break;
+		        case 25: SpellIceCollapse spell25 = new SpellIceCollapse(1000*2); spell25.launch(p);
+					break;
 		        }
 		    }
 		}
@@ -124,6 +142,18 @@ public class ItemSpellEvent implements Listener{
 		        case 18: SpellShadowSwitch spell18 = new SpellShadowSwitch(1000*2); spell18.launch(p);
 					break;
 		        case 19: SpellEarthGraplin spell19 = new SpellEarthGraplin(1000*2); spell19.launch(p);
+					break;
+		        case 20: SpellBloodyBurst spell20 = new SpellBloodyBurst(1000*2); spell20.launch(p);
+					break;
+		        case 21: SpellBloodyPond spell21 = new SpellBloodyPond(1000*2); spell21.launch(p);
+					break;
+		        case 22: SpellPoisonousRain spell22 = new SpellPoisonousRain(1000*2); spell22.launch(p);
+					break;
+		        case 23: SpellLightBang spell23 = new SpellLightBang(1000*2); spell23.launch(p);
+					break;
+		        case 24: SpellFireNeedle spell24 = new SpellFireNeedle(1000*2); spell24.launch(p);
+					break;
+		        case 25: SpellIceCollapse spell25 = new SpellIceCollapse(1000*2); spell25.launch(p);
 					break;
 		        }
 		        p.getInventory().setHeldItemSlot(0);

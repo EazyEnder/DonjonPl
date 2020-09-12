@@ -10,19 +10,25 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import fr.eazyender.donjon.spells.blood.SpellBloodyBurst;
+import fr.eazyender.donjon.spells.blood.SpellBloodyPond;
 import fr.eazyender.donjon.spells.earth.SpellEarthChocWave;
 import fr.eazyender.donjon.spells.earth.SpellEarthGraplin;
 import fr.eazyender.donjon.spells.earth.SpellShield;
 import fr.eazyender.donjon.spells.fire.SpellEmbrasement;
+import fr.eazyender.donjon.spells.fire.SpellFireNeedle;
 import fr.eazyender.donjon.spells.fire.SpellFireProjectiles;
 import fr.eazyender.donjon.spells.fire.SpellFirebolt;
 import fr.eazyender.donjon.spells.fire.SpellSpatialFire;
+import fr.eazyender.donjon.spells.light.SpellLightBang;
 import fr.eazyender.donjon.spells.physic.SpellDash;
 import fr.eazyender.donjon.spells.physic.SpellOneTarget;
 import fr.eazyender.donjon.spells.physic.SpellSpeedBoost;
+import fr.eazyender.donjon.spells.poison.SpellPoisonousRain;
 import fr.eazyender.donjon.spells.poison.SpellPoisonousSacrifice;
 import fr.eazyender.donjon.spells.shadow.SpellShadowSwitch;
 import fr.eazyender.donjon.spells.water.SpellHealProjectile;
+import fr.eazyender.donjon.spells.water.SpellIceCollapse;
 import fr.eazyender.donjon.spells.water.SpellIceJail;
 import fr.eazyender.donjon.spells.water.SpellIceSlowDown;
 import fr.eazyender.donjon.spells.water.SpellIceSlowDownAOE;
@@ -41,8 +47,10 @@ public class SpellUtils {
 	 * - ICE SLOWDOWN AOE
 	 * - SPEEDBOOST
 	 * - SHADOW SWITCH
-	 * - EARTH GRAPLIN*/
-	public static int spellNumber = 19;
+	 * - EARTH GRAPLIN
+	 * - FIRE NEEDLE
+	 * - ICE COLLAPSE*/
+	public static int spellNumber = 25;
 	
 	public static int getIdSpellByItem(ItemStack item) {
 		
@@ -197,6 +205,54 @@ public class SpellUtils {
 		str18.add("§6§lTemps de recharge§r§7 : " +( SpellEarthGraplin.basicCooldown/1000));
 		ItemStack item19 = getCustomItemWithLore(Material.FEATHER, "§6§lGRAPIN DES SABLES", false, 1, str18);
 		all.add(item19);
+		List<String> str19 = new ArrayList<String>();
+		str19.add("§fVous sacrifiez votre vie afin de booster");
+		str19.add("§fvotre corps.");
+		str19.add("§c§lType§r§7 : " + "§c§lSANG" + " / " + "§4VIE");
+		str19.add("§c§lCoût§r§7 : " + SpellBloodyBurst.cost + "§r§f§l/s");
+		str19.add("§c§lTemps de recharge§r§7 : " +( SpellBloodyBurst.basicCooldown/1000));
+		ItemStack item20 = getCustomItemWithLore(Material.FEATHER, "§c§lBOOST SANGLANT", false, 1, str19);
+		all.add(item20);
+		List<String> str20 = new ArrayList<String>();
+		str20.add("§fVous sacrifiez votre vie afin de créer une zone");
+		str20.add("§finfligeant du dégat aux ennemis et vous boostant.");
+		str20.add("§c§lType§r§7 : " + "§c§lSANG" + " / " + "§4VIE");
+		str20.add("§c§lCoût§r§7 : " + SpellBloodyPond.basicCost);
+		str20.add("§c§lTemps de recharge§r§7 : " +( SpellBloodyPond.basicCooldown/1000));
+		ItemStack item21 = getCustomItemWithLore(Material.FEATHER, "§c§lETANG DE SANG", false, 1, str20);
+		all.add(item21);
+		List<String> str21 = new ArrayList<String>();
+		str21.add("§fVous invoquez une pluie hasardeuse de projectiles");
+		str21.add("§fempoisonnés.");
+		str21.add("§a§lType§r§7 : " + "§a§lPOISON" + " / " + "§4VIE");
+		str21.add("§a§lCoût§r§7 : " + SpellPoisonousRain.basicCost);
+		str21.add("§a§lTemps de recharge§r§7 : " +( SpellPoisonousRain.basicCooldown/1000));
+		ItemStack item22 = getCustomItemWithLore(Material.FEATHER, "§a§lPLUIE DE POISON", false, 1, str21);
+		all.add(item22);
+		List<String> str22 = new ArrayList<String>();
+		str22.add("§fCréer un énorme flash aveuglant tous les");
+		str22.add("§fennemis dans un proche rayon");
+		str22.add("§e§lType§r§7 : " + "§e§lLUMIERE" + " / " + "§7MANA");
+		str22.add("§e§lCoût§r§7 : " + SpellLightBang.basicCost);
+		str22.add("§e§lTemps de recharge§r§7 : " +( SpellLightBang.basicCooldown/1000));
+		ItemStack item23 = getCustomItemWithLore(Material.FEATHER, "§e§lFLASH DE LUMIERE", false, 1, str22);
+		all.add(item23);
+		List<String> str23 = new ArrayList<String>();
+		str23.add("§fLance une longue aiguille enflammé");
+		str23.add("§ftraversant les ennemis");
+		str23.add("§4§lType§r§7 : " + "§4§lFEU" + " / " + "§7MANA");
+		str23.add("§4§lCoût§r§7 : " + SpellFireNeedle.basicCost);
+		str23.add("§4§lTemps de recharge§r§7 : " +( SpellFireNeedle.basicCooldown/1000));
+		ItemStack item24 = getCustomItemWithLore(Material.FEATHER, "§4§lAIGUILLE ENFLAMME", false, 1, str23);
+		all.add(item24);
+		List<String> str24 = new ArrayList<String>();
+		str24.add("§fFait tomber des débris de neige");
+		str24.add("§fprovoquant l'étourdissement des ennemis");
+		str24.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
+		str24.add("§3§lCoût§r§7 : " + SpellIceCollapse.basicCost);
+		str24.add("§3§lTemps de recharge§r§7 : " +( SpellIceCollapse.basicCooldown/1000));
+		ItemStack item25 = getCustomItemWithLore(Material.FEATHER, "§3§lEBOULEMENT DE GLACE", false, 1, str24);
+		all.add(item25);
 		
 		for (int i = 0; i < all.size(); i++) {
 			if(item.equals(all.get(i))) {
@@ -379,6 +435,60 @@ public class SpellUtils {
 			str18.add("§6§lTemps de recharge§r§7 : " +( SpellEarthGraplin.basicCooldown/1000));
 			item = getCustomItemWithLore(Material.FEATHER, "§6§lGRAPIN DES SABLES", false, 1, str18);
 			break;
+		case 20:
+			List<String> str19 = new ArrayList<String>();
+			str19.add("§fVous sacrifiez votre vie afin de booster");
+			str19.add("§fvotre corps.");
+			str19.add("§c§lType§r§7 : " + "§c§lSANG" + " / " + "§4VIE");
+			str19.add("§c§lCoût§r§7 : " + SpellBloodyBurst.cost + "§r§f§l/s");
+			str19.add("§c§lTemps de recharge§r§7 : " +( SpellBloodyBurst.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§c§lBOOST SANGLANT", false, 1, str19);
+			break;
+		case 21:
+			List<String> str20 = new ArrayList<String>();
+			str20.add("§fVous sacrifiez votre vie afin de créer une zone");
+			str20.add("§finfligeant du dégat aux ennemis et vous boostant.");
+			str20.add("§c§lType§r§7 : " + "§c§lSANG" + " / " + "§4VIE");
+			str20.add("§c§lCoût§r§7 : " + SpellBloodyPond.basicCost);
+			str20.add("§c§lTemps de recharge§r§7 : " +( SpellBloodyPond.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§c§lETANG DE SANG", false, 1, str20);
+			break;
+		case 22:
+			List<String> str21 = new ArrayList<String>();
+			str21.add("§fVous invoquez une pluie hasardeuse de projectiles");
+			str21.add("§fempoisonnés.");
+			str21.add("§a§lType§r§7 : " + "§a§lPOISON" + " / " + "§4VIE");
+			str21.add("§a§lCoût§r§7 : " + SpellPoisonousRain.basicCost);
+			str21.add("§a§lTemps de recharge§r§7 : " +( SpellPoisonousRain.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§a§lPLUIE DE POISON", false, 1, str21);
+			break;
+		case 23:
+			List<String> str22 = new ArrayList<String>();
+			str22.add("§fCréer un énorme flash aveuglant tous les");
+			str22.add("§fennemis dans un proche rayon");
+			str22.add("§e§lType§r§7 : " + "§e§lLUMIERE" + " / " + "§7MANA");
+			str22.add("§e§lCoût§r§7 : " + SpellLightBang.basicCost);
+			str22.add("§e§lTemps de recharge§r§7 : " +( SpellLightBang.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§e§lFLASH DE LUMIERE", false, 1, str22);
+			break;
+		case 24:
+			List<String> str23 = new ArrayList<String>();
+			str23.add("§fLance une longue aiguille enflammé");
+			str23.add("§ftraversant les ennemis");
+			str23.add("§4§lType§r§7 : " + "§4§lFEU" + " / " + "§7MANA");
+			str23.add("§4§lCoût§r§7 : " + SpellFireNeedle.basicCost);
+			str23.add("§4§lTemps de recharge§r§7 : " +( SpellFireNeedle.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§4§lAIGUILLE ENFLAMME", false, 1, str23);
+			break;
+		case 25:
+			List<String> str24 = new ArrayList<String>();
+			str24.add("§fFait tomber des débris de neige");
+			str24.add("§fprovoquant l'étourdissement des ennemis");
+			str24.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
+			str24.add("§3§lCoût§r§7 : " + SpellIceCollapse.basicCost);
+			str24.add("§3§lTemps de recharge§r§7 : " +( SpellIceCollapse.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§3§lEBOULEMENT DE GLACE", false, 1, str24);
+		
 		}
 		
 		return item;

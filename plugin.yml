@@ -6,15 +6,15 @@ commands:
   gspell:
     description: Give de spell
     permission: admin.use
-    alisases: gsp
+    aliases: gsp
   gweapon:
     description: Give weapons
     permission: admin.use
-    alisases: gwp
+    aliases: gwp
   gpotion:
     description: Give potions
     permission: admin.use
-    alisases: gp
+    aliases: gp
   money:
     description: Check Money
     permission: player.use

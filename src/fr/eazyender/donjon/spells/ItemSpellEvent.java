@@ -1,5 +1,6 @@
 package fr.eazyender.donjon.spells;
 
+import fr.eazyender.donjon.spells.water.*;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -23,12 +24,6 @@ import fr.eazyender.donjon.spells.physic.SpellSpeedBoost;
 import fr.eazyender.donjon.spells.poison.SpellPoisonousRain;
 import fr.eazyender.donjon.spells.poison.SpellPoisonousSacrifice;
 import fr.eazyender.donjon.spells.shadow.SpellShadowSwitch;
-import fr.eazyender.donjon.spells.water.SpellHealProjectile;
-import fr.eazyender.donjon.spells.water.SpellIceCollapse;
-import fr.eazyender.donjon.spells.water.SpellIceJail;
-import fr.eazyender.donjon.spells.water.SpellIceSlowDown;
-import fr.eazyender.donjon.spells.water.SpellIceSlowDownAOE;
-import fr.eazyender.donjon.spells.water.SpellWaterWave;
 import fr.eazyender.donjon.spells.wind.SpellWindSlash;
 import fr.eazyender.donjon.spells.wind.SpellWindSpear;
 
@@ -92,6 +87,10 @@ public class ItemSpellEvent implements Listener{
 					break;
 		        case 25: SpellIceCollapse spell25 = new SpellIceCollapse(1000*2); spell25.launch(p);
 					break;
+				case 26: SpellHealSelf spell26 = new SpellHealSelf(1000*2); spell26.launch(p);
+					break;
+				case 27: SpellHealAOE spell27 = new SpellHealAOE(1000*2); spell27.launch(p);
+					break;
 		        }
 		    }
 		}
@@ -154,6 +153,10 @@ public class ItemSpellEvent implements Listener{
 		        case 24: SpellFireNeedle spell24 = new SpellFireNeedle(1000*2); spell24.launch(p);
 					break;
 		        case 25: SpellIceCollapse spell25 = new SpellIceCollapse(1000*2); spell25.launch(p);
+					break;
+				case 26: SpellHealSelf spell26 = new SpellHealSelf(1000*2); spell26.launch(p);
+					break;
+				case 27: SpellHealAOE spell27 = new SpellHealAOE(1000*2); spell27.launch(p);
 					break;
 		        }
 		        p.getInventory().setHeldItemSlot(0);

@@ -24,7 +24,7 @@ public class PotionUtils {
 	
 	/** POTION ENTITY FRIENDLY : 
 	 * -NOTHING*/
-	public static int potionsNumber = 3;
+	public static int potionsNumber = 4;
 	private static Map<Player, Integer> timer = new HashMap<Player, Integer>();
 	
 	public static int getCraftCooldown(Player player) {
@@ -148,7 +148,12 @@ public class PotionUtils {
 		str2.add("§2§lTemps de recharge§r§7 : " +( PotionSmallSpeed.basicCooldown/1000));
 		ItemStack item3 = getCustomItemWithLore(Material.FEATHER, "§f§lPetite potion de §2§lVigueur", false, 1, str2);
 		all.add(item3);
-		
+		List<String> str3 = new ArrayList<String>();
+		str3.add("§fPetite potion vous régénérant un peu de vie");
+		str3.add("§4§lType§r§7 : " + "§4§lSoin");
+		str3.add("§4§lTemps de recharge§r§7 : " +( PotionMediumHeal.basicCooldown/1000));
+		ItemStack item4 = getCustomItemWithLore(Material.FEATHER, "§f§lMoyenne potion de §4§lVie", false, 1, str3);
+		all.add(item4);
 		
 		for (int i = 0; i < all.size(); i++) {
 			if(item.getItemMeta().getDisplayName().equals(all.get(i).getItemMeta().getDisplayName())) {
@@ -187,6 +192,14 @@ public class PotionUtils {
 			str2.add("§2§lType§r§7 : " + "§7§lBoost");
 			str2.add("§2§lTemps de recharge§r§7 : " +( PotionSmallSpeed.basicCooldown/1000));
 			item = getCustomItemWithLore(Material.FEATHER, "§f§lPetite potion de §2§lVigueur", false, 1, str2);
+			break;
+		case 4:
+			List<String> str3 = new ArrayList<String>();
+			str3.add("§fPetite potion vous régénérant un peu de vie");
+			str3.add("§4§lType§r§7 : " + "§4§lSoin");
+			str3.add("§4§lTemps de recharge§r§7 : " +( PotionMediumHeal.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§f§lMoyenne potion de §4§lVie", false, 1, str3);
+			break;
 		}
 		
 		return item;

@@ -1,5 +1,6 @@
 package fr.eazyender.donjon.potion;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.bukkit.entity.Player;
@@ -24,7 +25,7 @@ public class ItemPotionEvent implements Listener{
 		        switch(i) {
 		        case 1: 
 		        	PotionSmallHeal potion = new PotionSmallHeal(1000*5);
-		        	if(IPotion.cooldowns.containsKey(p))
+		        	if(!IPotion.cooldowns.containsKey(p)) {IPotion.cooldowns.put(p, new HashMap<Class<? extends IPotion>, Long>());}
 		        	if(!IPotion.cooldowns.get(p).containsKey(PotionSmallHeal.class))
 		        	{
 		        		if(event.getItem().getAmount() == 1) p.getInventory().removeItem(event.getItem());
@@ -39,7 +40,7 @@ public class ItemPotionEvent implements Listener{
 		        	break;
 		        case 2: 
 		        	PotionSmallMana potion1 = new PotionSmallMana(1000*5);
-		        	if(IPotion.cooldowns.containsKey(p))
+		        	if(!IPotion.cooldowns.containsKey(p)) {IPotion.cooldowns.put(p, new HashMap<Class<? extends IPotion>, Long>());}
 		        	if(!IPotion.cooldowns.get(p).containsKey(PotionSmallMana.class))
 		        	{
 		        		if(event.getItem().getAmount() == 1) p.getInventory().removeItem(event.getItem());
@@ -54,7 +55,7 @@ public class ItemPotionEvent implements Listener{
 		        	break;
 		        case 3: 
 		        	PotionSmallSpeed potion2 = new PotionSmallSpeed(1000*5);
-		        	if(IPotion.cooldowns.containsKey(p))
+		        	if(!IPotion.cooldowns.containsKey(p)) {IPotion.cooldowns.put(p, new HashMap<Class<? extends IPotion>, Long>());}
 		        	if(!IPotion.cooldowns.get(p).containsKey(PotionSmallSpeed.class))
 		        	{
 		        		if(event.getItem().getAmount() == 1) p.getInventory().removeItem(event.getItem());
@@ -67,7 +68,23 @@ public class ItemPotionEvent implements Listener{
 		        	}	
 		        	potion2.launch(p);
 		        	break;
+		        case 4: 
+		        	PotionMediumHeal potion3 = new PotionMediumHeal(1000*5);
+		        	if(!IPotion.cooldowns.containsKey(p)) {IPotion.cooldowns.put(p, new HashMap<Class<? extends IPotion>, Long>());}
+		        	if(!IPotion.cooldowns.get(p).containsKey(PotionMediumHeal.class))
+		        	{
+		        		if(event.getItem().getAmount() == 1) p.getInventory().removeItem(event.getItem());
+		        		else event.getItem().setAmount(event.getItem().getAmount()-1);
+		        	RemovePotion(p, 3);}
+		        	else if(PotionMediumHeal.getRemainingCooldown(p, potion3) <= 0) {
+		        		if(event.getItem().getAmount() == 1) p.getInventory().removeItem(event.getItem());
+		        		else event.getItem().setAmount(event.getItem().getAmount()-1);
+		        	RemovePotion(p, 3);
+		        	}	
+		        	potion3.launch(p);
+		        	break;
 		        }
+		        
 		    }
 		}
 	}
@@ -85,7 +102,7 @@ public class ItemPotionEvent implements Listener{
 		        switch(i) {
 		        case 1: 
 		        	PotionSmallHeal potion = new PotionSmallHeal(1000*5);
-		        	if(IPotion.cooldowns.containsKey(p))
+		        	if(!IPotion.cooldowns.containsKey(p)) {IPotion.cooldowns.put(p, new HashMap<Class<? extends IPotion>, Long>());}
 			        	if(!IPotion.cooldowns.get(p).containsKey(PotionSmallHeal.class))
 			        	{
 			        		if(p.getInventory().getItem(event.getNewSlot()).getAmount() == 1) p.getInventory().removeItem(p.getInventory().getItem(event.getNewSlot()));
@@ -102,7 +119,7 @@ public class ItemPotionEvent implements Listener{
 		        	break;
 		        case 2: 
 		        	PotionSmallMana potion1 = new PotionSmallMana(1000*5);
-		        	if(IPotion.cooldowns.containsKey(p))
+		        	if(!IPotion.cooldowns.containsKey(p)) {IPotion.cooldowns.put(p, new HashMap<Class<? extends IPotion>, Long>());}
 			        	if(!IPotion.cooldowns.get(p).containsKey(PotionSmallMana.class))
 			        	{
 			        		if(p.getInventory().getItem(event.getNewSlot()).getAmount() == 1) p.getInventory().removeItem(p.getInventory().getItem(event.getNewSlot()));
@@ -119,7 +136,7 @@ public class ItemPotionEvent implements Listener{
 		        	break;
 		        case 3: 
 		        	PotionSmallSpeed potion2 = new PotionSmallSpeed(1000*5);
-		        	if(IPotion.cooldowns.containsKey(p))
+		        	if(!IPotion.cooldowns.containsKey(p)) {IPotion.cooldowns.put(p, new HashMap<Class<? extends IPotion>, Long>());}
 			        	if(!IPotion.cooldowns.get(p).containsKey(PotionSmallSpeed.class))
 			        	{
 			        		if(p.getInventory().getItem(event.getNewSlot()).getAmount() == 1) p.getInventory().removeItem(p.getInventory().getItem(event.getNewSlot()));
@@ -133,6 +150,22 @@ public class ItemPotionEvent implements Listener{
 			        	
 			      potion2.launch(p);
 		        p.getInventory().setHeldItemSlot(0);
+		        	break;
+		        case 4: 
+		        	PotionMediumHeal potion3 = new PotionMediumHeal(1000*5);
+		        	if(!IPotion.cooldowns.containsKey(p)) {IPotion.cooldowns.put(p, new HashMap<Class<? extends IPotion>, Long>());}
+		        	if(!IPotion.cooldowns.get(p).containsKey(PotionMediumHeal.class))
+		        	{
+		        		if(p.getInventory().getItem(event.getNewSlot()).getAmount() == 1) p.getInventory().removeItem(p.getInventory().getItem(event.getNewSlot()));
+		        		else p.getInventory().getItem(event.getNewSlot()).setAmount(p.getInventory().getItem(event.getNewSlot()).getAmount()-1);
+		        	RemovePotion(p, 3);}
+		        	else if(PotionMediumHeal.getRemainingCooldown(p, potion3) <= 0) {
+		        		if(p.getInventory().getItem(event.getNewSlot()).getAmount() == 1) p.getInventory().removeItem(p.getInventory().getItem(event.getNewSlot()));
+		        		else p.getInventory().getItem(event.getNewSlot()).setAmount(p.getInventory().getItem(event.getNewSlot()).getAmount()-1);
+		        	RemovePotion(p, 3);
+		        	}	
+		        	potion3.launch(p);
+		        	 p.getInventory().setHeldItemSlot(0);
 		        	break;
 		        }
 		    }

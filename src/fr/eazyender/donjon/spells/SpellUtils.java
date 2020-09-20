@@ -27,7 +27,9 @@ import fr.eazyender.donjon.spells.physic.SpellSpeedBoost;
 import fr.eazyender.donjon.spells.poison.SpellPoisonousRain;
 import fr.eazyender.donjon.spells.poison.SpellPoisonousSacrifice;
 import fr.eazyender.donjon.spells.shadow.SpellShadowSwitch;
+import fr.eazyender.donjon.spells.water.SpellHealAOE;
 import fr.eazyender.donjon.spells.water.SpellHealProjectile;
+import fr.eazyender.donjon.spells.water.SpellHealSelf;
 import fr.eazyender.donjon.spells.water.SpellIceCollapse;
 import fr.eazyender.donjon.spells.water.SpellIceJail;
 import fr.eazyender.donjon.spells.water.SpellIceSlowDown;
@@ -50,7 +52,7 @@ public class SpellUtils {
 	 * - EARTH GRAPLIN
 	 * - FIRE NEEDLE
 	 * - ICE COLLAPSE*/
-	public static int spellNumber = 25;
+	public static int spellNumber = 27;
 	
 	public static int getIdSpellByItem(ItemStack item) {
 		
@@ -253,6 +255,20 @@ public class SpellUtils {
 		str24.add("§3§lTemps de recharge§r§7 : " +( SpellIceCollapse.basicCooldown/1000));
 		ItemStack item25 = getCustomItemWithLore(Material.FEATHER, "§3§lEBOULEMENT DE GLACE", false, 1, str24);
 		all.add(item25);
+		List<String> str25 = new ArrayList<String>();
+		str25.add("§fVous soigne");
+		str25.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
+		str25.add("§3§lCoût§r§7 : " + SpellHealSelf.basicCost);
+		str25.add("§3§lTemps de recharge§r§7 : " +( SpellHealSelf.basicCooldown/1000));
+		ItemStack item26 = getCustomItemWithLore(Material.FEATHER, "§3§lSOIN SUR SOI", false, 1, str25);
+		all.add(item26);
+		List<String> str26 = new ArrayList<String>();
+		str26.add("§fCréer une zone qui soigne ceux qui sont dedans");
+		str26.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
+		str26.add("§3§lCoût§r§7 : " + SpellHealAOE.basicCost);
+		str26.add("§3§lTemps de recharge§r§7 : " +( SpellHealAOE.basicCooldown/1000));
+		ItemStack item27 = getCustomItemWithLore(Material.FEATHER, "§3§lSOIN EN ZONE", false, 1, str26);
+		all.add(item27);
 		
 		for (int i = 0; i < all.size(); i++) {
 			if(item.equals(all.get(i))) {
@@ -488,6 +504,23 @@ public class SpellUtils {
 			str24.add("§3§lCoût§r§7 : " + SpellIceCollapse.basicCost);
 			str24.add("§3§lTemps de recharge§r§7 : " +( SpellIceCollapse.basicCooldown/1000));
 			item = getCustomItemWithLore(Material.FEATHER, "§3§lEBOULEMENT DE GLACE", false, 1, str24);
+			break;
+		case 26:
+			List<String> str25 = new ArrayList<String>();
+			str25.add("§fVous soigne");
+			str25.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
+			str25.add("§3§lCoût§r§7 : " + SpellHealSelf.basicCost);
+			str25.add("§3§lTemps de recharge§r§7 : " +( SpellHealSelf.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§3§lSOIN SUR SOI", false, 1, str25);
+			break;
+		case 27:
+			List<String> str26 = new ArrayList<String>();
+			str26.add("§fCréer une zone qui soigne ceux qui sont dedans");
+			str26.add("§3§lType§r§7 : " + "§3§lEAU" + " / " + "§7MANA");
+			str26.add("§3§lCoût§r§7 : " + SpellHealAOE.basicCost);
+			str26.add("§3§lTemps de recharge§r§7 : " +( SpellHealAOE.basicCooldown/1000));
+			item = getCustomItemWithLore(Material.FEATHER, "§3§lSOIN EN ZONE", false, 1, str26);
+			break;
 		
 		}
 		

@@ -21,6 +21,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import fr.eazyender.donjon.DonjonMain;
 import fr.eazyender.donjon.donjon.LootUtils;
 import fr.eazyender.donjon.files.PlayerArena;
+import fr.eazyender.donjon.files.PlayerEconomy;
 import fr.eazyender.donjon.files.PlayerLevelStats;
 import fr.eazyender.donjon.gui.ArenaGui;
 import fr.eazyender.donjon.gui.DonjonGui;
@@ -161,10 +162,16 @@ public class ArenaEvents implements Listener {
 			}
 			score.replace(player, newScore);
 			
-			if(score.get(player) > 0)
-				player.sendMessage("§7[§6§lArena§r§7]§f : " + "Vous avez gagné §7" + score.get(player) + " §fxp en ayant fait §7"
-					+ kills.get(player) + " §fkills");
-			else
+			if(score.get(player) > 0) {
+				if(DonjonMain.events.get(0).isEnable()) {
+					int fragment = kills.get(player) * 2;
+					player.sendMessage("§7[§6§lArena§r§7]§f : " + "Vous avez gagné §7" + score.get(player) + " §fxp en ayant fait §7"
+							+ kills.get(player) + " §fkills (+" + fragment + " essences)(EVENT)");
+					PlayerEconomy.getEconomy().setEssences(player, PlayerEconomy.getEconomy().getEssences(player)+fragment);
+				}else
+					player.sendMessage("§7[§6§lArena§r§7]§f : " + "Vous avez gagné §7" + score.get(player) + " §fxp en ayant fait §7"
+							+ kills.get(player) + " §fkills");
+			}else
 				player.sendMessage("§7[§6§lArena§r§7]§f : " + "Vous n'avez rien gagné ):");
 			
 			PlayerLevelStats.getPlayerLevelStats().setXpRank(player, PlayerLevelStats.getPlayerLevelStats().getXpRank(player)+score.get(player));

@@ -26,6 +26,8 @@ public class LootUtils {
 			break;
 		case 4: item = getDrop(Material.STICK, "§fEssence d'§7air", false, 1, "§fEtrange substance mouvante remplis d'§7énergie", "Non Commun");
 			break;
+		case 5: item = getDrop(Material.STICK, "§fResidu de §9Mana", false, 1, "§fDe l'énergie concentré libéré après un évènement magique", "Non Commun");
+			break;
 		}
 		
 		return item;
@@ -38,6 +40,7 @@ public class LootUtils {
 		items.add(getDrop(Material.STICK, "§fCrystal de §6Terre", false, 1, "§fCrystal faisant de la lumière", "Commun"));
 		items.add(getDrop(Material.STICK, "§fFruit §4Rouge", false, 1, "§fFruit pouvant servir aux potions", "Non Commun"));
 		items.add(getDrop(Material.STICK, "§fEssence d'§7air", false, 1, "§fEtrange substance mouvante remplis d'§7énergie", "Non Commun"));
+		items.add(getDrop(Material.STICK, "§fResidu de §9Mana", false, 1, "§fDe l'énergie concentré libéré après un évènement magique", "Non Commun"));
 		
 		for (int i = 0; i < items.size(); i++) {
 			if(items.get(i).equals(item)) {
@@ -149,10 +152,12 @@ public class LootUtils {
 		case "BUSH_ZOMBIE":
 			if(RandomNumber(1,100) <= 50 * m) {loots.add(LootUtils.getLootById(1));}
 			if(RandomNumber(1,100) <= 10 * m) {loots.add(LootUtils.getLootById(3));}
+			if(RandomNumber(1,100) <= 30 * m) {loots.add(LootUtils.getLootById(5));}
 			break;
 		case "BUSH_SQUELETON":
 			if(RandomNumber(1,100) <= 50 * m) {loots.add(LootUtils.getLootById(1));}
 			if(RandomNumber(1,100) <= 10 * m) {loots.add(LootUtils.getLootById(3));}
+			if(RandomNumber(1,100) <= 30 * m) {loots.add(LootUtils.getLootById(5));}
 			break;
 		case "GRANITE_KNIGHT_SQUELETON":
 			if(RandomNumber(1,100) <= 50 * m) {loots.add(LootUtils.getLootById(2));}
@@ -162,10 +167,15 @@ public class LootUtils {
 			break;
 		case "GRANITE_KING_SQUELETON":
 			if(RandomNumber(1,100) <= 100 * m) {loots.add(LootUtils.getLootById(2));}
+			if(RandomNumber(1,100) <= 70 * m) {loots.add(LootUtils.getLootById(5));}
 			break;
 		case "BUSH_PHANTOM":
 			if(RandomNumber(1,100) <= 50 * m) {loots.add(LootUtils.getLootById(1));}
 			if(RandomNumber(1,100) <= 15 * m) {loots.add(LootUtils.getLootById(4));}
+			break;
+		case "BUSH_GOLEM":
+			if(RandomNumber(1,100) <= 70 * m) {loots.add(LootUtils.getLootById(5));}
+			if(RandomNumber(1,100) <= 75 * m) {loots.add(LootUtils.getLootById(3));}
 			break;
 		}
 		

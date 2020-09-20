@@ -17,8 +17,13 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import fr.eazyender.donjon.DonjonMain;
 import fr.eazyender.donjon.donjon.DonjonGenerator;
 import fr.eazyender.donjon.donjon.RoomUtils;
+import fr.eazyender.donjon.donjon.events.EventSpeedRunDonjon;
+import fr.eazyender.donjon.files.PlayerGroupSave;
+import fr.eazyender.donjon.files.PlayerLevelStats;
+import fr.eazyender.donjon.utils.PlayerGroup;
 
 public class DonjonGui implements Listener {
 	
@@ -34,6 +39,25 @@ public class DonjonGui implements Listener {
 		ItemStack donjon = getCustomItemWithLore(Material.STICK,"§f§lDonjon",false,1,str_donjon);
 		inv.setItem(3, donjon);
 		
+		if(DonjonMain.events.get(1).isEnable()) {
+			List<String> str_event = new ArrayList<String>();
+			str_event.add("§7Evenement : Speed Run Donjon");
+			str_event.add("§7Combattez§f des §7monstres§f dans un donjon §7prégénéré§f");
+			str_event.add("§f afin de faire le moins de §7temps§f possible!");
+			str_event.add("§f(Groupe : timer final x nombre de joueurs)");
+			str_event.add("§7Donjons lancés : " + EventSpeedRunDonjon.groups.size());
+			str_event.add("§7Meilleur temps : " + EventSpeedRunDonjon.bestTime + "s");
+			str_event.add("§7Meilleur joueur : " + EventSpeedRunDonjon.bestPlayer);
+			PlayerGroup group = PlayerGroupSave.getPlayerGroup().getGroup(player);
+			int levelmax = 0;
+			for (Player member : group.getPlayers()){
+				if(PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(member) > levelmax) {levelmax = PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(member);}
+			}
+			str_event.add("§7Level de votre groupe : " + levelmax);
+			ItemStack event = getCustomItemWithLore(Material.STICK,"§f§lSpeed Run Donjon",false,1,str_event);
+			inv.setItem(4, event);
+		}
+		
 		List<String> str_custom = new ArrayList<String>();
 		str_custom.add("§7Modifier§f les §7paramètres§f à volonté");
 		str_custom.add("§fAfin de proposer un §7défi§f maximum à vous");
@@ -43,6 +67,10 @@ public class DonjonGui implements Listener {
 
 		player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
 		player.openInventory(inv);
+	}
+	
+	public static void openEventGui(Player player) {
+		
 	}
 	
 	@EventHandler
@@ -65,6 +93,21 @@ public class DonjonGui implements Listener {
 			str_custom.add("§fAfin de proposer un §7défi§f maximum à vous");
 			str_custom.add("§f et à vos amis !");
 			ItemStack custom = getCustomItemWithLore(Material.STICK,"§f§lDonjon personnalise",false,1,str_custom);
+			List<String> str_event = new ArrayList<String>();
+			str_event.add("§7Evenement : Speed Run Donjon");
+			str_event.add("§7Combattez§f des §7monstres§f dans un donjon §7prégénéré§f");
+			str_event.add("§f afin de faire le moins de §7temps§f possible!");
+			str_event.add("§f(Groupe : timer final x nombre de joueurs)");
+			str_event.add("§7Donjons lancés : " + EventSpeedRunDonjon.groups.size());
+			str_event.add("§7Meilleur temps : " + EventSpeedRunDonjon.bestTime + "s");
+			str_event.add("§7Meilleur joueur : " + EventSpeedRunDonjon.bestPlayer);
+			PlayerGroup group = PlayerGroupSave.getPlayerGroup().getGroup(player);
+			int levelmax = 0;
+			for (Player member : group.getPlayers()){
+				if(PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(member) > levelmax) {levelmax = PlayerLevelStats.getPlayerLevelStats().getLevelDonjon(member);}
+			}
+			str_event.add("§7Level de votre groupe : " + levelmax);
+			ItemStack eventSRD = getCustomItemWithLore(Material.STICK,"§f§lSpeed Run Donjon",false,1,str_event);
 			
 			ItemStack right = getCustomItemWithLore(Material.STICK,"§f§l==>",false,1,null);
 			ItemStack left = getCustomItemWithLore(Material.STICK,"§f§l<==",false,1,null);
@@ -78,6 +121,8 @@ public class DonjonGui implements Listener {
 				}else if(current.equals(custom)) {
 					player.playSound(player.getLocation(), Sound.BLOCK_LAVA_POP, 1, 1);
 					//open(player,2);
+				}else if(current.equals(eventSRD)) {
+					EventSpeedRunDonjon.launchDonjon(player);
 				}
 			
 				

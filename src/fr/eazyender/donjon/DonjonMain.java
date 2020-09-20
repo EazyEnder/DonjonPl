@@ -9,6 +9,8 @@ import java.util.Random;
 import fr.eazyender.donjon.utils.IEvent;
 import fr.eazyender.donjon.utils.IMessage;
 import fr.eazyender.donjon.utils.PlayerGroup;
+import fr.eazyender.donjon.utils.TchatRestrictEvent;
+
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
@@ -34,6 +36,8 @@ import fr.eazyender.donjon.donjon.DonjonEvents;
 import fr.eazyender.donjon.donjon.DonjonGenerator;
 import fr.eazyender.donjon.donjon.LevelUtils;
 import fr.eazyender.donjon.donjon.RoomsInit;
+import fr.eazyender.donjon.donjon.events.EventSpeedRunDonjon;
+import fr.eazyender.donjon.donjon.events.SpeedRunDonjonEvents;
 import fr.eazyender.donjon.events.PlayerInteract;
 import fr.eazyender.donjon.events.PlayerJoin;
 import fr.eazyender.donjon.events.PlayerQuit;
@@ -135,12 +139,12 @@ public class DonjonMain extends JavaPlugin{
 		pm.registerEvents(new PlayerQuit(), this);
 		pm.registerEvents(new PlayerInteract(), this);
 		
+		TchatRestrictEvent.initBanWords();
+		pm.registerEvents(new TchatRestrictEvent(), this);
+		
 		donjons.add(new WorldCreator("donjon_1").createWorld());
 		donjons.add(new WorldCreator("donjon_2").createWorld());
 		donjons.add(new WorldCreator("donjon_3").createWorld());
-		System.out.println(donjons.get(0));
-		System.out.println(donjons.get(1));
-		System.out.println(donjons.get(2));
 		
 		for(Player p : Bukkit.getOnlinePlayers()) {LevelUtils.updateName(p); 	ColorUtils.loadPlayer(p);}
 		
@@ -257,6 +261,7 @@ public class DonjonMain extends JavaPlugin{
 			if(event != null) {
 			Bukkit.broadcastMessage("§7[§bEvenement§7] §b" + event.getName() + "§r§f : " + event.getDescription());
 			event.setEnable(true);
+			if(event.getName().equals("SpeedRun Donjon")) {EventSpeedRunDonjon.genDonjonsEvent(15, (short)2);}
 			
 			new BukkitRunnable() {
 
@@ -264,6 +269,18 @@ public class DonjonMain extends JavaPlugin{
 				public void run() {
 					
 					//END
+					if(event.getName().equals("SpeedRun Donjon")) {EventSpeedRunDonjon.donjons.clear();
+					String seconde = "" + EventSpeedRunDonjon.bestTime % 60;
+					String minute = "" + (long) (EventSpeedRunDonjon.bestTime / 60);
+					Bukkit.broadcastMessage("§7[§bEvenement§7] §b" + "Le meilleur joueur est : " + EventSpeedRunDonjon.bestPlayer + " avec un temps de : " + minute + "min et " + seconde + "s.");
+					
+					if(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer) != null) {
+						Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer).sendMessage("§7[§bEvenement§7] §b" + "Vous avez gagné " + 100 + " essences");
+						PlayerEconomy.getEconomy().setEssences(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer), PlayerEconomy.getEconomy().getEssences(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer)) + 100);
+					}
+					
+					}
+					
 					event.setEnable(false);
 					Bukkit.broadcastMessage("§7[§bEvenement§7] §b" + event.getName() + "§r§f est fini !");
 					

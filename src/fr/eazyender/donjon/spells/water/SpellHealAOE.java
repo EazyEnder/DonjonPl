@@ -34,7 +34,7 @@ public class SpellHealAOE extends ISpell {
         if(ManaEvents.canUseSpell(player, basicCost)) {
             if (super.launch(player, SpellHealAOE.class)) {
 
-                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_PLAYER_HURT, 3, 1);
+                player.getWorld().playSound(player.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 3, 1);
                 launchSpell(player, ColorUtils.getSkins().get(player).get(2));
                 ManaEvents.useSpell(player,basicCost);
             }

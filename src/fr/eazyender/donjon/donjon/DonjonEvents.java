@@ -7,6 +7,9 @@ import java.util.Map;
 
 import fr.eazyender.donjon.files.PlayerGroupSave;
 import fr.eazyender.donjon.utils.PlayerGroup;
+
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
@@ -20,6 +23,8 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import fr.eazyender.donjon.DonjonMain;
 import fr.eazyender.donjon.files.PlayerEquipment;
@@ -105,6 +110,7 @@ public class DonjonEvents implements Listener {
 								}
 								if(donjon.getDonjon().get(positionPlayer.get(player)+1).getEntity_loc() != null) {
 								donjon.getDonjon().get(positionPlayer.get(player)+1).setNumberOfMobs(donjon.getDonjon().get(positionPlayer.get(player)+1).getEntity_loc().size() * mMob);
+								
 								RoomUtils.genEntity(donjon, donjon.getDonjon().get(positionPlayer.get(player)+1), player.getWorld());
 								
 								BossBar bar = current_entity.get(player);
@@ -367,6 +373,21 @@ public class DonjonEvents implements Listener {
 				player.getInventory().clear(i);
 			}
 		}
+		
+		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
+		Team yellow=null,red=null,black = null;
+		if(board.getTeam("mobYellow"+group.getHost().getWorld().getName()) == null)
+		yellow = board.registerNewTeam("mobYellow"+group.getHost().getWorld().getName());
+		else yellow = board.getTeam("mobYellow"+group.getHost().getWorld().getName());
+		board.getTeams().remove(yellow);
+		if(board.getTeam("mobRed"+group.getHost().getWorld().getName()) == null)
+		red = board.registerNewTeam("mobRed"+group.getHost().getWorld().getName());
+		else red = board.getTeam("mobRed"+group.getHost().getWorld().getName());
+		board.getTeams().remove(red);
+		if(board.getTeam("mobBlack"+group.getHost().getWorld().getName()) == null)
+		black = board.registerNewTeam("mobBlack"+group.getHost().getWorld().getName());
+		else black = board.getTeam("mobBlack"+group.getHost().getWorld().getName());
+		board.getTeams().remove(black);
 		
 		drops_weapons.remove(group);
 		drops_ressource.remove(group);

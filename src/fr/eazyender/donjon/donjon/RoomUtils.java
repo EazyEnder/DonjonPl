@@ -2,7 +2,10 @@ package fr.eazyender.donjon.donjon;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -10,6 +13,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Golem;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Phantom;
 import org.bukkit.entity.Pillager;
 import org.bukkit.entity.PolarBear;
@@ -24,6 +28,8 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 public class RoomUtils {
 	
@@ -107,16 +113,56 @@ public class RoomUtils {
 			break;
 		}
 		
+		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
+		Team yellow=null,red=null,black = null;
+		if(board.getTeam("mobYellow"+world.getName()) == null)
+		yellow = board.registerNewTeam("mobYellow"+world.getName());
+		else yellow = board.getTeam("mobYellow"+world.getName());
+		yellow.setColor(ChatColor.YELLOW);
+		if(board.getTeam("mobRed"+world.getName()) == null)
+		red = board.registerNewTeam("mobRed"+world.getName());
+		else red = board.getTeam("mobRed"+world.getName());
+		red.setColor(ChatColor.RED);
+		if(board.getTeam("mobBlack"+world.getName()) == null)
+		black = board.registerNewTeam("mobBlack"+world.getName());
+		else black = board.getTeam("mobBlack"+world.getName());
+		black.setColor(ChatColor.BLACK);
+		
 		for (int i = 0; i < room.getEntity_loc().size(); i++) {
 			for (int j = 0; j < mMob; j++) {
-				genCustomMobs(donjon,room.getEntity_type().get(i), room.getEntity_loc().get(i), world);
+				LivingEntity entity = genCustomMobs(donjon,room.getEntity_type().get(i), room.getEntity_loc().get(i), world);
+				
+				if(room.equals(donjon.getDonjon().get(donjon.getDonjon().size()-1))) {
+					int chance = RandomNumber(0, 10000);
+				if(chance < 1000) {
+					entity.setMaxHealth(entity.getMaxHealth()+entity.getMaxHealth()/2);
+					entity.setHealth(entity.getMaxHealth());
+					entity.setGlowing(true);
+					yellow.addEntry(entity.getUniqueId().toString());
+				}
+				else if(chance < 100) {
+					entity.setMaxHealth(entity.getMaxHealth()+entity.getMaxHealth()/1.5);
+					entity.setHealth(entity.getMaxHealth());
+					entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999999, 1, true));
+					entity.setGlowing(true);
+					red.addEntry(entity.getUniqueId().toString());
+				}
+				else if(chance < 10) {
+					entity.setMaxHealth(entity.getMaxHealth()+entity.getMaxHealth());
+					entity.setHealth(entity.getMaxHealth());
+					entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999999, 1, true));
+					entity.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 999999999, 1, true));
+					entity.setGlowing(true);
+					black.addEntry(entity.getUniqueId().toString());
+				}
+				}
 			}
 		}
 		
 	}
 	
 	@SuppressWarnings("deprecation")
-	public static void genCustomMobs(IDonjon donjon, String name, Location loc, World world) {
+	public static LivingEntity genCustomMobs(IDonjon donjon, String name, Location loc, World world) {
 		
 		double mHp = 1;
 		switch(donjon.getDifficulty()) {
@@ -129,6 +175,7 @@ public class RoomUtils {
 		case 4: mHp = 1;
 			break;
 		}
+		LivingEntity entity = null;
 		
 		if(name.contains("SQUELETON")) {
 			
@@ -163,6 +210,7 @@ public class RoomUtils {
 			break;
 		}
 		skeleton.setCustomNameVisible(false);
+		entity = skeleton;
 		EntityEvents.launchEntityLoop(skeleton);
 		
 		}else if(name.contains("ZOMBIE")) {
@@ -179,6 +227,7 @@ public class RoomUtils {
 				break;
 			}
 			zombie.setCustomNameVisible(false);
+			entity = zombie;
 			EntityEvents.launchEntityLoop(zombie);
 			
 		}else if(name.contains("GOLEM")) {
@@ -192,6 +241,7 @@ public class RoomUtils {
 					break;
 				}
 			golem.setCustomNameVisible(false);
+			entity = golem;
 			EntityEvents.launchEntityLoop(golem);
 			
 		}else if(name.contains("PHANTOM")) {
@@ -203,6 +253,7 @@ public class RoomUtils {
 				break;
 			}
 			phantom.setCustomNameVisible(false);
+			entity = phantom;
 			EntityEvents.launchEntityLoop(phantom);
 		}else if(name.contains("SLIME")) {
 			
@@ -212,6 +263,7 @@ public class RoomUtils {
 			case "ICE_SLIME": slime.setCustomName("ICE_SLIME");
 				break;
 			}
+			entity = slime;
 			EntityEvents.launchEntityLoop(slime);
 			
 		}else if(name.contains("BAT")) {
@@ -220,6 +272,7 @@ public class RoomUtils {
 			case "ICE_BAT": bat.setCustomName("ICE_BAT");
 				break;
 			}
+			entity = bat;
 			EntityEvents.launchEntityLoop(bat);
 		}else if(name.contains("PILLAGER")) {
 			Pillager pillager = (Pillager)world.spawnEntity(loc,  EntityType.PILLAGER);
@@ -229,7 +282,7 @@ public class RoomUtils {
 			pillager.setMaxHealth(35*mHp); pillager.setHealth(35*mHp);
 				break;
 			}
-			
+			entity = pillager;
 			EntityEvents.launchEntityLoop(pillager);
 		}else if(name.contains("BEAR")) {
 			PolarBear bear = (PolarBear)world.spawnEntity(loc,  EntityType.POLAR_BEAR);
@@ -240,6 +293,7 @@ public class RoomUtils {
 			case "ICE_BEAR": bear.setCustomName("ICE_BEAR"); bear.setMaxHealth(100*mHp); bear.setHealth(100*mHp); bear.setAdult(); bear.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, 1, true));
 				break;
 			}
+			entity = bear;
 			EntityEvents.launchEntityLoop(bear);
 		}else if(name.contains("SPIDER")) {
 			Spider spider = (Spider)world.spawnEntity(loc, EntityType.SPIDER);
@@ -249,6 +303,8 @@ public class RoomUtils {
 				break;
 			
 			}
+			entity = spider;
+			EntityEvents.launchEntityLoop(spider);
 		}else if(name.contains("SILVERFISH")) {
 			Silverfish silverfish = (Silverfish)world.spawnEntity(loc, EntityType.SILVERFISH);
 			switch(name) {
@@ -256,8 +312,11 @@ public class RoomUtils {
 				break;
 			
 			}
+			entity = silverfish;
+			EntityEvents.launchEntityLoop(silverfish);
 		}
 		
+		return entity;
 	}
 	
 	public static ItemStack getCustomItemWithLore(Material material, String customName, boolean EnchantEffect, int nbr, List<String> lore) {
@@ -292,5 +351,16 @@ public class RoomUtils {
 		return item;
 		
 	}
+	
+	private static int RandomNumber(int Min , int Max)
+    {
+		if(Min == Max) {return Max;}
+		Min = Min-1;
+    	Random rand = new Random();
+    	int randomNbr = rand.nextInt(Max - Min) + Min;
+    	
+    	if(randomNbr > Max){randomNbr = Max;}
+    	if(randomNbr <= Min){randomNbr = Max;}
+    return randomNbr;}
 
 }

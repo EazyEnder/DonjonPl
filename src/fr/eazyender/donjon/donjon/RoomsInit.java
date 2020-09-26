@@ -62,6 +62,18 @@ public class RoomsInit {
 		IRoom C_5 = new IRoom(C_5_Loc, 1, 1, null, null, 0, 10, 0);
 		rooms_1.add(C_5);
 		
+		List<Location> C_6_Loc = new ArrayList<Location>();
+		C_6_Loc.add(new Location(null, -44.91, 32.00, -4.87, 180, 0)); //ENTREE
+		C_6_Loc.add(new Location(null, -44.96, 34.00, -26.10, 0, 0)); //SORTIE
+		IRoom C_6 = new IRoom(C_6_Loc, 1, 1, null, null, 0, 10, 0);
+		rooms_1.add(C_6);
+		
+		List<Location> C_7_Loc = new ArrayList<Location>();
+		C_7_Loc.add(new Location(null, -16.50, 34.00, -5.18, 180, 0)); //ENTREE
+		C_7_Loc.add(new Location(null, -13.00, 32.00, -26.28, 0, 0)); //SORTIE
+		IRoom C_7 = new IRoom(C_7_Loc, 1, 1, null, null, 0, 10, 0);
+		rooms_1.add(C_7);
+		
 		List<Location> M_1_Loc = new ArrayList<Location>();
 		M_1_Loc.add(new Location(null, -66, 7, -94, 180, 0)); //ENTREE
 		M_1_Loc.add(new Location(null, -66, 6, -126, 0, 0)); //SORTIE
@@ -239,6 +251,66 @@ public class RoomsInit {
 		B3_entity_type.add("GRANITE_KNIGHT_SQUELETON");
 		IRoom B_3 = new IRoom(B_3_Loc, 4, 1, B3_entity_loc, B3_entity_type, 0, 30, 6);
 		rooms_1.add(B_3);
+		
+		List<Location> B_4_Loc = new ArrayList<Location>();
+		B_4_Loc.add(new Location(null, -34.32, 50.00, -37.01, 180, 0)); //ENTREE
+		B_4_Loc.add(new Location(null, -35.00, 49.00, -83.02, 0, 0)); //SORTIE
+		List<Location> B4_entity_loc = new ArrayList<Location>();
+		B4_entity_loc.add(new Location(null, -30.99, 50.00, -66.57));
+		B4_entity_loc.add(new Location(null,-41.47, 49.00, -57.11));
+		B4_entity_loc.add(new Location(null,-27.44, 49.00, -57.48));
+		B4_entity_loc.add(new Location(null, -33.59, 49.00, -55.67));
+		B4_entity_loc.add(new Location(null, -34.22, 49.00, -71.37));
+		B4_entity_loc.add(new Location(null, -35.77, 50.00, -61.66));
+		List<String> B4_entity_type = new ArrayList<String>();
+		B4_entity_type.add("BUSH_ZOMBIE");
+		B4_entity_type.add("BUSH_ZOMBIE");
+		B4_entity_type.add("BUSH_ZOMBIE");
+		B4_entity_type.add("GRANITE_KNIGHT_SQUELETON");
+		B4_entity_type.add("GRANITE_KNIGHT_SQUELETON");
+		B4_entity_type.add("GRANITE_KNIGHT_SQUELETON");
+		IRoom B_4 = new IRoom(B_4_Loc, 4, 1, B4_entity_loc, B4_entity_type, 0, 40, 7);
+		rooms_1.add(B_4);
+		
+		List<Location> B_5_Loc = new ArrayList<Location>();
+		B_5_Loc.add(new Location(null, 22.71, 50.00, -36.80, 180, 0)); //ENTREE
+		B_5_Loc.add(new Location(null, 22.07, 49.00, -83.04, 0, 0)); //SORTIE
+		List<Location> B5_entity_loc = new ArrayList<Location>();
+		B5_entity_loc.add(new Location(null, 33.40, 40.00, -69.84));
+		B5_entity_loc.add(new Location(null,30.29, 41.00, -45.84));
+		B5_entity_loc.add(new Location(null, 5.41, 40.00, -53.33));
+		B5_entity_loc.add(new Location(null, 15.93, 41.00, -76.07));
+		B5_entity_loc.add(new Location(null, 5.26, 43.00, -46.68));
+		B5_entity_loc.add(new Location(null, 37.10, 41.00, -60.95));
+		List<String> B5_entity_type = new ArrayList<String>();
+		B5_entity_type.add("BUSH_ZOMBIE");
+		B5_entity_type.add("BUSH_ZOMBIE");
+		B5_entity_type.add("BUSH_ZOMBIE");
+		B5_entity_type.add("BUSH_SQUELETON");
+		B5_entity_type.add("BUSH_SQUELETON");
+		B5_entity_type.add("BUSH_SQUELETON");
+		IRoom B_5 = new IRoom(B_5_Loc, 4, 1, B5_entity_loc, B5_entity_type, 0, 52, 7);
+		rooms_1.add(B_5);
+		
+		List<Location> B_6_Loc = new ArrayList<Location>();
+		B_6_Loc.add(new Location(null, 70.28, 45.00, -36.92, 180, 0)); //ENTREE
+		B_6_Loc.add(new Location(null, 94.05, 44.00, -82.83, 0, 0)); //SORTIE
+		List<Location> B6_entity_loc = new ArrayList<Location>();
+		B6_entity_loc.add(new Location(null, 85.01, 45.00, -59.12));
+		B6_entity_loc.add(new Location(null,72.25, 45.00, -60.52));
+		B6_entity_loc.add(new Location(null, 89.67, 45.00, -71.41));
+		B6_entity_loc.add(new Location(null, 86.12, 44.00, -52.59));
+		B6_entity_loc.add(new Location(null, 88.92, 45.00, -60.65));
+		B6_entity_loc.add(new Location(null, 79.20, 45.00, -73.04));
+		List<String> B6_entity_type = new ArrayList<String>();
+		B6_entity_type.add("GRANITE_KNIGHT_SQUELETON");
+		B6_entity_type.add("BUSH_ZOMBIE");
+		B6_entity_type.add("BUSH_ZOMBIE");
+		B6_entity_type.add("BUSH_ZOMBIE");
+		B6_entity_type.add("BUSH_SQUELETON");
+		B6_entity_type.add("BUSH_SQUELETON");
+		IRoom B_6 = new IRoom(B_6_Loc, 4, 1, B6_entity_loc, B6_entity_type, 0, 40, 7);
+		rooms_1.add(B_6);
 		
 		List<Location> H_1_Loc = new ArrayList<Location>();
 		H_1_Loc.add(new Location(null, -5, 13, -94, 180, 0)); //ENTREE

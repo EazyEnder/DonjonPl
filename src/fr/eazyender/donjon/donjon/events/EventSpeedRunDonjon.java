@@ -47,7 +47,7 @@ public class EventSpeedRunDonjon {
 	
 	public static void genDonjonsEvent(int size, short difficulty) {
 		
-		for (int w = 0; w < 3; w++) {
+		for (int w = 1; w < 4; w++) {
 			
 		List<IRoom> rooms_donjon = new ArrayList<IRoom>();
 		for (int i = 0; i < size; i++) {

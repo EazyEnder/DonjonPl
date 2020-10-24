@@ -274,7 +274,7 @@ public class DonjonMain extends JavaPlugin{
 					String minute = "" + (long) (EventSpeedRunDonjon.bestTime / 60);
 					Bukkit.broadcastMessage("§7[§bEvenement§7] §b" + "Le meilleur joueur est : " + EventSpeedRunDonjon.bestPlayer + " avec un temps de : " + minute + "min et " + seconde + "s.");
 					
-					if(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer) != null) {
+					if(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer) != null && EventSpeedRunDonjon.bestPlayer != "" && EventSpeedRunDonjon.bestPlayer != " ") {
 						Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer).sendMessage("§7[§bEvenement§7] §b" + "Vous avez gagné " + 100 + " essences");
 						PlayerEconomy.getEconomy().setEssences(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer), PlayerEconomy.getEconomy().getEssences(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer)) + 100);
 					}

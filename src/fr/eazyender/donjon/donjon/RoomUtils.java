@@ -223,6 +223,10 @@ public class RoomUtils {
 			case "ICE_ZOMBIE": zombie.setCustomName("ICE_ZOMBIE"); zombie.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, 1, true));
 			zombie.setHealth(mHp*zombie.getMaxHealth()); zombie.setMaxHealth(mHp*zombie.getMaxHealth());
 				break;
+			case "FROZEN_ZOMBIE": zombie.setCustomName("FROZEN_ZOMBIE"); zombie.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 9000, 1, true));
+			zombie.setHealth(35*mHp); zombie.setMaxHealth(35*mHp);
+			zombie.getEquipment().setItemInMainHand(LootUtils.getWeaponById(3));
+				break;
 			case "MOMIE_ZOMBIE": zombie.setCustomName("MOMIE_ZOMBIE");zombie.setMaxHealth(45*mHp);zombie.setHealth(45*mHp);
 				break;
 			}

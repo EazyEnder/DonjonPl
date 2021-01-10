@@ -28,6 +28,10 @@ public class LootUtils {
 			break;
 		case 5: item = getDrop(Material.STICK, "§fResidu de §9Mana", false, 1, "§fDe l'énergie concentré libéré après un évènement magique", "Non Commun");
 			break;
+		case 6: item = getDrop(Material.STICK, "§6Bois", false, 1, "§f", "Commun");
+			break;
+		case 7: item = getDrop(Material.GRANITE, "§cGranite", false, 1, "§f", "Commun");
+			break;
 		}
 		
 		return item;
@@ -41,6 +45,8 @@ public class LootUtils {
 		items.add(getDrop(Material.STICK, "§fFruit §4Rouge", false, 1, "§fFruit pouvant servir aux potions", "Non Commun"));
 		items.add(getDrop(Material.STICK, "§fEssence d'§7air", false, 1, "§fEtrange substance mouvante remplis d'§7énergie", "Non Commun"));
 		items.add(getDrop(Material.STICK, "§fResidu de §9Mana", false, 1, "§fDe l'énergie concentré libéré après un évènement magique", "Non Commun"));
+		items.add(getDrop(Material.STICK, "§6Bois", false, 1, "§f", "Commun"));
+		items.add(getDrop(Material.GRANITE, "§cGranite", false, 1, "§f", "Commun"));
 		
 		for (int i = 0; i < items.size(); i++) {
 			if(items.get(i).equals(item)) {

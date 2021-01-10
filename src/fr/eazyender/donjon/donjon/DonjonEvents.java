@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 import fr.eazyender.donjon.files.PlayerGroupSave;
 import fr.eazyender.donjon.utils.PlayerGroup;
@@ -282,6 +283,25 @@ public class DonjonEvents implements Listener {
 		
 		
 		if(isEnd) {
+			
+		//Loots of specific donjon
+			if(DonjonGenerator.donjons.get(group).getBiome() == 1) {
+				List<ItemStack> dr = drops_ressource.get(group);
+				
+				ItemStack wood = LootUtils.getLootById(6);
+				wood.setAmount(RandomNumber(2, 5));
+				ItemStack granite = LootUtils.getLootById(7);
+				granite.setAmount(RandomNumber(1, 3));
+				dr.add(wood);
+				dr.add(granite);
+				
+				drops_ressource.replace(group, dr);
+				for (Player player : players) {
+					player.sendMessage("§8[§4Donjon/§cSecondaire§8] : §f" + "Vous avez loot : " + wood.getItemMeta().getDisplayName() + "§f x"+wood.getAmount());
+					player.sendMessage("§8[§4Donjon/§cSecondaire§8] : §f" + "Vous avez loot : " + granite.getItemMeta().getDisplayName() + "§f x"+granite.getAmount());
+				}
+			}
+			
 			for (Player player : players) {
 		LootUtils.addItemsToRessources(player, drops_ressource.get(group));
 		List<Integer> drops_weapon_final = new ArrayList<Integer>();
@@ -333,10 +353,14 @@ public class DonjonEvents implements Listener {
 			//A
 		score = (int)(xp / group.getPlayers().size());
 		rank = "§2A";
-		}else if(time <= endtime*1.5) {
+		}else if(time <= endtime*1.75) {
+			//D
+		score = (int) ((xp*0.75) / group.getPlayers().size());
+		rank = "§cB";
+		}else if(time <= endtime*3) {
 			//D
 		score = (int) ((xp*0.5) / group.getPlayers().size());
-		rank = "§cA";
+		rank = "§cD";
 		}else {
 			score = 0;
 			rank = "§4F";
@@ -374,21 +398,6 @@ public class DonjonEvents implements Listener {
 			}
 		}
 		
-		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
-		Team yellow=null,red=null,black = null;
-		if(board.getTeam("mobYellow"+group.getHost().getWorld().getName()) == null)
-		yellow = board.registerNewTeam("mobYellow"+group.getHost().getWorld().getName());
-		else yellow = board.getTeam("mobYellow"+group.getHost().getWorld().getName());
-		board.getTeams().remove(yellow);
-		if(board.getTeam("mobRed"+group.getHost().getWorld().getName()) == null)
-		red = board.registerNewTeam("mobRed"+group.getHost().getWorld().getName());
-		else red = board.getTeam("mobRed"+group.getHost().getWorld().getName());
-		board.getTeams().remove(red);
-		if(board.getTeam("mobBlack"+group.getHost().getWorld().getName()) == null)
-		black = board.registerNewTeam("mobBlack"+group.getHost().getWorld().getName());
-		else black = board.getTeam("mobBlack"+group.getHost().getWorld().getName());
-		board.getTeams().remove(black);
-		
 		drops_weapons.remove(group);
 		drops_ressource.remove(group);
 		timer.remove(group);
@@ -396,6 +405,17 @@ public class DonjonEvents implements Listener {
 		
 		
 	}
+	
+	private static int RandomNumber(int Min , int Max)
+    {
+		if(Min == Max) {return Max;}
+		Min = Min-1;
+    	Random rand = new Random();
+    	int randomNbr = rand.nextInt(Max - Min) + Min;
+    	
+    	if(randomNbr > Max){randomNbr = Max;}
+    	if(randomNbr <= Min){randomNbr = Max;}
+    return randomNbr;}
 
 
 }

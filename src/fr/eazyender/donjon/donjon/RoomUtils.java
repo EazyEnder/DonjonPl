@@ -113,21 +113,6 @@ public class RoomUtils {
 			break;
 		}
 		
-		Scoreboard board = Bukkit.getScoreboardManager().getMainScoreboard();
-		Team yellow=null,red=null,black = null;
-		if(board.getTeam("mobYellow"+world.getName()) == null)
-		yellow = board.registerNewTeam("mobYellow"+world.getName());
-		else yellow = board.getTeam("mobYellow"+world.getName());
-		yellow.setColor(ChatColor.YELLOW);
-		if(board.getTeam("mobRed"+world.getName()) == null)
-		red = board.registerNewTeam("mobRed"+world.getName());
-		else red = board.getTeam("mobRed"+world.getName());
-		red.setColor(ChatColor.RED);
-		if(board.getTeam("mobBlack"+world.getName()) == null)
-		black = board.registerNewTeam("mobBlack"+world.getName());
-		else black = board.getTeam("mobBlack"+world.getName());
-		black.setColor(ChatColor.BLACK);
-		
 		for (int i = 0; i < room.getEntity_loc().size(); i++) {
 			for (int j = 0; j < mMob; j++) {
 				LivingEntity entity = genCustomMobs(donjon,room.getEntity_type().get(i), room.getEntity_loc().get(i), world);
@@ -138,14 +123,12 @@ public class RoomUtils {
 					entity.setMaxHealth(entity.getMaxHealth()+entity.getMaxHealth()/2);
 					entity.setHealth(entity.getMaxHealth());
 					entity.setGlowing(true);
-					yellow.addEntry(entity.getUniqueId().toString());
 				}
 				else if(chance < 100) {
 					entity.setMaxHealth(entity.getMaxHealth()+entity.getMaxHealth()/1.5);
 					entity.setHealth(entity.getMaxHealth());
 					entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999999, 1, true));
 					entity.setGlowing(true);
-					red.addEntry(entity.getUniqueId().toString());
 				}
 				else if(chance < 10) {
 					entity.setMaxHealth(entity.getMaxHealth()+entity.getMaxHealth());
@@ -153,7 +136,6 @@ public class RoomUtils {
 					entity.addPotionEffect(new PotionEffect(PotionEffectType.INCREASE_DAMAGE, 999999999, 1, true));
 					entity.addPotionEffect(new PotionEffect(PotionEffectType.DAMAGE_RESISTANCE, 999999999, 1, true));
 					entity.setGlowing(true);
-					black.addEntry(entity.getUniqueId().toString());
 				}
 				}
 			}

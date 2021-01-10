@@ -11,6 +11,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 import fr.eazyender.donjon.arena.ArenaEvents;
 import fr.eazyender.donjon.gui.CraftPotionsGui;
+import fr.eazyender.donjon.gui.ForgeGui;
 
 public class PlayerInteract implements Listener {
 	
@@ -45,6 +46,11 @@ public class PlayerInteract implements Listener {
 		  				
 		  				CraftPotionsGui.createMainGui(p);
 		  				e.setCancelled(true);
+		  		}
+		  		else if(e.getClickedBlock().getType().equals(Material.BLAST_FURNACE)) {
+	  				
+	  				ForgeGui.createMainGui(p);
+	  				e.setCancelled(true);
 		  		}
 		  		}
 		  	}

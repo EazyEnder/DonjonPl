@@ -52,6 +52,7 @@ import fr.eazyender.donjon.files.PlayerShop;
 import fr.eazyender.donjon.gui.ArenaGui;
 import fr.eazyender.donjon.gui.CraftPotionsGui;
 import fr.eazyender.donjon.gui.DonjonGui;
+import fr.eazyender.donjon.gui.ForgeGui;
 import fr.eazyender.donjon.gui.InventoryGui;
 import fr.eazyender.donjon.gui.PlayerSkillGui;
 import fr.eazyender.donjon.gui.PotionGui;
@@ -128,6 +129,7 @@ public class DonjonMain extends JavaPlugin{
 		pm.registerEvents(new CraftPotionsGui()   , this);
 		pm.registerEvents(new ShopSpellChromaGui()  , this);
 		pm.registerEvents(new ShopGui()  , this);
+		pm.registerEvents(new ForgeGui()  , this);
 		
 		pm.registerEvents(new DonjonEvents(), this);
 		pm.registerEvents(new ArenaEvents(), this);
@@ -278,6 +280,10 @@ public class DonjonMain extends JavaPlugin{
 						Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer).sendMessage("§7[§bEvenement§7] §b" + "Vous avez gagné " + 100 + " essences");
 						PlayerEconomy.getEconomy().setEssences(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer), PlayerEconomy.getEconomy().getEssences(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer)) + 100);
 					}
+					
+					EventSpeedRunDonjon.bestPlayer = "";
+					EventSpeedRunDonjon.bestTime = 999999;
+					//Sortir les joueurs du donjon : 
 					
 					}
 					

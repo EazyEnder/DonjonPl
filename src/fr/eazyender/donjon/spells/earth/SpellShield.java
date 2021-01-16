@@ -6,6 +6,8 @@ import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
@@ -16,7 +18,7 @@ import fr.eazyender.donjon.spells.ManaEvents;
 
 public class SpellShield extends ISpell{
 	
-	public static int basicCooldown = 10 * 1000;
+	public static int basicCooldown = 15 * 1000;
 	int timer = 0, maxTimer = 4*5;
 	double walkspeed = 0;
 	public static int basicCost = 75;
@@ -84,6 +86,7 @@ public class SpellShield extends ISpell{
 					  entity.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(0);
 					  }else {
 						  ((Player)(entity)).setWalkSpeed(0);
+						  ((Player)(entity)).addPotionEffect(new PotionEffect(PotionEffectType.WEAKNESS, maxTimer*4, 9));
 					  }
 					  entity.setInvulnerable(true);
 					  timer++;

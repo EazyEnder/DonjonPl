@@ -11,6 +11,9 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import fr.eazyender.donjon.donjon.weapons.ItemBeginnerOrb;
+import fr.eazyender.donjon.donjon.weapons.ItemDawnSword;
+import fr.eazyender.donjon.donjon.weapons.ItemPoisonousSword;
 import fr.eazyender.donjon.files.PlayerEquipment;
 
 public class LootUtils {
@@ -18,19 +21,23 @@ public class LootUtils {
 	public static ItemStack getLootById(int id) {
 		ItemStack item = null;
 		switch(id) {
-		case 1: item = getDrop(Material.STICK, "§fEssence de la §2foret", false, 1, "§fEtrange substance mouvante remplis d'§2énergie", "Commun");
+		case 1: item = getDrop(Material.STICK, "§2Essence de la foret", false, 1, "§fEtrange substance mouvante remplis d'§2énergie", "Commun");
 			break;
-		case 2: item = getDrop(Material.STICK, "§fCrystal de §6Terre", false, 1, "§fCrystal faisant de la lumière", "Commun");
+		case 2: item = getDrop(Material.STICK, "§6Cristal de Roche", false, 1, "§fCristal faisant de la lumière", "Commun");
 			break;
-		case 3: item = getDrop(Material.STICK, "§fFruit §4Rouge", false, 1, "§fFruit pouvant servir aux potions", "Non Commun");
+		case 3: item = getDrop(Material.STICK, "§4Fruit Rouge", false, 1, "§fFruit pouvant servir aux potions", "Non Commun");
 			break;
-		case 4: item = getDrop(Material.STICK, "§fEssence d'§7air", false, 1, "§fEtrange substance mouvante remplis d'§7énergie", "Non Commun");
+		case 4: item = getDrop(Material.STICK, "§7Essence d'air", false, 1, "§fEtrange substance mouvante remplis d'§7énergie", "Non Commun");
 			break;
-		case 5: item = getDrop(Material.STICK, "§fResidu de §9Mana", false, 1, "§fDe l'énergie concentré libéré après un évènement magique", "Non Commun");
+		case 5: item = getDrop(Material.STICK, "§9Residu de Mana", false, 1, "§fDe l'énergie concentré libéré après un évènement magique", "Non Commun");
 			break;
 		case 6: item = getDrop(Material.STICK, "§6Bois", false, 1, "§f", "Commun");
 			break;
 		case 7: item = getDrop(Material.GRANITE, "§cGranite", false, 1, "§f", "Commun");
+			break;
+		case 8: item = getDrop(Material.STICK, "§fPetite fiole basique", false, 1, "§fUne petite fiole crée à partir de cristaux de terre", "Commun");
+			break;
+		case 9: item = getDrop(Material.STICK, "§fMoyenne fiole basique", false, 1, "§fUne moyenne fiole crée à partir de cristaux de terre", "Commun");
 			break;
 		}
 		
@@ -40,16 +47,18 @@ public class LootUtils {
 	public static int getIdByLoot(ItemStack item) {
 		int id = 0;
 		List<ItemStack> items = new ArrayList<ItemStack>();
-		items.add(getDrop(Material.STICK, "§fEssence de la §2foret", false, 1, "§fEtrange substance mouvante remplis d'§2énergie", "Commun"));
-		items.add(getDrop(Material.STICK, "§fCrystal de §6Terre", false, 1, "§fCrystal faisant de la lumière", "Commun"));
-		items.add(getDrop(Material.STICK, "§fFruit §4Rouge", false, 1, "§fFruit pouvant servir aux potions", "Non Commun"));
-		items.add(getDrop(Material.STICK, "§fEssence d'§7air", false, 1, "§fEtrange substance mouvante remplis d'§7énergie", "Non Commun"));
-		items.add(getDrop(Material.STICK, "§fResidu de §9Mana", false, 1, "§fDe l'énergie concentré libéré après un évènement magique", "Non Commun"));
+		items.add(getDrop(Material.STICK, "§2Essence de la foret", false, 1, "§fEtrange substance mouvante remplis d'§2énergie", "Commun"));
+		items.add(getDrop(Material.STICK, "§6Cristal de Roche", false, 1, "§fCristal faisant de la lumière", "Commun"));
+		items.add(getDrop(Material.STICK, "§4Fruit Rouge", false, 1, "§fFruit pouvant servir aux potions", "Non Commun"));
+		items.add(getDrop(Material.STICK, "§7Essence d'air", false, 1, "§fEtrange substance mouvante remplis d'§7énergie", "Non Commun"));
+		items.add(getDrop(Material.STICK, "§9Residu de Mana", false, 1, "§fDe l'énergie concentré libéré après un évènement magique", "Non Commun"));
 		items.add(getDrop(Material.STICK, "§6Bois", false, 1, "§f", "Commun"));
 		items.add(getDrop(Material.GRANITE, "§cGranite", false, 1, "§f", "Commun"));
+		items.add(getDrop(Material.STICK, "§fPetite fiole basique", false, 1, "§fUne petite fiole crée à partir de cristaux de terre", "Commun"));
+		items.add(getDrop(Material.STICK, "§fMoyenne fiole basique", false, 1, "§fUne moyenne fiole crée à partir de cristaux de terre", "Commun"));
 		
 		for (int i = 0; i < items.size(); i++) {
-			if(items.get(i).equals(item)) {
+			if(items.get(i).getItemMeta().getDisplayName().equals(item.getItemMeta().getDisplayName())) {
 				id = i+1;
 			}
 		}
@@ -60,17 +69,23 @@ public class LootUtils {
 	public static ItemStack getWeaponById(int id) {
 		ItemStack item = null;
 		switch(id) {
-		case 1: item = getWeaponDrop(Material.STONE_SWORD, "§fEpee en §cGranite", false, 1, "§fArme faite à partir d'un certain type de roche", "E");
+		case 1: item = getWeaponDrop(Material.STONE_SWORD, "§cEpee en Granite", false, 1, "§fArme faite à partir d'un certain type de roche", "E");
 			break;
-		case 2: item = getWeaponDrop(Material.WOODEN_SWORD, "§fBaton magique en §6bois simple", false, 1, "§fUn simple baton infusé de magie", "F");
+		case 2: item = getWeaponDrop(Material.WOODEN_SWORD, "§6Baton magique en bois simple", false, 1, "§fUn simple baton infusé de magie", "F");
 			break;
-		case 3: item = getWeaponDrop(Material.STONE_AXE, "§fEpee des §bGlaces", false, 1, "§fUn bout de glace solidié par la magie ambiante", "E");
+		case 3: item = getWeaponDrop(Material.STONE_AXE, "§bEpee des Glaces", false, 1, "§fUn bout de glace solidifié par la magie ambiante", "E");
 			break;
-		case 4: item = getWeaponDrop(Material.WOODEN_SWORD, "§fEpee de §7Voyageur", false, 1, "§fUn simple manche bois à laquel est accroché de la pierre taillé", "F");
+		case 4: item = getWeaponDrop(Material.WOODEN_SWORD, "§7Epee de Voyageur", false, 1, "§fUn simple manche bois à laquel est accroché de la pierre taillé", "F");
 			break;
-		case 5: item = getWeaponDrop(Material.WOODEN_AXE, "§fEpee fracture en §cGranite", false, 1, "§fL'épée en granite mais en moins bien", "F");
+		case 5: item = getWeaponDrop(Material.WOODEN_AXE, "§cEpee fracture en Granite", false, 1, "§fL'épée en granite mais en moins bien", "F");
 			break;
-		case 6: item = getWeaponDrop(Material.WOODEN_SWORD, "§fBaton de l §bEau pur", false, 1, "§fBâton crystallisé par le mana humide ambiant avec le temps", "C");
+		case 6: item = getWeaponDrop(Material.WOODEN_SWORD, "§bBaton de l Eau pur", false, 1, "§fBâton crystallisé par le mana humide ambiant avec le temps", "C");
+			break;
+		case 7: item = ItemBeginnerOrb.getWeapon();
+			break;
+		case 8: item = ItemPoisonousSword.getWeapon();
+			break;
+		case 9: item = ItemDawnSword.getWeapon();
 			break;
 		}
 		
@@ -107,31 +122,85 @@ public class LootUtils {
 	}
 	
 	public static int getIDWeaponByItem(ItemStack item) {
-		if(item.equals(getWeaponDrop(Material.STONE_SWORD, "§fEpee en §cGranite", false, 1, "§fArme faite à partir d'un certain type de roche", "E"))) {
+		if(item.equals(getWeaponDrop(Material.STONE_SWORD, "§cEpee en Granite", false, 1, "§fArme faite à partir d'un certain type de roche", "E"))) {
 			return 1;
-		}else if(item.equals(getWeaponDrop(Material.WOODEN_SWORD, "§fBaton magique en §6bois simple", false, 1, "§fUn simple baton infusé de magie", "F"))) {
+		}else if(item.equals(getWeaponDrop(Material.WOODEN_SWORD, "§6Baton magique en bois simple", false, 1, "§fUn simple baton infusé de magie", "F"))) {
 			return 2;
-		}else if(item.equals(getWeaponDrop(Material.STONE_AXE, "§fEpee des §bGlaces", false, 1, "§fUn bout de glace solidié par la magie ambiante", "E"))) {
+		}else if(item.equals(getWeaponDrop(Material.STONE_AXE, "§bEpee des Glaces", false, 1, "§fUn bout de glace solidifié par la magie ambiante", "E"))) {
 			return 3;
-		}else if(item.equals(getWeaponDrop(Material.WOODEN_SWORD, "§fEpee de §7Voyageur", false, 1, "§fUn simple manche bois à laquel est accroché de la pierre taillé", "F"))) {
+		}else if(item.equals(getWeaponDrop(Material.WOODEN_SWORD, "§7Epee de Voyageur", false, 1, "§fUn simple manche bois à laquel est accroché de la pierre taillé", "F"))) {
 			return 4;
-		}else if(item.equals(getWeaponDrop(Material.WOODEN_AXE, "§fEpee fracture en §cGranite", false, 1, "§fL'épée en granite mais en moins bien", "F"))) {
+		}else if(item.equals(getWeaponDrop(Material.WOODEN_AXE, "§cEpee fracture en Granite", false, 1, "§fL'épée en granite mais en moins bien", "F"))) {
 			return 5;
-		}else if(item.equals(getWeaponDrop(Material.WOODEN_SWORD, "§fBaton de l §bEau pur", false, 1, "§fBâton crystallisé par le mana humide ambiant avec le temps", "C"))) {
-			return 6;}
+		}else if(item.equals(getWeaponDrop(Material.WOODEN_SWORD, "§bBaton de l Eau pur", false, 1, "§fBâton crystallisé par le mana humide ambiant avec le temps", "C"))) {
+			return 6;
+		}else if(item.getItemMeta().getDisplayName().equals(ItemBeginnerOrb.getWeapon().getItemMeta().getDisplayName())) {
+			return 7;
+		}else if(item.getItemMeta().getDisplayName().equals(ItemPoisonousSword.getWeapon().getItemMeta().getDisplayName())) {
+			return 8;}
+		else if(item.getItemMeta().getDisplayName().equals(ItemDawnSword.getWeapon().getItemMeta().getDisplayName())) {
+			return 9;}
 		return 0;
+	}
+	
+	public static List<Integer> getSpellLootOfMob(String name, int difficulty){
+		List<Integer> loots = new ArrayList<Integer>();
+		
+		double m = 1;
+		switch(difficulty) {
+		case 1:  m = 0.5;
+			break;
+		case 2: m = 1;
+			break;
+		case 3: m = 1.25;
+			break;
+		case 4: m = 1.75;
+			break;
+		}
+		
+		switch(name) {	
+		case "GRANITE_KING_SQUELETON":
+			if(RandomNumber(1,1000) <= 10) {loots.add(4);}
+			break;
+		case "BUSH_GOLEM":
+			if(RandomNumber(1,1000) <= 10) {loots.add(4);}
+			break;
+		}
+		
+		return loots;
 	}
 	
 	public static List<ItemStack> getWeaponLootOfMob(String name, int difficulty) {
 		
 		List<ItemStack> loots = new ArrayList<ItemStack>();
 		
+		double m = 1;
+		switch(difficulty) {
+		case 1:  m = 0.5;
+			break;
+		case 2: m = 1;
+			break;
+		case 3: m = 1.25;
+			break;
+		case 4: m = 1.75;
+			break;
+		}
+		
 		switch(name) {
 		case "GRANITE_KNIGHT_SQUELETON":
-			if(RandomNumber(1,1000) <= 2) {loots.add(LootUtils.getWeaponById(1));}
+			if(RandomNumber(1,1000) <= 5*m) {loots.add(LootUtils.getWeaponById(1));}
 			break;	
 		case "GRANITE_KING_SQUELETON":
-			if(RandomNumber(1,100) <= 10) {loots.add(LootUtils.getWeaponById(1));}
+			if(RandomNumber(1,100) <= 10*m) {loots.add(LootUtils.getWeaponById(1));}
+			break;
+		case "BUSH_ZOMBIE":
+			if(RandomNumber(1,1000) <= 10*m) {loots.add(LootUtils.getWeaponById(8));}
+			break;
+		case "BUSH_SQUELETON":
+			if(RandomNumber(1,1000) <= 10*m) {loots.add(LootUtils.getWeaponById(8));}
+			break;
+		case "BUSH_GOLEM":
+			if(RandomNumber(1,1000) <= 15) {loots.add(LootUtils.getWeaponById(9));}
 			break;
 		}
 		
@@ -307,7 +376,6 @@ public class LootUtils {
 				
 				String build = getIdByLoot(ressource) + ":";
 				if(ids.get(i).contains(build)) {
-					
 					int decimal = Integer.parseInt(ids.get(i).split("\\:")[1]);
 					if(decimal >= ressource.getAmount()) 
 					has = true;

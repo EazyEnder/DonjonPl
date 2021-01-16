@@ -6,6 +6,7 @@ import java.util.Random;
 import org.bukkit.Sound;
 import org.bukkit.entity.Bat;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Golem;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Pillager;
 import org.bukkit.entity.Player;
@@ -47,12 +48,12 @@ public class EntityEvents {
 							Skeleton skeleton = (Skeleton)entity;
 							if(skeleton.getTarget() != null) {
 								if(!ISpell.cooldowns.containsKey(entity)) ISpell.cooldowns.put(entity, new HashMap<Class<? extends ISpell>, Long>());
-								if(RandomNumber(0,100) < 10) {
+								if(RandomNumber(0,100) < 15) {
 									SpellEarthChocWave spell = new SpellEarthChocWave(1000*2); 
 									if(!ISpell.cooldowns.get(entity).containsKey(SpellShield.class))
 									spell.launch(skeleton);
 								}
-								if(RandomNumber(0,100) < 4) {
+								if(RandomNumber(0,100) < 5) {
 									SpellShield spell = new SpellShield(1000*2); 
 									if(!ISpell.cooldowns.get(entity).containsKey(SpellEarthChocWave.class))
 									spell.launch(skeleton);
@@ -60,6 +61,24 @@ public class EntityEvents {
 							}
 						}
 					break;
+				case "BUSH_GOLEM": 
+					if(!entity.getNearbyEntities(5, 5, 5).isEmpty()) {
+						Golem golem = (Golem)entity;
+						if(golem.getTarget() != null) {
+							if(!ISpell.cooldowns.containsKey(entity)) ISpell.cooldowns.put(entity, new HashMap<Class<? extends ISpell>, Long>());
+							if(RandomNumber(0,100) < 20) {
+								SpellEarthChocWave spell = new SpellEarthChocWave(1000*2); 
+								if(!ISpell.cooldowns.get(entity).containsKey(SpellShield.class))
+								spell.launch(golem);
+							}
+							if(RandomNumber(0,100) < 10) {
+								SpellShield spell = new SpellShield(1000*2); 
+								if(!ISpell.cooldowns.get(entity).containsKey(SpellEarthChocWave.class))
+								spell.launch(golem);
+							}
+						}
+					}
+				break;
 				case "BUSH_ZOMBIE": 
 					if(entity.getHealth() < 10) {
 						if(!entity.getNearbyEntities(5, 5, 5).isEmpty()) {

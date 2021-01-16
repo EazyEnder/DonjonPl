@@ -6,7 +6,6 @@ import java.util.List;
 import org.bukkit.inventory.ItemStack;
 
 import fr.eazyender.donjon.donjon.LootUtils;
-import fr.eazyender.donjon.donjon.RessourceUtils;
 import fr.eazyender.donjon.forge.IWeaponRecipe;
 
 public class RecipeForge {
@@ -23,8 +22,30 @@ private static List<IWeaponRecipe> recipes = new ArrayList<IWeaponRecipe>();
 		granite_sword_ingredients_2.setAmount(2);
 		granite_sword_ingredients.add(granite_sword_ingredients_2);
 		IWeaponRecipe granite_sword = new IWeaponRecipe(granite_sword_ingredients,
-				LootUtils.getWeaponById(1), 0, 10, 1, 1);
+				LootUtils.getWeaponById(1), 0, 20, 1, 1);
 		recipes.add(granite_sword);
+		
+		List<ItemStack> beginner_orb_ingredients = new ArrayList<ItemStack>();
+		ItemStack beginner_orb_ingredients_1 = LootUtils.getLootById(5).clone();
+		beginner_orb_ingredients_1.setAmount(5);
+		beginner_orb_ingredients.add(beginner_orb_ingredients_1);
+		ItemStack beginner_orb_ingredients_2 = LootUtils.getLootById(1).clone();
+		beginner_orb_ingredients_2.setAmount(5);
+		beginner_orb_ingredients.add(beginner_orb_ingredients_2);
+		IWeaponRecipe beginner_orb = new IWeaponRecipe(beginner_orb_ingredients,
+				LootUtils.getWeaponById(7), 0, 20, 3, 1);
+		recipes.add(beginner_orb);
+		
+		List<ItemStack> wood_wand_ingredients = new ArrayList<ItemStack>();
+		ItemStack wood_wand_ingredients_1 = LootUtils.getLootById(5).clone();
+		wood_wand_ingredients_1.setAmount(5);
+		wood_wand_ingredients.add(wood_wand_ingredients_1);
+		ItemStack wood_wand_ingredients_2 = LootUtils.getLootById(6).clone();
+		wood_wand_ingredients_2.setAmount(5);
+		wood_wand_ingredients.add(wood_wand_ingredients_2);
+		IWeaponRecipe wood_wand = new IWeaponRecipe(wood_wand_ingredients,
+				LootUtils.getWeaponById(2), 0, 20, 3, 1);
+		recipes.add(wood_wand);
 		
 	}
 	

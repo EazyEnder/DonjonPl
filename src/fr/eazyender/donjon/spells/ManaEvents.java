@@ -28,9 +28,7 @@ public class ManaEvents {
 					Player player = players.get(i);
 					
 					if(!mana.containsKey(player))mana.put(player, maxMana);
-					if(player.getLevel() != mana.get(player))player.setLevel(mana.get(player));
-					
-					if(player.getInventory().getItem(0)!=null)if(player.getInventory().getItem(0).equals(LootUtils.getWeaponById(2)))maxMana = maxMana+25;
+					if(player.getLevel() != mana.get(player))player.setLevel(mana.get(player));		
 					
 					if(mana.get(player) < maxMana-5) {
 						mana.replace(player, mana.get(player)+5);

@@ -21,9 +21,9 @@ import fr.eazyender.donjon.spells.SpellUtils;
 public class LevelUtils {
 	
 	public static int[] pallierSkill = {1,5,10,20};
-	private static final int[] xpneed = {25,35,50,70,100,125,150,175,200,225
-			,260,290,325,360,400,440,490,540,590,650
-			,700,770,840,910,980,1050,1130,1210,1290,1400};
+	private static final int[] xpneed = {25/2,35/2,50/2,70/2,100/2,125/2,150/2,175/2,200/2,225/2
+			,260/2,290/2,325/2,360/2,400/2,440/2,490/2,540/2,590/2,650/2
+			,700/2,2770/2,840/2,910/2,980/2,1050/2,1130/2,1210/2,1290/2,1400/2};
 	
 	public static void updateXp(Player player) {
 		
@@ -176,10 +176,13 @@ public class LevelUtils {
 		String rank = "§7Voyageur";
 		if(level < 1) {rank = "§7Voyageur";}
 		else if(level == 1) {rank = "§7Novice";}
-		else if(level <= 5) {rank = "§7Adepte";}
-		else if(level <= 10) {rank = "§7Aventurier§r§f-" + "§7PR";}
-		else if(level <= 20) {rank = "§7Aventurier§r§f-" + "§6CU";}
-		else if(level <= 30) {rank = "§7Aventurier§r§f-" + "§8FE";}
+		else if(level < 5) {rank = "§7Adepte";}
+		else if(level < 10) {rank = "§7Aventurier-" + "PR";}
+		else if(level < 20) {rank = "§6Aventurier-" + "CU";}
+		else if(level < 30) {rank = "§8Aventurier-" + "FE";}
+		else if(level < 40) {rank = "§6§lAventurier-" + "BR";}
+		else if(level < 50) {rank = "§7§lAventurier-" + "AR";}
+		else if(level < 60) {rank = "§eAventurier-" + "OR";}
 		return rank;
 	}
 	

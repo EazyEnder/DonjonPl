@@ -24,7 +24,7 @@ public class SpellFireProjectiles extends ISpell{
 	List<BukkitRunnable> brun2 = new ArrayList<BukkitRunnable>();
 	List<BukkitRunnable> brun3 = new ArrayList<BukkitRunnable>();
 	List<BukkitRunnable> brun4 = new ArrayList<BukkitRunnable>();
-	public static int basicCooldown = 2 * 1000;
+	public static int basicCooldown = 15 * 1000;
 	int timer = 0, maxTimer = 4*2;
 	public static int basicCost = 75;
 	

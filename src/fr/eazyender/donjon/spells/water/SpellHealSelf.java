@@ -1,5 +1,6 @@
 package fr.eazyender.donjon.spells.water;
 
+import fr.eazyender.donjon.donjon.LootUtils;
 import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.ManaEvents;
@@ -19,6 +20,7 @@ public class SpellHealSelf extends ISpell {
     }
 
     public void launch(Player player) {
+    	if(player.getInventory().getItem(0) != null && player.getInventory().getItem(0).hasItemMeta()) {if(player.getInventory().getItem(0).getItemMeta().getDisplayName().equals(LootUtils.getWeaponById(2).getItemMeta().getDisplayName())) {basicCost = basicCost / 2;}}
         if(ManaEvents.canUseSpell(player, basicCost)) {
             if (super.launch(player, SpellHealProjectile.class)) {
 
@@ -30,6 +32,7 @@ public class SpellHealSelf extends ISpell {
 
             }
         }
+        basicCost = 30;
     }
 
     private void launchSpell(Player player) {

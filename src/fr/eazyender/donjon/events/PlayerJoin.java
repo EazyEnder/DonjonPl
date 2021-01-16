@@ -3,6 +3,7 @@ package fr.eazyender.donjon.events;
 import java.util.List;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,6 +45,7 @@ public class PlayerJoin implements Listener {
 		PlayerChromatiques.getPlayerChromatiques().loadPlayer(player);
 		PlayerShop.getPlayerShopProfil().loadPlayer(player);
 		
+		player.setGameMode(GameMode.ADVENTURE);
 		player.getInventory().clear();
 		e.setJoinMessage("§7[§2§l+§7] " + player.getName());
 		
@@ -56,6 +58,13 @@ public class PlayerJoin implements Listener {
 					weapons.add(4);
 					PlayerEquipment.getPlayerEquipment().setWeapons(player, weapons);
 				}
+				int[] sp = {1,2,3,4,5,13,14,16,17,18,23,26};
+					List<Integer> spells = PlayerEquipment.getPlayerEquipment().getSpells(player);
+					for (int i : sp) {
+						if(!PlayerEquipment.getPlayerEquipment().getSpells(player).contains(i))
+							spells.add(i);
+					}
+					PlayerEquipment.getPlayerEquipment().setSpells(player, spells);
 					
 				
 		}

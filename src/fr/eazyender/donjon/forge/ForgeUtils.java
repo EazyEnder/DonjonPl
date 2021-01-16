@@ -16,7 +16,7 @@ import fr.eazyender.donjon.forge.IWeaponRecipe;
 
 public class ForgeUtils {
 	
-	public static int weaponscraft = 1;
+	public static int weaponscraft = 3;
 	private static Map<Player, Integer> timer = new HashMap<Player, Integer>();
 	
 	public static int getCraftCooldown(Player player) {

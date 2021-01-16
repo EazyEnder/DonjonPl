@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.boss.BarColor;
@@ -130,7 +131,7 @@ public class SpeedRunDonjonEvents implements Listener {
 							}else if(donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs() > 0){
 								BossBar bar = current_entity.get(player);
 								bar.setColor(BarColor.RED);
-						        bar.setProgress((double) donjon.getDonjon().get(positionPlayer.get(player)).getNumberOfMobs() / (double) donjon.getDonjon().get(positionPlayer.get(player)).getEntity_loc().size());
+						        bar.setProgress((double) donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs() / (double) donjon.getDonjon().get(positionPlayer.get(player)+1).getEntity_loc().size());
 						        bar.setTitle("§fMonstres restants : " + donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs() + "/" +  donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs());
 							}
 							
@@ -158,7 +159,7 @@ public class SpeedRunDonjonEvents implements Listener {
 	@EventHandler
     public void onEntityDeath(EntityDeathEvent e) {
 		LivingEntity entity = e.getEntity();
-		if(entity.getWorld().getName().contains("donjon") && !(entity instanceof Player)) {
+		if(entity.getWorld().getName().contains("donjon") && entity.getWorld().getName().contains("speedrun") && !(entity instanceof Player)) {
 			Player player = entity.getKiller();
 			if(player == null) {player = entity.getWorld().getPlayers().get(0);}
 			PlayerGroup group = PlayerGroupSave.getPlayerGroup().getGroup(player);
@@ -212,7 +213,7 @@ public class SpeedRunDonjonEvents implements Listener {
 
 			}
 			
-		}else if(entity instanceof Player && entity.getWorld().getName().contains("donjon")) {
+		}else if(entity instanceof Player && entity.getWorld().getName().contains("donjon") && entity.getWorld().getName().contains("speedrun")) {
 
 			Player player = (Player)entity;
 			PlayerGroup group = PlayerGroupSave.getPlayerGroup().getGroup(player);
@@ -247,7 +248,7 @@ public class SpeedRunDonjonEvents implements Listener {
 		
 	}
 	
-	private static void endDonjon(PlayerGroup group, boolean isEnd) {
+	public static void endDonjon(PlayerGroup group, boolean isEnd) {
 
 		List<Player> players = group.getPlayers();
 		for (Player player : players) {
@@ -349,6 +350,9 @@ public class SpeedRunDonjonEvents implements Listener {
 		for (Player player : group.getPlayers()) {
 			for (int i = 0; i < 9; i++) {
 				player.getInventory().clear(i);
+				if(player != group.getHost()) {
+					player.teleport(new Location(Bukkit.getWorld("lobby"), -17.74, 127.00, -15.37));
+				}
 			}
 		}
 		

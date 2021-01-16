@@ -13,6 +13,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import fr.eazyender.donjon.DonjonMain;
+import fr.eazyender.donjon.donjon.LootUtils;
 import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ISpell;
 import fr.eazyender.donjon.spells.ManaEvents;
@@ -20,7 +21,7 @@ import fr.eazyender.donjon.spells.ManaEvents;
 public class SpellFirebolt extends ISpell{
 	
 	List<BukkitRunnable> brun = new ArrayList<BukkitRunnable>();
-	public static int basicCooldown = 2 * 1000;
+	public static int basicCooldown = 8 * 1000;
 	public static int basicCost = 40;
 	
 	public SpellFirebolt(int cooldown) {
@@ -28,6 +29,9 @@ public class SpellFirebolt extends ISpell{
 	}
 
    public void launch(Player player) {
+	   
+	   if(player.getInventory().getItem(0) != null && player.getInventory().getItem(0).hasItemMeta()) {if(player.getInventory().getItem(0).getItemMeta().getDisplayName().equals(LootUtils.getWeaponById(2).getItemMeta().getDisplayName())) {basicCost = basicCost / 2;}}
+	   
 	   if(ManaEvents.canUseSpell(player, basicCost)) {
        if (super.launch(player, SpellFirebolt.class)) {
                 	
@@ -39,6 +43,7 @@ public class SpellFirebolt extends ISpell{
     	   
        }
 	   }
+	   basicCost = 40;
    }
    
    private void launchSpell(Player player, Location target, Location target2, Color color) {

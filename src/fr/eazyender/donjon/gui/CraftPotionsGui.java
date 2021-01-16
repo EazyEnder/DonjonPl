@@ -57,8 +57,20 @@ public class CraftPotionsGui implements Listener{
 	
 	public static void createRecipeGui(Player player, IPotionRecipe recipe) {
 		
-		Inventory inv = Bukkit.createInventory(null, 27 , "§f§lAlchimie[CR:!"+ PotionUtils.getIdPotionByItem(recipe.getCraft()) +"!]:§8" + player.getDisplayName());
-		
+		Inventory inv = null;
+		if(!recipe.getCraft().getItemMeta().getDisplayName().contains("fiole")) 
+		 inv = Bukkit.createInventory(null, 27 , "§f§lAlchimie[CR:!"+ PotionUtils.getIdPotionByItem(recipe.getCraft()) +"!]:§8" + player.getDisplayName());
+		else {
+			String id = "";
+			switch(LootUtils.getIdByLoot(recipe.getCraft())) {
+			case 8: id = "A";
+				break;
+			case 9: id = "B";
+				break;
+			}
+			inv = Bukkit.createInventory(null, 27 , "§f§lAlchimie[CR:!"+ id +"!]:§8" + player.getDisplayName());
+		}
+		 
 		for (int i = 0; i < 9; i++) {
 			if(i != 4 && i != 3 && i != 5) {
 			inv.setItem(i, getCustomItemWithLore(Material.BLACK_STAINED_GLASS_PANE, "§8§l", false, 1, null));
@@ -159,8 +171,19 @@ public class CraftPotionsGui implements Listener{
 					
 					String id = event.getView().getTitle();
 					id = id.split("!")[1];
-					ItemStack potion = PotionUtils.getItemPotionById(id);
-					IPotionRecipe recipe = RecipePotions.getRecipeByCraft(potion);
+					ItemStack item;
+					if(!id.contains("A") && !id.contains("B") && !id.contains("C") && !id.contains("D")) {
+						item = PotionUtils.getItemPotionById(id);
+					}else {
+						switch(id) {
+							case "A": id = ""+8;
+								break;
+							case "B": id = ""+9;
+								break;
+						}
+						item = LootUtils.getLootById(Integer.parseInt(id));
+					}
+					IPotionRecipe recipe = RecipePotions.getRecipeByCraft(item);
 					
 					boolean canCraft = PotionUtils.getCraftCooldown(player) <= 0 
 							&& PlayerEconomy.getEconomy().getMoney(player) >= recipe.getCost()

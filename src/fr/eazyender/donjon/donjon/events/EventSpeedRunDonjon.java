@@ -135,16 +135,16 @@ public class EventSpeedRunDonjon {
 				
 				if(groups.contains(group)) {
 
+					if (!SpeedRunDonjonEvents.timer.containsKey(group)) {
+						SpeedRunDonjonEvents.timer.put(group, (long) 0);
+					}
+					SpeedRunDonjonEvents.timer.replace(group, SpeedRunDonjonEvents.timer.get(group) + 1);
+					String seconde = "" + SpeedRunDonjonEvents.timer.get(group) % 60;
+					String minute = "" + (long) (SpeedRunDonjonEvents.timer.get(group) / 60);
+					
 					for (Player player : group.getPlayers()) {
 
 						player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 1000000000, 1, true));
-
-						if (!SpeedRunDonjonEvents.timer.containsKey(group)) {
-							SpeedRunDonjonEvents.timer.put(group, (long) 0);
-						}
-						SpeedRunDonjonEvents.timer.replace(group, SpeedRunDonjonEvents.timer.get(group) + 1);
-						String seconde = "" + SpeedRunDonjonEvents.timer.get(group) % 60;
-						String minute = "" + (long) (SpeedRunDonjonEvents.timer.get(group) / 60);
 						player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§f§lTemps : §f" + minute + ":" + seconde));
 					}
 					}else{
@@ -206,7 +206,7 @@ public class EventSpeedRunDonjon {
 	
 	private static World createNewDonjon(IDonjon donjon, World world, Player player){
 	     File worldDir = world.getWorldFolder();
-	     String newName = world.getName() + "_temp" + "_" + player.getName();
+	     String newName = world.getName() + "_speedrun" + "_" + player.getName();
 	     
 	     try {
 			FileUtils.copyDirectory(worldDir, new File(worldDir.getParent(), newName));

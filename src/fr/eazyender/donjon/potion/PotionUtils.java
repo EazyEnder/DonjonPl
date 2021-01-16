@@ -76,6 +76,9 @@ public class PotionUtils {
 						
 						if(recipe.getCost() > 0) {PlayerEconomy.getEconomy().setMoney(player, PlayerEconomy.getEconomy().getMoney(player)-recipe.getCost());}
 						
+						//la recette est une potion
+						if(!recipe.getCraft().getItemMeta().getDisplayName().contains("fiole")) {
+						
 						List<String> potions = PlayerEquipment.getPlayerEquipment().getPotions(player);
 						
 						if(!potions.isEmpty()) {
@@ -100,6 +103,13 @@ public class PotionUtils {
 						}else {potions.add(getIdPotionByItem(recipe.getCraft())+":1");}
 						
 						PlayerEquipment.getPlayerEquipment().setPotions(player, potions);
+						//La recette est une fiole
+						}else {
+						List<ItemStack> fioles = new ArrayList<ItemStack>();
+						fioles.add(recipe.getCraft());
+						LootUtils.addItemsToRessources(player, fioles);
+						}
+						
 						LootUtils.removeItemsOfRessources(player, recipe.getIngredients());
 						
 						player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_USE, 1, 1);
@@ -134,25 +144,25 @@ public class PotionUtils {
 		str.add("§fPetite potion vous régénérant un peu de vie");
 		str.add("§4§lType§r§7 : " + "§4§lSoin");
 		str.add("§4§lTemps de recharge§r§7 : " +( PotionSmallHeal.basicCooldown/1000));
-		ItemStack item1 = getCustomItemWithLore(Material.FEATHER, "§f§lPetite potion de §4§lVie", false, 1, str);
+		ItemStack item1 = getCustomItemWithLore(Material.FEATHER, "§4Petite potion de Vie", false, 1, str);
 		all.add(item1);
 		List<String> str1 = new ArrayList<String>();
 		str1.add("§fPetite potion vous régénérant un peu de mana");
 		str1.add("§9§lType§r§7 : " + "§9§lMana");
 		str1.add("§9§lTemps de recharge§r§7 : " +( PotionSmallMana.basicCooldown/1000));
-		ItemStack item2 = getCustomItemWithLore(Material.FEATHER, "§f§lPetite potion de §9§lMana", false, 1, str1);
+		ItemStack item2 = getCustomItemWithLore(Material.FEATHER, "§9Petite potion de Mana", false, 1, str1);
 		all.add(item2);
 		List<String> str2 = new ArrayList<String>();
 		str2.add("§fPetite potion accélérant vos pas pour une courte durée");
 		str2.add("§2§lType§r§7 : " + "§7§lBoost");
 		str2.add("§2§lTemps de recharge§r§7 : " +( PotionSmallSpeed.basicCooldown/1000));
-		ItemStack item3 = getCustomItemWithLore(Material.FEATHER, "§f§lPetite potion de §2§lVigueur", false, 1, str2);
+		ItemStack item3 = getCustomItemWithLore(Material.FEATHER, "§2Petite potion de Vigueur", false, 1, str2);
 		all.add(item3);
 		List<String> str3 = new ArrayList<String>();
-		str3.add("§fPetite potion vous régénérant un peu de vie");
+		str3.add("§fMoyenne potion vous régénérant un peu de vie");
 		str3.add("§4§lType§r§7 : " + "§4§lSoin");
 		str3.add("§4§lTemps de recharge§r§7 : " +( PotionMediumHeal.basicCooldown/1000));
-		ItemStack item4 = getCustomItemWithLore(Material.FEATHER, "§f§lMoyenne potion de §4§lVie", false, 1, str3);
+		ItemStack item4 = getCustomItemWithLore(Material.FEATHER, "§4Moyenne potion de Vie", false, 1, str3);
 		all.add(item4);
 		
 		for (int i = 0; i < all.size(); i++) {
@@ -177,28 +187,28 @@ public class PotionUtils {
 			str.add("§fPetite potion vous régénérant un peu de vie");
 			str.add("§4§lType§r§7 : " + "§4§lSoin");
 			str.add("§4§lTemps de recharge§r§7 : " +( PotionSmallHeal.basicCooldown/1000));
-			item = getCustomItemWithLore(Material.FEATHER, "§f§lPetite potion de §4§lVie", false, 1, str);
+			item = getCustomItemWithLore(Material.FEATHER, "§4Petite potion de Vie", false, 1, str);
 			break;
 		case 2:
 			List<String> str1 = new ArrayList<String>();
 			str1.add("§fPetite potion vous régénérant un peu de mana");
 			str1.add("§9§lType§r§7 : " + "§9§lMana");
 			str1.add("§9§lTemps de recharge§r§7 : " +( PotionSmallMana.basicCooldown/1000));
-			item = getCustomItemWithLore(Material.FEATHER, "§f§lPetite potion de §9§lMana", false, 1, str1);
+			item = getCustomItemWithLore(Material.FEATHER, "§9Petite potion de Mana", false, 1, str1);
 			break;
 		case 3:
 			List<String> str2 = new ArrayList<String>();
 			str2.add("§fPetite potion accélérant vos pas pour une courte durée");
 			str2.add("§2§lType§r§7 : " + "§7§lBoost");
 			str2.add("§2§lTemps de recharge§r§7 : " +( PotionSmallSpeed.basicCooldown/1000));
-			item = getCustomItemWithLore(Material.FEATHER, "§f§lPetite potion de §2§lVigueur", false, 1, str2);
+			item = getCustomItemWithLore(Material.FEATHER, "§2Petite potion de Vigueur", false, 1, str2);
 			break;
 		case 4:
 			List<String> str3 = new ArrayList<String>();
-			str3.add("§fPetite potion vous régénérant un peu de vie");
+			str3.add("§fMoyenne potion vous régénérant un peu de vie");
 			str3.add("§4§lType§r§7 : " + "§4§lSoin");
 			str3.add("§4§lTemps de recharge§r§7 : " +( PotionMediumHeal.basicCooldown/1000));
-			item = getCustomItemWithLore(Material.FEATHER, "§f§lMoyenne potion de §4§lVie", false, 1, str3);
+			item = getCustomItemWithLore(Material.FEATHER, "§4Moyenne potion de Vie", false, 1, str3);
 			break;
 		}
 		

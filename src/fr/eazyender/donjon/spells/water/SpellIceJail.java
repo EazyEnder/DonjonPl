@@ -8,6 +8,7 @@ import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Monster;
 import org.bukkit.entity.Player;
@@ -54,7 +55,14 @@ public class SpellIceJail extends ISpell{
 			   launchSpell(sender,sender.getEyeLocation(), ((Monster)sender).getTarget().getLocation());
 			   }else {
 			   sender.getWorld().playSound(sender.getLocation(), Sound.ENTITY_EVOKER_CAST_SPELL, 1, 1);
-			   launchSpell(sender,sender.getEyeLocation(), sender.getNearbyEntities(3, 3, 3).get(0).getLocation().add(0, 1, 0));   
+			   List<Entity> entities = sender.getNearbyEntities(7, 7, 7);
+			   boolean cast = false;
+			   for (Entity entity : entities) {
+				if(entity instanceof Player && !cast) {
+					launchSpell(sender,sender.getEyeLocation(), entity.getLocation().add(0, 1, 0)); 
+					cast = true;
+				}
+			   }  
 			   }
 		    	   
 		       } else {

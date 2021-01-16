@@ -15,7 +15,7 @@ import fr.eazyender.donjon.spells.ManaEvents;
 
 public class SpellEmbrasement extends ISpell{
 	
-	public static int basicCooldown = 10 * 1000;
+	public static int basicCooldown = 25 * 1000;
 	int timer = 0, maxTimer = 10*2;
 	float walkspeed = 0;
 	public static int basicCost = 75;

@@ -61,7 +61,13 @@ public class WeaponGui implements Listener{
 					|| current.getType().equals(Material.STONE_SWORD)
 					|| current.getType().equals(Material.IRON_SWORD)
 					|| current.getType().equals(Material.GOLDEN_SWORD)
-					|| current.getType().equals(Material.DIAMOND_SWORD)) {
+					|| current.getType().equals(Material.DIAMOND_SWORD)
+					|| current.getType().equals(Material.IRON_INGOT)
+					|| current.getType().equals(Material.WOODEN_AXE)
+					|| current.getType().equals(Material.STONE_AXE)
+					|| current.getType().equals(Material.IRON_AXE)
+					|| current.getType().equals(Material.GOLDEN_AXE)
+					|| current.getType().equals(Material.GOLDEN_AXE)) {
 				
 				ItemStack currentWithoutEnchant = current.clone();
 				currentWithoutEnchant.setAmount(1);

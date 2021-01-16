@@ -11,6 +11,7 @@ import java.util.Random;
 import fr.eazyender.donjon.files.PlayerGroupSave;
 import fr.eazyender.donjon.utils.PlayerGroup;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.GameRule;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -72,18 +73,21 @@ public class DonjonGenerator {
 				
 				if(donjons.containsKey(group)) {
 
+					if (!DonjonEvents.timer.containsKey(group)) {
+						DonjonEvents.timer.put(group, (long) 0);
+					}
+					DonjonEvents.timer.replace(group, DonjonEvents.timer.get(group) + 1);
+					String seconde = "" + DonjonEvents.timer.get(group) % 60;
+					String minute = "" + (long) (DonjonEvents.timer.get(group) / 60);
+					
 					for (Player player : group.getPlayers()) {
-
+						
+						player.setGameMode(GameMode.ADVENTURE);
 						player.addPotionEffect(new PotionEffect(PotionEffectType.NIGHT_VISION, 1000000000, 1, true));
 
-						if (!DonjonEvents.timer.containsKey(group)) {
-							DonjonEvents.timer.put(group, (long) 0);
-						}
-						DonjonEvents.timer.replace(group, DonjonEvents.timer.get(group) + 1);
-						String seconde = "" + DonjonEvents.timer.get(group) % 60;
-						String minute = "" + (long) (DonjonEvents.timer.get(group) / 60);
 						player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText("§f§lTemps : §f" + minute + ":" + seconde));
 					}
+					
 					}else{
 					for (Player player : group.getPlayers()) {
 						player.removePotionEffect(PotionEffectType.NIGHT_VISION);
@@ -170,7 +174,7 @@ public class DonjonGenerator {
 		String name = world.getName();
 		
 		for (int i = 0; i < world.getPlayers().size(); i++) {
-			world.getPlayers().get(i).teleport(new Location(Bukkit.getWorld("lobby"), -17.74, 127.00, -15.37));
+			world.getPlayers().get(world.getPlayers().size()-i-1).teleport(new Location(Bukkit.getWorld("lobby"), -17.74, 127.00, -15.37));
 		}
 		
 		for (int i = 0; i < world.getLoadedChunks().length; i++) {

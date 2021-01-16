@@ -30,6 +30,7 @@ import org.bukkit.scoreboard.Team;
 import fr.eazyender.donjon.DonjonMain;
 import fr.eazyender.donjon.files.PlayerEquipment;
 import fr.eazyender.donjon.files.PlayerLevelStats;
+import fr.eazyender.donjon.spells.SpellUtils;
 
 public class DonjonEvents implements Listener {
 	
@@ -42,7 +43,7 @@ public class DonjonEvents implements Listener {
 	public static Map<Player, BossBar> current_entity = new HashMap<Player, BossBar>();
 	public static Map<PlayerGroup, List<ItemStack>> drops_ressource = new HashMap<PlayerGroup,  List<ItemStack>>();
 	public static Map<PlayerGroup, List<ItemStack>> drops_weapons = new HashMap<PlayerGroup,  List<ItemStack>>();
-	public static Map<PlayerGroup, List<ItemStack>> drops_spells = new HashMap<PlayerGroup,  List<ItemStack>>();
+	public static Map<PlayerGroup, List<Integer>> drops_spells = new HashMap<PlayerGroup,  List<Integer>>();
 	public static Map<PlayerGroup, Long> score = new HashMap<PlayerGroup, Long>();
 	public static Map<PlayerGroup, Long> timer = new HashMap<PlayerGroup, Long>();
 	
@@ -122,7 +123,7 @@ public class DonjonEvents implements Listener {
 							}else if(donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs() > 0){
 								BossBar bar = current_entity.get(player);
 								bar.setColor(BarColor.RED);
-						        bar.setProgress((double) donjon.getDonjon().get(positionPlayer.get(player)).getNumberOfMobs() / (double) donjon.getDonjon().get(positionPlayer.get(player)).getEntity_loc().size());
+						        bar.setProgress((double) donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs() / (double) donjon.getDonjon().get(positionPlayer.get(player)+1).getEntity_loc().size());
 						        bar.setTitle("§fMonstres restants : " + donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs() + "/" +  donjon.getDonjon().get(positionPlayer.get(player)+1).getNumberOfMobs());
 							}
 							
@@ -150,7 +151,7 @@ public class DonjonEvents implements Listener {
 	@EventHandler
     public void onEntityDeath(EntityDeathEvent e) {
 		LivingEntity entity = e.getEntity();
-		if(entity.getWorld().getName().contains("donjon") && !(entity instanceof Player)) {
+		if(entity.getWorld().getName().contains("donjon") && !(entity instanceof Player) && entity.getWorld().getName().contains("temp")) {
 			Player player = entity.getKiller();
 			if(player == null) {player = entity.getWorld().getPlayers().get(0);}
 			PlayerGroup group = PlayerGroupSave.getPlayerGroup().getGroup(player);
@@ -180,6 +181,9 @@ public class DonjonEvents implements Listener {
 					if(!drops_weapons.containsKey(group)) {
 						drops_weapons.put(group, new ArrayList<ItemStack>());
 					}
+					if(!drops_spells.containsKey(group)) {
+						drops_spells.put(group, new ArrayList<Integer>());
+					}
 					List<ItemStack> actualdrops = drops_ressource.get(group);
 					List<ItemStack> mobdrops = LootUtils.getLootOfMob(entity.getCustomName(), donjon.getDifficulty());
 					for (int j = 0; j < mobdrops.size(); j++) {
@@ -201,6 +205,17 @@ public class DonjonEvents implements Listener {
 					}
 					actualdrops1.addAll(mobdrops1);
 					drops_weapons.replace(group, actualdrops1);
+					
+					List<Integer> actualdrops2 = drops_spells.get(group);
+					List<Integer> mobdrops2 = LootUtils.getSpellLootOfMob(entity.getCustomName(), donjon.getDifficulty());
+					for (int j = 0; j < mobdrops2.size(); j++) {
+						List<Player> players = group.getPlayers();
+						for (int i = 0; i < players.size(); i++) {
+							players.get(i).sendMessage("§8[§4Donjon/§cSecondaire§8] : §f" + "Vous avez loot : " + SpellUtils.getItemSpellById(mobdrops2.get(j)).getItemMeta().getDisplayName());
+						}
+					}
+					actualdrops2.addAll(mobdrops2);
+					drops_spells.replace(group, actualdrops2);
 
 				for (int i = 0; i < group.getPlayersInARoom(positionPlayer.get(player)).size(); i++) {
 					List<Player> players = group.getPlayersInARoom(positionPlayer.get(player));
@@ -231,7 +246,7 @@ public class DonjonEvents implements Listener {
 
 			}
 			
-		}else if(entity instanceof Player && entity.getWorld().getName().contains("donjon")) {
+		}else if(entity instanceof Player && entity.getWorld().getName().contains("donjon") && entity.getWorld().getName().contains("temp")) {
 
 			Player player = (Player)entity;
 			PlayerGroup group = PlayerGroupSave.getPlayerGroup().getGroup(player);
@@ -303,14 +318,21 @@ public class DonjonEvents implements Listener {
 			}
 			
 			for (Player player : players) {
-		LootUtils.addItemsToRessources(player, drops_ressource.get(group));
-		List<Integer> drops_weapon_final = new ArrayList<Integer>();
-		for (int i = 0; i < drops_weapons.get(group).size(); i++) {
-			drops_weapon_final.add(LootUtils.getIDWeaponByItem(drops_weapons.get(group).get(i)));
-		}
-		PlayerEquipment.getPlayerEquipment().getWeapons(player).addAll(drops_weapon_final);
-
-		}
+				//LOOT RESSOURCES
+				LootUtils.addItemsToRessources(player, drops_ressource.get(group));
+				List<Integer> drops_weapon_final = new ArrayList<Integer>();
+				//LOOT ARMES
+				for (int i = 0; i < drops_weapons.get(group).size(); i++) {
+					drops_weapon_final.add(LootUtils.getIDWeaponByItem(drops_weapons.get(group).get(i)));
+				}
+				PlayerEquipment.getPlayerEquipment().getWeapons(player).addAll(drops_weapon_final);
+				//LOOT SPELLS
+				for (int i = 0; i < drops_spells.get(group).size(); i++) {
+					if(!PlayerEquipment.getPlayerEquipment().getSpells(player).contains(drops_spells.get(group).get(i))) {
+						PlayerEquipment.getPlayerEquipment().getSpells(player).add(drops_spells.get(group).get(i));
+					}
+				}
+			}
 
 			int mobs = 0;
 			for (int i = 0; i < DonjonGenerator.donjons.get(group).getDonjon().size(); i++) {
@@ -395,9 +417,13 @@ public class DonjonEvents implements Listener {
 		for (Player player : group.getPlayers()) {
 			for (int i = 0; i < 9; i++) {
 				player.getInventory().clear(i);
+				if(player != group.getHost()) {
+					player.teleport(new Location(Bukkit.getWorld("lobby"), -17.74, 127.00, -15.37));
+				}
 			}
 		}
 		
+		drops_spells.remove(group);
 		drops_weapons.remove(group);
 		drops_ressource.remove(group);
 		timer.remove(group);

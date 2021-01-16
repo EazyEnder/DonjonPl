@@ -35,7 +35,6 @@ public class CommandGroup implements CommandExecutor {
                 		if(args[0].equalsIgnoreCase("leave")) {
     									List<UUID> newGroup = group.getGroup();
     									newGroup.remove(player.getUniqueId());
-    									PlayerGroup.getGroupOfAPlayer(player).setGroup(newGroup);
     									player.sendMessage(srv_msg  + "Vous avez quitté le groupe");
     									
     					}

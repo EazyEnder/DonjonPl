@@ -10,13 +10,17 @@ import fr.eazyender.donjon.utils.IEvent;
 import fr.eazyender.donjon.utils.IMessage;
 import fr.eazyender.donjon.utils.PlayerGroup;
 import fr.eazyender.donjon.utils.TchatRestrictEvent;
+import net.minecraft.server.v1_16_R3.ChatComponentText;
+import net.minecraft.server.v1_16_R3.PacketPlayOutPlayerListHeaderFooter;
 
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.craftbukkit.v1_14_R1.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_16_R3.entity.CraftPlayer;
 import org.bukkit.entity.Player;
+import org.bukkit.permissions.Permission;
+import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -30,7 +34,6 @@ import fr.eazyender.donjon.commands.CommandGiveWeapon;
 import fr.eazyender.donjon.commands.CommandGroup;
 import fr.eazyender.donjon.commands.CommandHologrammes;
 import fr.eazyender.donjon.commands.CommandMoney;
-import fr.eazyender.donjon.commands.CommandNPC;
 import fr.eazyender.donjon.commands.CommandReset;
 import fr.eazyender.donjon.donjon.DonjonEvents;
 import fr.eazyender.donjon.donjon.DonjonGenerator;
@@ -38,6 +41,7 @@ import fr.eazyender.donjon.donjon.LevelUtils;
 import fr.eazyender.donjon.donjon.RoomsInit;
 import fr.eazyender.donjon.donjon.events.EventSpeedRunDonjon;
 import fr.eazyender.donjon.donjon.events.SpeedRunDonjonEvents;
+import fr.eazyender.donjon.donjon.weapons.ItemEventHandler;
 import fr.eazyender.donjon.events.PlayerInteract;
 import fr.eazyender.donjon.events.PlayerJoin;
 import fr.eazyender.donjon.events.PlayerQuit;
@@ -49,6 +53,7 @@ import fr.eazyender.donjon.files.PlayerEquipment;
 import fr.eazyender.donjon.files.PlayerGroupSave;
 import fr.eazyender.donjon.files.PlayerLevelStats;
 import fr.eazyender.donjon.files.PlayerShop;
+import fr.eazyender.donjon.forge.RecipeForge;
 import fr.eazyender.donjon.gui.ArenaGui;
 import fr.eazyender.donjon.gui.CraftPotionsGui;
 import fr.eazyender.donjon.gui.DonjonGui;
@@ -66,9 +71,6 @@ import fr.eazyender.donjon.potion.RecipePotions;
 import fr.eazyender.donjon.spells.ColorUtils;
 import fr.eazyender.donjon.spells.ItemSpellEvent;
 import fr.eazyender.donjon.spells.ManaEvents;
-import fr.eazyender.donjon.utils.NPCManager;
-import net.minecraft.server.v1_14_R1.ChatComponentText;
-import net.minecraft.server.v1_14_R1.PacketPlayOutPlayerListHeaderFooter;
 
 public class DonjonMain extends JavaPlugin{
 	
@@ -79,14 +81,11 @@ public class DonjonMain extends JavaPlugin{
 	 private boolean tc = false;
 	 
 	 public static List<World> donjons = new ArrayList<World>();
-	 
-	 public NPCManager npcManager;
 	
 	@Override
 	public void onEnable() 
 	{
 		instance = this;
-		this.npcManager = new NPCManager();
 		ColorUtils.initColorSkin();
 		
 		RoomsInit.initRooms();
@@ -98,13 +97,13 @@ public class DonjonMain extends JavaPlugin{
 		getCommand("gspell").setExecutor(new CommandGiveSpell());
 		getCommand("gpotion").setExecutor(new CommandGivePotion());
 		getCommand("gweapon").setExecutor(new CommandGiveWeapon());
-		getCommand("npc").setExecutor(new CommandNPC());
 		getCommand("holo").setExecutor(new CommandHologrammes());
 		getCommand("reset").setExecutor(new CommandReset());
 		getCommand("chromatique").setExecutor(new CommandChromatiques());
 		
 		initMessages();
 		RecipePotions.initRecipes();
+		RecipeForge.initRecipes();
 		
 		ManaEvents.ManaMain();
 		
@@ -117,6 +116,8 @@ public class DonjonMain extends JavaPlugin{
 		PlayerChromatiques file_chromas = new PlayerChromatiques();
 		PlayerShop file_shopprofil = new PlayerShop();
 
+		
+		ItemEventHandler.initEvents(this);
 		/**UI*/
 		pm.registerEvents(new DonjonGui()	, this);
 		pm.registerEvents(new InventoryGui()	, this);
@@ -136,6 +137,7 @@ public class DonjonMain extends JavaPlugin{
 		pm.registerEvents(new PortalInteract(), this);
 		pm.registerEvents(new ItemSpellEvent(), this);
 		pm.registerEvents(new ItemPotionEvent(), this);
+		pm.registerEvents(new SpeedRunDonjonEvents(), this);
 		
 		pm.registerEvents(new PlayerJoin(), this);
 		pm.registerEvents(new PlayerQuit(), this);
@@ -150,6 +152,7 @@ public class DonjonMain extends JavaPlugin{
 		
 		for(Player p : Bukkit.getOnlinePlayers()) {LevelUtils.updateName(p); 	ColorUtils.loadPlayer(p);}
 		
+		registerPermissions();
 		loopTabList();
 		launchEventLoop();
 		
@@ -256,6 +259,13 @@ public class DonjonMain extends JavaPlugin{
 		
 	}
 	
+	private void registerPermissions() {
+	    PluginManager pm = Bukkit.getPluginManager();
+	    Permission p = new Permission("player.use");
+	    p.setDefault(PermissionDefault.TRUE);
+	    pm.addPermission(p);
+	  }
+	
 	private void launchEvent() {
 		int chance = RandomNumber(1,events.size());
 		if(chance-1 < events.size() && chance-1 >= 0) {
@@ -270,20 +280,29 @@ public class DonjonMain extends JavaPlugin{
 				@Override
 				public void run() {
 					
-					//END
+					//EVENT SPEED RUN DONJON
 					if(event.getName().equals("SpeedRun Donjon")) {EventSpeedRunDonjon.donjons.clear();
 					String seconde = "" + EventSpeedRunDonjon.bestTime % 60;
 					String minute = "" + (long) (EventSpeedRunDonjon.bestTime / 60);
-					Bukkit.broadcastMessage("§7[§bEvenement§7] §b" + "Le meilleur joueur est : " + EventSpeedRunDonjon.bestPlayer + " avec un temps de : " + minute + "min et " + seconde + "s.");
+					Bukkit.broadcastMessage("§7[§bEvenement§7] §b" + "Le meilleur groupe est celui de : " + EventSpeedRunDonjon.bestPlayer + " avec un temps de : " + minute + "min et " + seconde + "s.");
 					
+		
 					if(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer) != null && EventSpeedRunDonjon.bestPlayer != "" && EventSpeedRunDonjon.bestPlayer != " ") {
-						Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer).sendMessage("§7[§bEvenement§7] §b" + "Vous avez gagné " + 100 + " essences");
-						PlayerEconomy.getEconomy().setEssences(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer), PlayerEconomy.getEconomy().getEssences(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer)) + 100);
+						if(PlayerGroup.getGroupOfAPlayer(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer)) != null) {
+							PlayerGroup group = PlayerGroup.getGroupOfAPlayer(Bukkit.getPlayer(EventSpeedRunDonjon.bestPlayer));
+							for (Player player : group.getPlayers()) {
+								player.sendMessage("§7[§bEvenement§7] §b" + "Vous avez gagné " + 100 + " essences");
+								PlayerEconomy.getEconomy().setEssences(player, PlayerEconomy.getEconomy().getEssences(player) + 100);
+							}
+						}
 					}
 					
 					EventSpeedRunDonjon.bestPlayer = "";
 					EventSpeedRunDonjon.bestTime = 999999;
-					//Sortir les joueurs du donjon : 
+					
+					for (PlayerGroup group : EventSpeedRunDonjon.groups) {
+						SpeedRunDonjonEvents.endDonjon(group, false);
+					}
 					
 					}
 					
